@@ -1,0 +1,229 @@
+<template>
+  <el-dialog
+    title="已上架商品"
+    @closed="handleClosed"
+    :visible.sync="visible"
+  >
+    <div class="modal-header">
+      <el-button @click="routerTo('GoodsManageAdd')">新建</el-button>
+      <el-button @click="routerTo('GoodsManage')">草稿管理</el-button>
+      <el-button @click="refresh">刷新</el-button>
+      <el-input
+        style="float:right;
+                width:200px;"
+        placeholder="搜索"
+        @keyup.enter.native="refresh"
+        v-model="item_keywords"
+      >
+        <i
+          slot="prefix"
+          class="el-input__icon el-icon-search"
+        ></i>
+      </el-input>
+    </div>
+    <el-table
+      :data="list"
+      v-loading="ajaxing"
+      @selection-change="handleSelectionChange"
+      @select="handleSelect"
+      @select-all="handleSelectAll"
+      ref="table"
+      row-key="item_id"
+    >
+      <el-table-column
+        type="selection"
+        width="55"
+        reserve-selection
+      >
+      </el-table-column>
+      <el-table-column label="标题">
+        <template slot-scope="scope">
+          <div class="goods-info-box">
+            <img
+              :src="scope.row.thumb_image_path"
+              style="width:50px;height:50px"
+            />
+            <span class="goods-name">{{common.limetedStr(scope.row.item_title,15)}}
+            </span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="create_time"
+        label="创建时间"
+      ></el-table-column>
+    </el-table>
+    <el-pagination
+      style="float: right;"
+      :small="true"
+      class="pull-left"
+      @current-change="changeList"
+      :current-page="page_info.page"
+      :page-size="page_info.page_size"
+      layout="total,  prev, pager, next, jumper"
+      :total="page_info.total"
+    >
+    </el-pagination>
+    <div
+      slot="footer"
+      class="dialog-footer"
+    >
+      <el-button @click="handleCancel">取 消</el-button>
+      <el-button
+        type="primary"
+        @click="handleConfirm"
+      >确 定</el-button>
+
+    </div>
+  </el-dialog>
+</template>
+
+<script>
+  import myDialog from '../../utils/popup'
+
+  let goodsOnShelves = {
+    name: 'goodsOnShelves',
+    components: {},
+    filters: {},
+    directives: {},
+    mixins: [],
+    model: [],
+    data() {
+      return {
+        visible: false,
+        list: [],
+        ajaxing: false,
+        page_info: {
+          total: 0,
+          page: 1,
+          page_size: 5
+        },
+        item_keywords: '',
+        // 要发送给后台的额外数据
+        sendOtherData: {
+        },
+        // 默认选中项
+        defaultNum: '',
+        // 当前选中的list
+        chooseList: [],
+        // 回显list
+        cacheList: []
+      }
+    },
+    methods: {
+      refresh() {
+        this.page_info.page = 1;
+        this.getList();
+      },
+      getList() {
+        if (this.ajaxing) {
+          return;
+        }
+        this.ajaxing = true;
+        this.$pcTpl.axios({
+          url: '/Item/shelfItemList',
+          method: 'post',
+          data: {
+            page_size: this.page_info.page_size,
+            page: this.page_info.page,
+            item_keywords: this.item_keywords,
+            ...this.sendOtherData,
+          }
+        }).then(res => {
+          let list = res.data.data
+          this.ajaxing = false;
+          this.list = list;
+          this.page_info = res.data.page_info;
+          this.$nextTick(() => {
+            this.list.forEach(row => {
+              let finexIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
+              if (finexIndex >= 0) {
+                this.$refs.table.toggleRowSelection(row, true)
+              }
+            })
+          })
+        }).catch(err => {
+          this.ajaxing = false;
+        });
+      },
+      changeList(page) {
+        this.page_info.page = page;
+        this.getList();
+      },
+      handleSelect(selection, row) {
+        // 将勾选值去掉的时候 也要去掉cache的勾选值
+        let find = selection.find(item => item.item_id == row.item_id);
+        if (!find) {
+          let cacheIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
+          if (cacheIndex >= 0) {
+            this.cacheList.splice(cacheIndex, 1)
+          }
+        }
+      },
+      handleSelectAll(selection) {
+        // 将勾选值去掉的时候 也要去掉cache的勾选值
+        let isCurrentPageClear = selection.find(item => this.list.find(listItem => item.item_id == listItem.item_id))
+        if (!isCurrentPageClear) {
+          this.list.forEach(row => {
+            let cacheIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
+            if (cacheIndex >= 0) {
+              this.cacheList.splice(cacheIndex, 1)
+            }
+          })
+        }
+      },
+      handleSelectionChange(e) {
+        this.chooseList = e;
+      },
+      handleConfirm() {
+        if (this.chooseList.length == 0) {
+          this.$message.warning('请选择商品')
+          return
+        }
+        if (this.defaultNum * 1 > 0 && this.chooseList.length > this.defaultNum) {
+          this.$message.error(`当前仅可选择${this.defaultNum}件商品`)
+          return
+        }
+        // 去重
+        let endList = [...this.chooseList, ...this.cacheList];
+        let endIds = endList.map(item => item.item_id);
+        let idsList = Array.from(new Set(endIds))
+        let lists = idsList.map(id => {
+          return endList.find(item => item.item_id == id)
+        }).filter(item => item)
+        console.log(lists)
+        this.$emit('sure', lists)
+      },
+      handleClosed() {
+        this.$emit('destory')
+      },
+      handleCancel() {
+        this.$emit('cancel')
+      },
+      routerTo(url) {
+        this.$router.push({ name: url })
+      }
+    },
+    mounted() {
+      this.getList()
+    },
+  }
+  export default goodsOnShelves;
+  export const goodsOnShelvesInstance = new myDialog(goodsOnShelves)
+
+</script>
+
+<style scoped lang='scss'>
+  .goods-info-box {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    img {
+      float: none;
+    }
+  }
+  .goods-name {
+    color: #38f;
+    text-indent: 10px;
+  }
+</style>
