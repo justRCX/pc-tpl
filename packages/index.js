@@ -32,7 +32,6 @@ const install = function(Vue, opts = {}) {
     store: opts.store,
   })
   components.forEach((component) => {
-    console.log(component.name, /name/)
     Vue.component(component.name, component)
   })
   Vue.prototype.$pcTpl = {

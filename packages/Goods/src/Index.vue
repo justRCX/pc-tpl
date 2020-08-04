@@ -827,7 +827,6 @@
               group_id: groups.group_id
             }
           }).then(res => {
-            console.log(res, /res/)
             if (res.status == 1) {
               this.config.goods = res.data;
               this.goodsList = res.data;

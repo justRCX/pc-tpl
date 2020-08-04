@@ -43,7 +43,7 @@
               :src="scope.row.thumb_image_path"
               style="width:50px;height:50px"
             />
-            <span class="goods-name">{{common.limetedStr(scope.row.item_title,15)}}
+            <span class="goods-name">{{scope.row.item_title}}
             </span>
           </div>
         </template>
@@ -191,7 +191,6 @@
         let lists = idsList.map(id => {
           return endList.find(item => item.item_id == id)
         }).filter(item => item)
-        console.log(lists)
         this.$emit('sure', lists)
       },
       handleClosed() {
@@ -225,5 +224,8 @@
   .goods-name {
     color: #38f;
     text-indent: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 </style>

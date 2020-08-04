@@ -2,7 +2,6 @@ import Vue from "vue";
 import init from './get-config'
 let instances = [];
 let _destory = function(item) {
-  console.log('clear')
   if (item) {
     item.$destroy();
     item.$el && document.body.removeChild(item.$el);

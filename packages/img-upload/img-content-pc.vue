@@ -227,7 +227,6 @@
     },
     methods: {
       handleClosed() {
-        console.log(12, 333)
         this.$emit("destory");
       },
       changeImgList(file, fileList) {
@@ -343,7 +342,6 @@
             act: "igroup"
           }
         }).then(res => {
-          console.log(res)
           if (res.status === 1) {
             this.categoryList = res.data;
             this.chooseCategory(this.categoryList[0]);

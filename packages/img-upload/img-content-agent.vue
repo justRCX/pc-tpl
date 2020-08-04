@@ -276,7 +276,6 @@
           },
           data: formData
         }).then(res => {
-          console.log(res)
           this.ajaxing = false;
           this.$message({
             message: res.msg,
@@ -301,7 +300,6 @@
           method: 'post',
           data: param
         }).then(res => {
-          console.log(res)
           this.$message(initMessage(res));
           if (res.status == 1) {
             this.isAdd = false;

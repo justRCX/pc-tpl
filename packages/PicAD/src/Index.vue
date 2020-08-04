@@ -491,7 +491,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
   import Vue from "vue";
   import configs from "./config";
   import PicShow from "./PicShow.vue";
