@@ -1,118 +1,172 @@
 <template>
   <div class="img-text-nav">
-    <el-row>
+    <el-row :style="BlankStyle">
       <div
         class="mz-text"
-        :style="{'padding-right':config.urlType? '20px': '0px','backgroundColor':config.backgroundColor,}"
+        :style="style"
       >
         <p
           :class="{'styleType':config.style==1}"
           style="white-space:pre-line;padding-left:10px;"
-          :style="{'color':config.color,'font-size':config.fontsize,'text-align':config.align,'border-color':config.color}"
+          :style="{'color':config.color,'font-size':config.fontsize,'text-align':config.align,'border-color':config.color,'font-weight':config.blod == 1 ? 'bold':'normal'
+          }"
         >{{config.content}}</p>
         <i
           class="el-icon-arrow-right icon-href"
           v-if="config.urlType"
         ></i>
       </div>
-      <el-card
-        header="文本"
-        class="edit-area"
-        v-show="belongIndex === currentIndex"
-      >
-        <el-form
-          style="text-align:left;"
-          label-width="120px"
-        >
-          <el-form-item label="文本:">
-            <el-input
-              type="textarea"
-              :rows="4"
-              placeholder="请输入要说明的文字, 最多100字"
-              v-model="config.content"
-              maxlength="100"
-            >
-            </el-input>
-          </el-form-item>
-          <el-form-item label="字体大小:">
-            <el-radio
-              v-model="config.fontsize"
-              label="18px"
-            >大</el-radio>
-            <el-radio
-              v-model="config.fontsize"
-              label="16px"
-            >中</el-radio>
-            <el-radio
-              v-model="config.fontsize"
-              label="14px"
-            >小</el-radio>
-          </el-form-item>
-          <el-form-item label="背景颜色:">
-            <el-color-picker v-model="config.backgroundColor"></el-color-picker>
-          </el-form-item>
-          <el-form-item label="文字颜色:">
-            <el-color-picker v-model="config.color"></el-color-picker>
-          </el-form-item>
-          <el-form-item label="样式:">
-            <el-radio
-              v-model="config.style"
-              :label="0"
-            >无</el-radio>
-            <el-radio
-              v-model="config.style"
-              :label="1"
-            >样式一</el-radio>
-          </el-form-item>
-          <el-form-item label="显示位置:">
-            <el-radio
-              v-model="config.align"
-              label="left"
-            >居左</el-radio>
-            <el-radio
-              v-model="config.align"
-              label="center"
-            >居中</el-radio>
-            <el-radio
-              v-model="config.align"
-              label="right"
-            >局右</el-radio>
-          </el-form-item>
-          <el-form-item label="链接">
-            <page-link-select
-              :ref="'pageLinkSelect'"
-              :selectValue="config"
-              @linkSelected="linkSelected"
-            ></page-link-select>
-          </el-form-item>
-          <el-form-item label="更多设置:">
-            <el-checkbox v-model="config.more">显示底部分割线</el-checkbox>
-          </el-form-item>
-        </el-form>
-      </el-card>
     </el-row>
+    <el-card
+      header="文本"
+      class="edit-area"
+      v-if="belongIndex === currentIndex"
+    >
+      <el-form
+        style="text-align:left;"
+        label-width="120px"
+      >
+        <el-form-item label="文本:">
+          <el-input
+            type="textarea"
+            :rows="4"
+            placeholder="请输入要说明的文字"
+            v-model="config.content"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item label="字体大小:">
+          <el-radio
+            v-model="config.fontsize"
+            label="18px"
+          >大</el-radio>
+          <el-radio
+            v-model="config.fontsize"
+            label="16px"
+          >中</el-radio>
+          <el-radio
+            v-model="config.fontsize"
+            label="14px"
+          >小</el-radio>
+        </el-form-item>
+        <el-form-item label="背景颜色:">
+          <el-color-picker v-model="config.backgroundColor"></el-color-picker>
+        </el-form-item>
+        <el-form-item label="背景图片:">
+          <c-img
+            v-model="config.bgImg"
+            :number="1"
+          ></c-img>
+        </el-form-item>
+        <el-form-item label="字体加粗:">
+          <el-radio
+            v-model="config.blod"
+            :label="1"
+          >加粗</el-radio>
+          <el-radio
+            v-model="config.blod"
+            :label="0"
+          >不加粗</el-radio>
+        </el-form-item>
+        <el-form-item label="文字颜色:">
+          <el-color-picker v-model="config.color"></el-color-picker>
+        </el-form-item>
+        <el-form-item label="样式:">
+          <el-radio
+            v-model="config.style"
+            :label="0"
+          >无</el-radio>
+          <el-radio
+            v-model="config.style"
+            :label="1"
+          >样式一</el-radio>
+        </el-form-item>
+        <el-form-item label="显示位置:">
+          <el-radio
+            v-model="config.align"
+            label="left"
+          >居左</el-radio>
+          <el-radio
+            v-model="config.align"
+            label="center"
+          >居中</el-radio>
+          <el-radio
+            v-model="config.align"
+            label="right"
+          >局右</el-radio>
+        </el-form-item>
+        <el-form-item label="链接">
+          <page-link-select
+            :ref="'pageLinkSelect'"
+            :selectValue="config"
+            @linkSelected="linkSelected"
+          ></page-link-select>
+        </el-form-item>
+        <el-form-item label="更多设置:">
+          <el-checkbox v-model="config.more">显示底部分割线</el-checkbox>
+        </el-form-item>
+        <el-form-item label="左右空白:">
+          <el-slider
+            v-model="config.lrBlank"
+            :max="50"
+            show-input
+          >
+          </el-slider>
+        </el-form-item>
+        <el-form-item label="上下间距:">
+          <el-slider
+            v-model="config.paddingTB"
+            :max="50"
+            show-input
+          >
+          </el-slider>
+        </el-form-item>
+      </el-form>
+    </el-card>
   </div>
 </template>
 
 <script>
+  import CImg from '../../img-upload/c-img'
   export default {
     name: 'MzText',
     data() {
       return {
         config: {
-          content: '',
-          fontsize: '18px',
-          backgroundColor: '#fff',
-          color: '#000',
-          align: 'left',
-          config: '',
+          content: "",
+          fontsize: "18px",
+          backgroundColor: "#fff",
+          color: "#000",
+          align: "left",
+          bgImg: "",
+          config: "",
           more: false,
-          urlType: '',
-          urlTitle: '',
+          urlType: "",
+          urlTitle: "",
           choose: null,
-          style: 0
+          style: 0,
+          lrBlank: 0,
+          paddingTB: 20,
+          blod: 0
         }
       };
+    },
+    computed: {
+      BlankStyle() {
+        let lrBlank = (this.config.lrBlank * 320) / 750 || 0;
+        return `padding-left: ${lrBlank}px;padding-right: ${lrBlank}px;`;
+      },
+      style() {
+        let paddingTB = this.config.paddingTB / 2;
+        return {
+          paddingRight: this.config.urlType ? "20px" : "0px",
+          background: this.config.bgImg
+            ? `url("${this.config.bgImg}")`
+            : this.config.backgroundColor,
+          backgroundSize: "contain",
+          padding: `${paddingTB}px 0`
+        };
+      }
     },
     methods: {
       linkSelected(data) {
@@ -122,31 +176,42 @@
       },
       init(n) {
         if (n) {
-          this.config = Object.assign({
-            content: '',
-            fontsize: '18px',
-            backgroundColor: '#fff',
-            color: '#000',
-            align: 'left',
-            config: '',
-            more: false,
-            urlType: '',
-            urlTitle: '',
-            choose: null,
-            style: 0
-          }, n);
+          this.config = Object.assign(
+            {
+              content: "",
+              fontsize: "18px",
+              backgroundColor: "#fff",
+              color: "#000",
+              align: "left",
+              config: "",
+              more: false,
+              urlType: "",
+              blod: 0,
+              bgImg: "",
+              urlTitle: "",
+              paddingTB: 20,
+              choose: null,
+              lrBlank: 0,
+              style: 0
+            },
+            n
+          );
         } else {
           this.config = {
-            content: '',
-            fontsize: '18px',
-            backgroundColor: '#fff',
-            color: '#000',
-            align: 'left',
-            config: '',
+            content: "",
+            fontsize: "18px",
+            backgroundColor: "#fff",
+            color: "#000",
+            bgImg: "",
+            align: "left",
+            blod: 0,
+            config: "",
             more: false,
-            urlType: '',
-            urlTitle: '',
+            urlType: "",
+            paddingTB: 20,
+            urlTitle: "",
             choose: null,
+            lrBlank: 0,
             style: 0
           };
         }
@@ -158,6 +223,7 @@
       'content'
     ],
     components: {
+      CImg
     },
     watch: {
       content(n) {
