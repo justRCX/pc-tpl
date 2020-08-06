@@ -85,6 +85,7 @@
               :style="{
                 fontSize:config.nameSize/2+'px',
                 lineHeight:(config.nameSize/2 + 4)+'px',
+                height:config.nameSize+8+'px',
                 color:config.nameColor
               }"
               :class="config.lineCount == 1?'oneLine':'h3'"
@@ -199,6 +200,7 @@
               :style="{
                 fontSize:config.nameSize/2+'px',
                 lineHeight:config.nameSize/2 + 4+'px',
+                height:config.nameSize+8+'px',
                 color:config.nameColor
               }"
             >{{item.item_title}}</h3>
@@ -599,7 +601,7 @@
           .h3 {
             font-size: 13px;
             // height: 34px;
-            height: 37px !important;
+            // height: 37px !important;
             line-height: 1.5;
             margin-top: 0px;
             margin-bottom: 0px;
