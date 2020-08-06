@@ -599,7 +599,7 @@
           .h3 {
             font-size: 13px;
             // height: 34px;
-            height: 40px !important;
+            height: 37px !important;
             line-height: 1.5;
             margin-top: 0px;
             margin-bottom: 0px;
