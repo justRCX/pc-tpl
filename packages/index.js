@@ -4,7 +4,7 @@ import { CImg, imgContentAgent, imgContentPc } from './img-upload/index.js'
 import MZText from './MZText/index.js'
 import MZWhite from './MZWhite/index'
 import PicAd from './PicAD/index'
-import { goodsOnShelves } from './choose-list/index'
+import { goodsOnShelves, goodsOnShelvesInstance } from './choose-list/index'
 import Goods from './Goods/index'
 let components = [
   commonHeader,
@@ -24,6 +24,7 @@ import { getAxiosAgent, getAxiosPc } from './utils/request'
 import init from './utils/get-config'
 import { myImgDialogAgentFun } from './img-upload/img-content-agent.vue'
 import { myDialogFun } from './img-upload/img-content-pc.vue'
+import myDialog from './utils/popup'
 const install = function(Vue, opts = {}) {
   // 判断是否安装
   if (install.installed) return
@@ -40,6 +41,8 @@ const install = function(Vue, opts = {}) {
     router: opts.router,
     store: opts.store,
   }
+  Vue.prototype.$pcTpl.goodsOnShelvesInstance = goodsOnShelvesInstance;
+  Vue.prototype.$pcTpl.myDialog = myDialog;
   Vue.prototype.$pcTpl.imgChoose = opts.from ? myImgDialogAgentFun : myDialogFun
   Vue.prototype.$pcTpl.axios = opts.from ?
     getAxiosAgent(opts.axios) :

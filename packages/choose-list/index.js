@@ -1,2 +1,3 @@
 import goodsOnShelves from './src/goods'
-export { goodsOnShelves }
+import { goodsOnShelvesInstance } from './src/goods.vue'
+export { goodsOnShelves, goodsOnShelvesInstance }

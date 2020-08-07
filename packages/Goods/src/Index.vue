@@ -629,7 +629,7 @@
 
 <script>
   import draggable from "vuedraggable";
-  import { goodsOnShelvesInstance } from "../../choose-list/src/goods";
+  // import { goodsOnShelvesInstance } from "../../choose-list/src/goods";
   import GoodsGroupForm from "./GroupForm.vue";
   import GoodItem from "./Item.vue";
   import GoodsGroup from "./GoodsGroup.vue";
@@ -776,7 +776,7 @@
 
       showGoodsModal() {
         let selectList = JSON.parse(JSON.stringify(this.config.goods));
-        goodsOnShelvesInstance
+        this.$pcTpl.goodsOnShelvesInstance
           .popup({
             cacheList: selectList || []
           })
