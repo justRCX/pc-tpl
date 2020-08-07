@@ -1,13 +1,22 @@
 <template>
   <el-dialog
-    title="已上架商品"
+    :title="title"
     @closed="handleClosed"
     :visible.sync="visible"
   >
     <div class="modal-header">
-      <el-button @click="routerTo('GoodsManageAdd')">新建</el-button>
-      <el-button @click="routerTo('GoodsManage')">草稿管理</el-button>
-      <el-button @click="refresh">刷新</el-button>
+      <el-button
+        @click="routerTo('/home/Goods/GoodsManageAdd')"
+        v-if="api.indexOf('receiveItemListWithSku')<0"
+      >新建</el-button>
+      <el-button
+        @click="routerTo('/home/Goods')"
+        v-if="api.indexOf('receiveItemListWithSku')<0"
+      >草稿管理</el-button>
+      <el-button
+        @click="refresh"
+        v-if="api.indexOf('receiveItemListWithSku')<0"
+      >刷新</el-button>
       <el-input
         style="float:right;
                 width:200px;"
@@ -51,6 +60,7 @@
       <el-table-column
         prop="create_time"
         label="创建时间"
+        v-if="list[0] && list[0].create_time"
       ></el-table-column>
     </el-table>
     <el-pagination
@@ -90,6 +100,7 @@
     model: [],
     data() {
       return {
+        title: '已上架商品',
         visible: false,
         list: [],
         ajaxing: false,
@@ -107,7 +118,9 @@
         // 当前选中的list
         chooseList: [],
         // 回显list
-        cacheList: []
+        cacheList: [],
+        // 接口
+        api: '/Item/shelfItemList'
       }
     },
     methods: {
@@ -121,7 +134,7 @@
         }
         this.ajaxing = true;
         this.$pcTpl.axios({
-          url: '/Item/shelfItemList',
+          url: this.api,
           method: 'post',
           data: {
             page_size: this.page_info.page_size,
