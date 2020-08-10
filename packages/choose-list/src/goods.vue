@@ -6,11 +6,11 @@
   >
     <div class="modal-header">
       <el-button
-        @click="routerTo('/home/Goods/GoodsManageAdd')"
+        @click="routerTo('GoodsManageAdd')"
         v-if="api.indexOf('receiveItemListWithSku')<0"
       >新建</el-button>
       <el-button
-        @click="routerTo('/home/Goods')"
+        @click="routerTo('GoodsManage')"
         v-if="api.indexOf('receiveItemListWithSku')<0"
       >草稿管理</el-button>
       <el-button
