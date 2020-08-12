@@ -355,7 +355,7 @@
         };
         this.$pcTpl.axios({
           url: '/Marketing/couponList',
-          mmethod: 'post',
+          method: 'post',
           data: params
         }).then(res => {
           this.ajaxing = false;
