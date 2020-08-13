@@ -89,7 +89,7 @@
       },
       currentIndex: function (n) {
         if (n === -1) {
-          this.$emit("update  :content", this.config);
+          this.$emit("update:content", this.config);
         }
       }
     },
