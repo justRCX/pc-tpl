@@ -56,6 +56,18 @@
           <el-form-item label="页面装修容器背景颜色:">
             <el-color-picker v-model="config.decsColor"></el-color-picker>
           </el-form-item>
+          <el-form-item
+            label="门店头显示"
+            v-if="$pcTpl.from"
+          >
+            <el-radio-group
+              v-model="config.store_show"
+              @change="changeStoreShow"
+            >
+              <el-radio :label="1">是</el-radio>
+              <el-radio :label="0">否</el-radio>
+            </el-radio-group>
+          </el-form-item>
         </el-form>
       </el-card>
     </el-row>
@@ -71,7 +83,8 @@
           name: "店铺首页",
           color: "#f7f7f7",
           backgroundImg: "",
-          decsColor: ""
+          decsColor: "",
+          store_show: 1
         },
         rules: {
           name: [
@@ -100,6 +113,9 @@
         }
         this.$emit("changeColor", this.config.color);
       },
+      changeStoreShow() {
+        this.$emit("changeStoreShow", this.config.store_show);
+      },
       init(n) {
         if (n) {
           this.config = Object.assign(
@@ -107,7 +123,8 @@
               name: "店铺首页",
               color: "#f7f7f7",
               decsColor: "",
-              backgroundImg: ""
+              backgroundImg: "",
+              store_show: 1
             },
             n
           );
@@ -116,7 +133,8 @@
             name: "店铺首页",
             color: "#f7f7f7",
             decsColor: "",
-            backgroundImg: ""
+            backgroundImg: "",
+            store_show: 1
           };
         }
       },

@@ -10,7 +10,7 @@
         <div
           class="img-box __mr-10"
           v-for="(item,index) in imgList"
-          :key="index"
+          :key="index+Math.random()"
           v-show="item"
         >
           <img
@@ -40,7 +40,7 @@
 <script>
   import draggable from "vuedraggable";
   export default {
-    name:'CImg',
+    name: 'CImg',
     model: {
       prop: 'imageUrl',
       event: "changeImg"
