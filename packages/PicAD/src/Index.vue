@@ -492,7 +492,6 @@
 </template>
 
 <script>
-  import Vue from "vue";
   import configs from "./config";
   import PicShow from "./PicShow.vue";
   import CImg from "../../img-upload/c-img.vue";
@@ -665,7 +664,7 @@
       content(n) {
         this.init(n);
       },
-      currentIndex: function(n) {
+      currentIndex: function (n) {
         if (n === -1) {
           this.config.list = this.imgList;
           this.$emit("update:content", this.config);

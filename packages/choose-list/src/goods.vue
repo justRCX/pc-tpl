@@ -165,8 +165,8 @@
       },
       handleSelect(selection, row) {
         // 将勾选值去掉的时候 也要去掉cache的勾选值
-        let find = selection.find(item => item.item_id == row.item_id);
-        if (!find) {
+        let find = selection.findIndex(item => item.item_id == row.item_id);
+        if (find < 0) {
           let cacheIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
           if (cacheIndex >= 0) {
             this.cacheList.splice(cacheIndex, 1)
@@ -175,7 +175,7 @@
       },
       handleSelectAll(selection) {
         // 将勾选值去掉的时候 也要去掉cache的勾选值
-        let isCurrentPageClear = selection.find(item => this.list.find(listItem => item.item_id == listItem.item_id))
+        let isCurrentPageClear = selection.findSelf(item => this.list.findSelf(listItem => item.item_id == listItem.item_id))
         if (!isCurrentPageClear) {
           this.list.forEach(row => {
             let cacheIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
@@ -202,7 +202,7 @@
         let endIds = endList.map(item => item.item_id);
         let idsList = Array.from(new Set(endIds))
         let lists = idsList.map(id => {
-          return endList.find(item => item.item_id == id)
+          return endList.findSelf(item => item.item_id == id)
         }).filter(item => item)
         this.$emit('sure', lists)
       },

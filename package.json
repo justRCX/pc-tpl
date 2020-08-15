@@ -1,44 +1,46 @@
 {
-  "name": "pc-tpl",
-  "version": "0.1.7",
-  "private": false,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name pc-tpl --dest lib packages/index.js"
-  },
-  "main": "lib/pc-tpl.umd.js",
-  "dependencies": {
-    "element": "^0.1.4",
-    "vue": "^2.6.11",
-    "vuedraggable": "^2.24.0"
-  },
-  "keyword": "pc-tpl",
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.2",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ]
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+	"name": "pc-tpl",
+	"version": "0.1.7",
+	"private": false,
+	"scripts": {
+		"serve": "vue-cli-service serve",
+		"build": "vue-cli-service build",
+		"lint": "vue-cli-service lint",
+		"lib": "vue-cli-service build --target lib --name pc-tpl --dest lib packages/index.js"
+	},
+	"main": "lib/pc-tpl.umd.js",
+	"dependencies": {
+		"core-js": "^3.6.5",
+		"vuedraggable": "^2.24.0"
+	},
+	"peerDependencies": {
+		"vue": "^2.5.17"
+	},
+	"keyword": "pc-tpl",
+	"devDependencies": {
+		"@vue/cli-plugin-babel": "~4.4.0",
+		"@vue/cli-plugin-eslint": "~4.4.0",
+		"@vue/cli-service": "~4.4.0",
+		"babel-eslint": "^10.1.0",
+		"eslint": "^6.7.2",
+		"eslint-plugin-vue": "^6.2.2",
+		"node-sass": "^4.14.1",
+		"sass-loader": "^9.0.2",
+		"vue-template-compiler": "^2.6.11"
+	},
+	"eslintConfig": {
+		"root": true,
+		"env": {
+			"node": true
+		},
+		"extends": [
+			"plugin:vue/essential",
+			"eslint:recommended"
+		]
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not ie <= 8"
+	]
 }

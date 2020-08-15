@@ -1,23 +1,27 @@
 import commonHeader from './common-header/index.js'
-import { couponList, couponListChoose } from './coupon-List/index.js'
-import { CImg, imgContentAgent, imgContentPc } from './img-upload/index.js'
 import MZText from './MZText/index.js'
-import MZWhite from './MZWhite/index'
-import PicAd from './PicAD/index'
-import { goodsOnShelves, goodsOnShelvesInstance } from './choose-list/index'
-import Goods from './Goods/index'
+import MZWhite from './MZWhite/index.js'
+import PicAd from './PicAD/index.js'
+import Goods from './Goods/index.js'
+
+import couponList from './coupon-List/index.js'
+import couponListChoose from './coupon-List/couponListChoose.js'
+import CImg from './img-upload/c-img.vue'
+import imgContentAgent from './img-upload/img-content-agent.vue'
+import imgContentPc from './img-upload/img-content-pc.vue'
+import goodsOnShelves from './choose-list/index.js'
 let components = [
   commonHeader,
+  MZText,
+  MZWhite,
+  PicAd,
+  Goods,
   couponList,
   couponListChoose,
   CImg,
   imgContentAgent,
   imgContentPc,
-  MZText,
-  MZWhite,
-  PicAd,
-  goodsOnShelves,
-  Goods
+  goodsOnShelves
 ]
 
 import { getAxiosAgent, getAxiosPc } from './utils/request'
@@ -25,6 +29,7 @@ import init from './utils/get-config'
 import { myImgDialogAgentFun } from './img-upload/img-content-agent.vue'
 import { myDialogFun } from './img-upload/img-content-pc.vue'
 import myDialog from './utils/popup'
+import { goodsOnShelvesInstance } from './choose-list/src/goods.vue'
 const install = function(Vue, opts = {}) {
   // 判断是否安装
   if (install.installed) return
@@ -40,9 +45,20 @@ const install = function(Vue, opts = {}) {
     api: opts.api,
     router: opts.router,
     store: opts.store,
+    vue: Vue,
   }
-  Vue.prototype.$pcTpl.goodsOnShelvesInstance = goodsOnShelvesInstance;
-  Vue.prototype.$pcTpl.myDialog = myDialog;
+  // 暂时 处理一下 ，至于为什么用find会报错 还得再查查
+  Array.prototype.findSelf = function(callback) {
+    let arr = this;
+    for (let i = 0; i < arr.length; i++) {
+      let end = callback(arr[i], i)
+      if (end) {
+        return a[i]
+      }
+    }
+  }
+  Vue.prototype.$pcTpl.goodsOnShelvesInstance = goodsOnShelvesInstance
+  Vue.prototype.$pcTpl.myDialog = myDialog
   Vue.prototype.$pcTpl.imgChoose = opts.from ? myImgDialogAgentFun : myDialogFun
   Vue.prototype.$pcTpl.axios = opts.from ?
     getAxiosAgent(opts.axios) :

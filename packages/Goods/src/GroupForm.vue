@@ -78,7 +78,6 @@
 
 <script>
   // 商品分组选择弹窗
-  import Vue from "vue";
   export default {
     name: "goodsAddForm",
     data() {
