@@ -48,15 +48,15 @@ const install = function(Vue, opts = {}) {
     vue: Vue,
   }
   // 暂时 处理一下 ，至于为什么用find会报错 还得再查查
-  Array.prototype.findSelf = function(callback) {
-    let arr = this;
-    for (let i = 0; i < arr.length; i++) {
-      let end = callback(arr[i], i)
-      if (end) {
-        return a[i]
-      }
-    }
-  }
+  // Array.prototype.findSelf = function(callback) {
+  //   let arr = this;
+  //   for (let i = 0; i < arr.length; i++) {
+  //     let end = callback(arr[i], i)
+  //     if (end) {
+  //       return a[i]
+  //     }
+  //   }
+  // }
   Vue.prototype.$pcTpl.goodsOnShelvesInstance = goodsOnShelvesInstance
   Vue.prototype.$pcTpl.myDialog = myDialog
   Vue.prototype.$pcTpl.imgChoose = opts.from ? myImgDialogAgentFun : myDialogFun
