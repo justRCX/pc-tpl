@@ -61,7 +61,14 @@
               <el-color-picker v-model="config.topBarBgColor"></el-color-picker>
             </el-form-item>
             <el-form-item label="小程序顶部导航条字体色:">
-              <el-color-picker v-model="config.topBarColor"></el-color-picker>
+              <el-radio
+                v-model="config.topBarColor"
+                label="#000000"
+              >黑色</el-radio>
+              <el-radio
+                v-model="config.topBarColor"
+                label="#ffffff"
+              >白色</el-radio>
             </el-form-item>
           </template>
 
@@ -94,7 +101,7 @@
           backgroundImg: "",
           decsColor: "",
           topBarBgColor: '',
-          topBarColor: '',
+          topBarColor: '#ffffff',
           store_show: 1
         },
         rules: {
@@ -135,7 +142,7 @@
               color: "#f7f7f7",
               decsColor: "",
               topBarBgColor: '',
-              topBarColor: '',
+              topBarColor: '#ffffff',
               backgroundImg: "",
               store_show: 1
             },
@@ -147,7 +154,7 @@
             color: "#f7f7f7",
             decsColor: "",
             topBarBgColor: '',
-            topBarColor: '',
+            topBarColor: '#ffffff',
             backgroundImg: "",
             store_show: 1
           };
