@@ -93,7 +93,7 @@
             <!-- <p class="sub-title" v-if="config.content.includes(2)">{{item.selling_point}}</p> -->
             <p
               class="sub-title"
-              v-if="config.content.includes(2) && config.listType !== 4"
+              v-if="config.content.includes(2)"
               :style="{
                 fontSize:config.subNameSize/2+'px',
                 color:config.subNameColor
@@ -135,14 +135,6 @@
               <span class="point_prices">00</span>
             </p>
             <!-- </div> -->
-            <p
-              class="sub-title"
-              v-if="config.content.includes(2) && config.listType == 4"
-              :style="{
-                fontSize:config.subNameSize/2+'px',
-                color:config.subNameColor
-              }"
-            >{{item.selling_point}}</p>
             <p
               v-if="config.content.includes(7) && (config.listType == 2 || config.listType == 3 || config.listType == 4 || config.listType == 5)"
               class="purchased"
