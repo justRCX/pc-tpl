@@ -8,7 +8,9 @@
         <p
           :class="{'styleType':config.style==1}"
           style="white-space:pre-line;padding-left:10px;"
-          :style="{'color':config.color,'font-size':config.fontsize,'text-align':config.align,'border-color':config.color,'font-weight':config.blod == 1 ? 'bold':'normal'
+          :style="{'color':config.color,'font-size':config.fontsize,'text-align':config.align,
+          'border-color':config.color,'font-weight':config.blod == 1 ? 'bold':'normal',
+          'padding-right':'10px','word-break': 'break-all'
           }"
         >{{config.content}}</p>
         <i
@@ -141,6 +143,7 @@
           bgImg: "",
           config: "",
           more: false,
+          origin_id: '',
           urlType: "",
           urlTitle: "",
           choose: null,
@@ -173,6 +176,7 @@
         this.config.urlType = data.urlType;
         this.config.urlTitle = data.urlTitle;
         this.config.choose = data.choose;
+        this.config.origin_id = data.origin_id;
       },
       init(n) {
         if (n) {
@@ -188,6 +192,7 @@
               urlType: "",
               blod: 0,
               bgImg: "",
+              origin_id: '',
               urlTitle: "",
               paddingTB: 20,
               choose: null,
@@ -206,6 +211,7 @@
             align: "left",
             blod: 0,
             config: "",
+            origin_id: '',
             more: false,
             urlType: "",
             paddingTB: 20,
