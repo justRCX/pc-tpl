@@ -8,6 +8,7 @@ import couponListChoose from './coupon-List/couponListChoose.js'
 import CImg from './img-upload/c-img.vue'
 import imgContentAgent from './img-upload/img-content-agent.vue'
 import imgContentPc from './img-upload/img-content-pc.vue'
+import CPager from './pager/index.js'
 import goodsOnShelves from './choose-list/index.js'
 let components = [
 	commonHeader,
@@ -21,6 +22,7 @@ let components = [
 	imgContentAgent,
 	imgContentPc,
 	goodsOnShelves,
+	CPager,
 ]
 
 import { getAxiosAgent, getAxiosPc } from './utils/request'
