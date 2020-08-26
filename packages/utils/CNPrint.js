@@ -46,41 +46,70 @@ export default class CNPrint {
 	offSocket() {
 		window.CNPrintSocket && window.CNPrintSocket.close()
 	}
-	initSocket() {
-		//如果是https的话，端口是13529
-		let isHttps = window.location.protocol.indexOf('https') >= 0
-		window.CNPrintSocket = new WebSocket(
-			isHttps ? 'wss://localhost:13529' : 'ws://localhost:13528',
-		)
+	socketOnMessage() {
 		let __socket = window.CNPrintSocket
-		try {
-			__socket.onmessage = (event) => {
-				const data = JSON.parse(event.data)
-				console.log(data, /cb/)
-				switch (data.cmd) {
-					case 'getPrinters':
-						// '获取打印机列表以及默认打印机'
-						this.callback &&
-							this.callback({
-								list: data.printers,
-								defaultPrinter: data.defaultPrinter,
-							})
-						break
-					case 'print':
-						if (data.status === 'success') {
-							// 请求调取后台接口,打印回调
-							this.printSuccessCb && this.printSuccessCb()
-						} else {
-							console.log(data)
-							this.$message.error(`打印失败${data.msg}`)
-						}
-						break
-					default:
-				}
+		__socket.onmessage = (event) => {
+			const data = JSON.parse(event.data)
+			console.log(data, /cb/)
+			switch (data.cmd) {
+				case 'getPrinters':
+					// '获取打印机列表以及默认打印机'
+					this.callback &&
+						this.callback({
+							list: data.printers,
+							defaultPrinter: data.defaultPrinter,
+						})
+					break
+				case 'print':
+					if (data.status === 'success') {
+						// 请求调取后台接口,打印回调
+						this.printSuccessCb && this.printSuccessCb(data)
+					} else {
+						console.log(data)
+						this.$message.error(`打印失败${data.msg}`)
+					}
+					break
+				default:
 			}
+		}
+	}
+	socketOnOpen() {
+		return new Promise((resolve, reject) => {
+			try {
+				let __socket = window.CNPrintSocket
+				__socket.onopen = () => {
+					resolve()
+				}
+			} catch (err) {
+				console.log(err, /cuowuxinxi111/)
+			}
+		})
+	}
+	socketOnError() {
+		let __socket = window.CNPrintSocket
+		__socket.onerror = (event) => {
+			console.log(event)
+			this.$message.error(
+				`连接失败,未连接到菜鸟云打印组件，请安装或重启组件后刷新页面再尝试`,
+			)
+		}
+	}
+	initSocket() {
+		try {
+			//如果是https的话，端口是13529
+			let isHttps = window.location.protocol.indexOf('https') >= 0
+			window.CNPrintSocket = new WebSocket(
+				isHttps ? 'wss://localhost:13529' : 'ws://localhost:13528',
+			)
+			this.socketOnOpen()
+			this.socketOnError()
+			this.socketOnMessage()
 		} catch (e) {
-			console.log(e)
-			console.error('连接菜鸟云打印组件失败')
+			reject(e)
+			console.log(e, /cuowuxinxi/)
+			this.$message.error(
+				`连接错误,未连接到菜鸟云打印组件，请安装或重启组件后刷新页面再尝试`,
+			)
 		}
 	}
 	getData(dataArr) {
@@ -96,17 +125,31 @@ export default class CNPrint {
 		return Date.now() + Math.floor(Math.random() * 100) + index++
 	}
 	getPrintList(cb) {
-		console.log(this.scocketIsOpen(), /this.scocketIsOpen()/)
-		if (!this.scocketIsOpen()) {
-			this.initSocket()
+		try {
+			let readyState = window.CNPrintSocket
+				? window.CNPrintSocket.readyState
+				: 3
+			this.callback = cb
+			var request = {
+				requestID: getUUID(8, 16),
+				version: '1.0',
+				cmd: 'getPrinters',
+			}
+			if (readyState == 1) {
+				window.CNPrintSocket.send(JSON.stringify(request))
+				return
+			} else if (readyState == 2 || readyState == 3) {
+				this.initSocket()
+			}
+			this.socketOnOpen().then(() => {
+				window.CNPrintSocket.send(JSON.stringify(request))
+			})
+		} catch (error) {
+			console.log(error)
+			this.$message.error(
+				`连接错误,未连接到菜鸟云打印组件，请安装或重启组件后刷新页面再尝试`,
+			)
 		}
-		this.callback = cb
-		var request = {
-			requestID: getUUID(8, 16),
-			version: '1.0',
-			cmd: 'getPrinters',
-		}
-		window.CNPrintSocket.send(JSON.stringify(request))
 	}
 
 	sendCmd(
@@ -130,6 +173,7 @@ export default class CNPrint {
 				taskID: getUUID(8, 10),
 				printer,
 				preview, // 预览或者打印 true: 预览 false: 打印
+				previewType,
 				documents: otherData,
 			}
 			if (extraRequest) {
