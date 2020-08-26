@@ -407,6 +407,7 @@
       linkSelected(data, key1, key2) {
         this.couponStyle[key1][key2].link.urlType = data.urlType;
         this.couponStyle[key1][key2].link.urlTitle = data.urlTitle;
+        this.couponStyle[key1][key2].link.origin_id = data.origin_id;
         this.couponStyle[key1][key2].link.choose = data.choose;
         this.couponStyle[key1][key2].link.HttpType = data.HttpType || 1;
       }

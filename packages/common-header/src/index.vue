@@ -56,6 +56,22 @@
           <el-form-item label="页面装修容器背景颜色:">
             <el-color-picker v-model="config.decsColor"></el-color-picker>
           </el-form-item>
+          <template v-if="$route.query.type == 'Miniprogram'">
+            <el-form-item label="小程序顶部导航条背景色:">
+              <el-color-picker v-model="config.topBarBgColor"></el-color-picker>
+            </el-form-item>
+            <el-form-item label="小程序顶部导航条字体色:">
+              <el-radio
+                v-model="config.topBarColor"
+                label="#000000"
+              >黑色</el-radio>
+              <el-radio
+                v-model="config.topBarColor"
+                label="#ffffff"
+              >白色</el-radio>
+            </el-form-item>
+          </template>
+
           <el-form-item
             label="门店头显示"
             v-if="$pcTpl.from"
@@ -84,6 +100,8 @@
           color: "#f7f7f7",
           backgroundImg: "",
           decsColor: "",
+          topBarBgColor: '',
+          topBarColor: '#ffffff',
           store_show: 1
         },
         rules: {
@@ -123,6 +141,8 @@
               name: "店铺首页",
               color: "#f7f7f7",
               decsColor: "",
+              topBarBgColor: '',
+              topBarColor: '#ffffff',
               backgroundImg: "",
               store_show: 1
             },
@@ -133,6 +153,8 @@
             name: "店铺首页",
             color: "#f7f7f7",
             decsColor: "",
+            topBarBgColor: '',
+            topBarColor: '#ffffff',
             backgroundImg: "",
             store_show: 1
           };

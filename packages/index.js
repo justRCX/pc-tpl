@@ -3,13 +3,14 @@ import MZText from './MZText/index.js'
 import MZWhite from './MZWhite/index.js'
 import PicAd from './PicAD/index.js'
 import Goods from './Goods/index.js'
-
 import couponList from './coupon-List/index.js'
 import couponListChoose from './coupon-List/couponListChoose.js'
 import CImg from './img-upload/c-img.vue'
 import imgContentAgent from './img-upload/img-content-agent.vue'
 import imgContentPc from './img-upload/img-content-pc.vue'
+import CPager from './pager/index.js'
 import goodsOnShelves from './choose-list/index.js'
+import CPreview from './preview'
 let components = [
   commonHeader,
   MZText,
@@ -21,7 +22,9 @@ let components = [
   CImg,
   imgContentAgent,
   imgContentPc,
-  goodsOnShelves
+  goodsOnShelves,
+  CPager,
+  CPreview
 ]
 
 import { getAxiosAgent, getAxiosPc } from './utils/request'
@@ -30,6 +33,9 @@ import { myImgDialogAgentFun } from './img-upload/img-content-agent.vue'
 import { myDialogFun } from './img-upload/img-content-pc.vue'
 import myDialog from './utils/popup'
 import { goodsOnShelvesInstance } from './choose-list/src/goods.vue'
+import CNPrint from './utils/CNPrint'
+import { imgPreview } from './preview/src/index.vue'
+
 const install = function(Vue, opts = {}) {
   // 判断是否安装
   if (install.installed) return
@@ -47,16 +53,7 @@ const install = function(Vue, opts = {}) {
     store: opts.store,
     vue: Vue,
   }
-  // 暂时 处理一下 ，至于为什么用find会报错 还得再查查
-  // Array.prototype.findSelf = function(callback) {
-  //   let arr = this;
-  //   for (let i = 0; i < arr.length; i++) {
-  //     let end = callback(arr[i], i)
-  //     if (end) {
-  //       return a[i]
-  //     }
-  //   }
-  // }
+
   Vue.prototype.$pcTpl.goodsOnShelvesInstance = goodsOnShelvesInstance
   Vue.prototype.$pcTpl.myDialog = myDialog
   Vue.prototype.$pcTpl.imgChoose = opts.from ? myImgDialogAgentFun : myDialogFun
@@ -70,4 +67,6 @@ const install = function(Vue, opts = {}) {
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
+
 export default { install }
+export { CNPrint, imgPreview }

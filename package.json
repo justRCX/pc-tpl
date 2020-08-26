@@ -1,35 +1,35 @@
 {
-	"name": "pc-tpl",
-	"version": "0.1.7",
-	"private": false,
-	"scripts": {
-		"serve": "vue-cli-service serve",
-		"build": "vue-cli-service build",
-		"lint": "vue-cli-service lint",
-		"lib": "vue-cli-service build --target lib --name pc-tpl --dest lib packages/index.js"
-	},
-	"main": "lib/pc-tpl.umd.js",
-	"dependencies": {
-		"core-js": "^2.5.7",
-		"vuedraggable": "^2.16.0"
-	},
-	"peerDependencies": {
-		"vue": "^2.5.17"
-	},
-	"keyword": "pc-tpl",
-	"devDependencies": {
-		"node-sass": "^4.14.1",
-		"sass-loader": "^9.0.3",
-		"@vue/cli-plugin-babel": "^3.0.3",
-		"@vue/cli-plugin-eslint": "^3.0.3",
-		"@vue/cli-service": "^3.0.3",
-		"@vue/eslint-config-standard": "^3.0.3",
-		"babel-eslint": "^10.1.0",
-		"vue-template-compiler": "^2.6.11"
-	},
-	"browserslist": [
-		"> 1%",
-		"last 2 versions",
-		"not ie <= 8"
-	]
+  "name": "pc-tpl",
+  "version": "0.1.7",
+  "private": false,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name pc-tpl --dest lib packages/index.js"
+  },
+  "main": "lib/pc-tpl.umd.min.js",
+  "dependencies": {
+    "core-js": "^2.5.7",
+    "vuedraggable": "^2.16.0"
+  },
+  "peerDependencies": {
+    "vue": "^2.5.17"
+  },
+  "keyword": "pc-tpl",
+  "devDependencies": {
+    "node-sass": "^4.14.1",
+    "sass-loader": "^9.0.3",
+    "@vue/cli-plugin-babel": "^3.0.3",
+    "@vue/cli-plugin-eslint": "^3.0.3",
+    "@vue/cli-service": "^3.0.3",
+    "@vue/eslint-config-standard": "^3.0.3",
+    "babel-eslint": "^10.1.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
