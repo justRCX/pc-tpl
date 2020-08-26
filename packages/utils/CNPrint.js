@@ -32,7 +32,7 @@ function getUUID(len, radix) {
 export default class CNPrint {
 	constructor($message) {
 		if (!window.CNPrintSocket || !this.scocketIsOpen()) {
-			this.initSocket()
+			// this.initSocket()
 		}
 		this.$message = $message
 		this.printSuccessCb = null
