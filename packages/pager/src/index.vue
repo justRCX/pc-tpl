@@ -7,7 +7,6 @@
       </div>
       <div>
         <el-pagination
-          layout="prev, pager, next"
           :total="total"
           layout="total, prev, pager, next,jumper"
           :page-size="pageSize"
@@ -22,7 +21,7 @@
 
 <script>
   export default {
-    name: 'CPager',
+    name: 'cPager',
     data() {
       return {
       }

@@ -27,7 +27,7 @@
   import myDialog from '../../utils/popup'
 
   let preview = {
-    name: 'CPreview',
+    name: 'cPreview',
     data() {
       return {
         src: '',
