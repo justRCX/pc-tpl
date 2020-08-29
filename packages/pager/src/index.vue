@@ -22,12 +22,40 @@
       <el-table
         v-bind="tableAttributes"
         v-loading="tableLoading"
-        @select="emitSelectEvent"
-        @select-all="emitSelectAllEvent"
-        @select-change="emitSelectChangeEvent"
-        @sort-change="emitSortChangeEvent"
+        v-on="$listeners"
         ref="pager-table"
+        :data="tableData"
       >
+        <el-table-column
+          type="selection"
+          width="55"
+          v-if="selection"
+        ></el-table-column>
+        <el-table-column
+          v-for="(item,index) in tableColumn"
+          :key="index"
+          v-bind="item.attributes"
+          :prop="item.prop"
+          :label="item.label"
+          :width="item.width"
+        >
+          <template slot-scope="scope">
+            <table-column-render
+              v-if="item.__render"
+              :__render="item.__render"
+              :row="scope.row"
+              :index="scope.$index"
+              :column="item"
+            />
+            <div v-else-if="item.slot">
+              <slot
+                :name="item.prop"
+                :row="scope.row"
+              ></slot>
+            </div>
+            <span v-else>{{ scope.row[item.prop] || '-' }}</span>
+          </template>
+        </el-table-column>
       </el-table>
     </slot>
     <div class="__flex">
@@ -50,6 +78,7 @@
 </template>
 
 <script>
+  import tableColumnRender from './render'
   export default {
     name: 'CPager',
     data() {
@@ -57,12 +86,17 @@
       }
     },
     computed: {},
+    components: { tableColumnRender },
     props: {
       total: {
         type: [Number, String],
         default: 0
       },
       pageSize: {
+        type: [Number, String],
+        default: 0
+      },
+      labelWidth: {
         type: [Number, String],
         default: 0
       },
@@ -81,21 +115,21 @@
       tableAttributes: {
         type: Object,
         default: () => { }
+      },
+      tableColumn: {
+        type: Array,
+        default: () => []
+      },
+      tableData: {
+        type: Array,
+        default: () => []
+      },
+      selection: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {
-      emitSortChangeEvent(param) {
-        this.$emit('sort-change', param)
-      },
-      emitSelectAllEvent(selection) {
-        this.$emit('select-all', selection)
-      },
-      emitSelectChangeEvent(selection) {
-        this.$emit('select-change', selection)
-      },
-      emitSelectEvent(selection, row) {
-        this.$emit('select', selection, row)
-      },
       hanldeSearch() {
         this.$emit('search', { page: 1 })
       },
