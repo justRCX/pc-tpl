@@ -6,16 +6,24 @@
     >
       <slot name="search"></slot>
       <el-row :style="{paddingLeft:labelWidth+'px',marginTop:0}">
-        <el-button
-          type="primary"
-          class="searchBtn"
-          size="small"
-          @click="hanldeSearch"
-        >筛选</el-button>
-        <el-button
-          type="text"
-          @click="handleClear"
-        >清空筛选条件</el-button>
+        <div class="__flex">
+          <div>
+            <el-button
+              type="primary"
+              class="searchBtn"
+              size="small"
+              @click="hanldeSearch"
+            >筛选</el-button>
+            <el-button
+              type="text"
+              @click="handleClear"
+            >清空筛选条件</el-button>
+            <slot name="btn"> </slot>
+          </div>
+        </div>
+        <div class="__right">
+          <slot slot="btn-right"></slot>
+        </div>
       </el-row>
     </div>
     <slot>
@@ -58,7 +66,7 @@
         </el-table-column>
       </el-table>
     </slot>
-    <div class="__flex">
+    <div class="__flex __mt-10">
       <div>
         <slot name="left"></slot>
       </div>
@@ -147,6 +155,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .__mt-10 {
     margin-top: 10px;
   }
 </style>
