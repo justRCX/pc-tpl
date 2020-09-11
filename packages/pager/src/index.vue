@@ -22,10 +22,11 @@
           </div>
         </div>
         <div class="__right">
-          <slot slot="btn-right"></slot>
+          <slot name="btn-right"></slot>
         </div>
       </el-row>
     </div>
+    <slot name="table-before"></slot>
     <slot>
       <el-table
         v-bind="tableAttributes"
