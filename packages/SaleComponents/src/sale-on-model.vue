@@ -126,7 +126,7 @@
   </el-dialog>
 </template>
 
-<script lang="ts">
+<script>
   import myDialog from "../../utils/popup";
   // 商品选择弹窗
   // import SaleService from "@/api/marketing/saleComponents";
@@ -203,12 +203,12 @@
         let self = this;
         // let api;
         let params = {
-            page_size: self.page_info.page_size,
-            title: self.item_keywords,
-            page: self.page_info.page,
-            tool_id: self.toolIds[self.type],
-            type: "",
-          },
+          page_size: self.page_info.page_size,
+          title: self.item_keywords,
+          page: self.page_info.page,
+          tool_id: self.toolIds[self.type],
+          type: "",
+        },
           api;
         if (this.type != 40) {
           api = "Marketing/getSaleList";

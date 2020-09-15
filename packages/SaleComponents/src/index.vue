@@ -200,7 +200,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
   import draggable from "vuedraggable";
   import { saleOnModelInstance } from "./sale-on-model.vue";
   import SaleShow from "./SaleShow.vue";
@@ -360,7 +360,7 @@
           .then((goods) => {
             this.handleGoodsAddConfirm(goods, this.type);
           })
-          .catch(() => {});
+          .catch(() => { });
       },
       // showGoodsModal() {
       //   if (this.type != 40) {
