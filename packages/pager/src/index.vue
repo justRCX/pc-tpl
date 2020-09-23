@@ -7,7 +7,7 @@
       <slot name="search"></slot>
       <el-row :style="{paddingLeft:labelWidth+'px',marginTop:0}">
         <div class="__flex">
-          <div>
+          <div class="__flex">
             <el-button
               type="primary"
               class="searchBtn"
@@ -60,6 +60,7 @@
               <slot
                 :name="item.prop"
                 :row="scope.row"
+                :index="scope.$index"
               ></slot>
             </div>
             <span v-else>{{ scope.row[item.prop] || '-' }}</span>

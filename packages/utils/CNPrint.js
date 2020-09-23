@@ -117,7 +117,7 @@ export default class CNPrint {
 			const documentID = this.getUniId() // 自定义模板打印要保证documentID唯一
 			return {
 				documentID,
-				contents: [JSON.parse(item)],
+				contents: JSON.parse(item),
 			}
 		})
 	}
