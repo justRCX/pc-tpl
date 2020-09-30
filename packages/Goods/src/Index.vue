@@ -102,14 +102,13 @@
           v-if="!isGroup"
           label="商品来源"
         >
-          <el-radio
+          <el-radio-group
             v-model="config.source"
-            :label="1"
-          >商品</el-radio>
-          <el-radio
-            v-model="config.source"
-            :label="2"
-          >商品分组</el-radio>
+            @change="clearSource"
+          >
+            <el-radio :label="1">商品</el-radio>
+            <el-radio :label="2">商品分组</el-radio>
+          </el-radio-group>
         </el-form-item>
         <div
           class="edit-box"
@@ -757,6 +756,11 @@
       draggable: draggable
     },
     methods: {
+      clearSource() {
+        this.config.goods = [];
+        this.config.goodsGroupId = '';
+        this.config.goodsGroupName = '';
+      },
       handleCheckChange(v) {
         if (!v) {
           this.config.viewMoreText = "";
