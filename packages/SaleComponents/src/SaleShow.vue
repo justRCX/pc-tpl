@@ -67,9 +67,18 @@
                 :style="{'background':'linear-gradient(90deg, '+(config.shadeColor1||config.shadeColor2)+','+ (config.shadeColor2||config.shadeColor1)+')'}"
               >
                 <div class="info-left">
-                  <div class="buy-num">
-                    目前已抢
-                    <span class="already-purchased">xx件</span>
+                  <div class="num_wappper">
+                    <div class="buy-num">
+                      已抢
+                      <span class="already-purchased">xx件</span>
+                    </div>
+                    <div
+                      class="buy-num"
+                      v-if="config.type==34"
+                    >
+                      已参团
+                      <span class="already-purchased">xxx人</span>
+                    </div>
                   </div>
                   <div
                     class="buy-price"
@@ -241,6 +250,10 @@
                 <h3>{{item.item_title}}</h3>
                 <p class="sub-title">{{item.selling_point}}</p>
                 <div class="slider"></div>
+                <div
+                  class="joinNum"
+                  v-if="config.type==34"
+                >已参团：xxx 人</div>
                 <div class="buy-price">
                   <span class="Identification">￥</span>
                   <span class="prices">{{item.current_price | integer}}</span>
@@ -440,9 +453,14 @@
               height: 59.35px;
               .info-left {
                 margin-left: 10.176px;
+                .num_wappper {
+                  display: flex;
+                  align-items: center;
+                }
                 .buy-num {
                   font-size: 10px;
                   margin-top: 10.176px;
+                  margin-right: 5px;
                   .already-purchased {
                     line-height: 14.416px;
                     height: 14.416px;
@@ -874,5 +892,10 @@
         margin-left: upx(10);
       }
     }
+  }
+  .joinNum {
+    color: #666;
+    font-size: upx(24);
+    margin-top: upx(12);
   }
 </style>
