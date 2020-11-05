@@ -269,7 +269,10 @@
               show-alpha
             ></el-color-picker>
           </el-form-item>
-          <el-form-item label="图片距离底部距离">
+          <el-form-item
+            label="图片距离底部距离"
+            v-if="config.listType !== 4"
+          >
             <el-slider
               v-model="config.picMb"
               :max="30"
