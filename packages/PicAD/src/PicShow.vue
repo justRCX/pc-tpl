@@ -69,10 +69,10 @@
       :style="{'background':background,backgroundSize:'contain'}"
     >
       <div
-        :style="{padding:'0 ' + '' + (config.lrmargin)+'px','margin-bottom': 320/750*margin+'px'}"
-        style="position:relative;over-flow:hidden;"
+        :style="{padding:'0 ' + '' + (config.lrmargin/750*320)+'px','margin-bottom': 320/750*margin+'px'}"
         v-for="item in imgList"
         :key="item.image_id"
+        class="one-line-item"
       >
         <img
           style="width:100%;"
@@ -549,6 +549,13 @@
     }
     &:hover {
       background-color: transparent;
+    }
+  }
+  .one-line-item {
+    position: relative;
+    overflow: hidden;
+    &:last-child {
+      margin-bottom: 0 !important;
     }
   }
 </style>
