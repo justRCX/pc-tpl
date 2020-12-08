@@ -1,0 +1,75 @@
+.coupon__wrapper-style-5 {
+	.coupon__wrapper-style {
+		position: relative;
+		display: flex;
+		background: #fff;
+		padding: 0 5px;
+
+		&-item {
+			background: #fff;
+			padding: 5px 12px 5px 62px;
+			min-width: 50%;
+			box-sizing: border-box;
+
+			&:nth-child(1) {
+				background: url('http://img.wkdao.com/image/30/2020/12/08/92f13e4bdd94c965d0bd638572607e69.png')
+					no-repeat;
+				background-size: 52px;
+				background-position: 2px 5px;
+			}
+
+			&:nth-child(2) {
+				background: url('http://img.wkdao.com/image/30/2020/12/08/591455053fe0d34cc9c1429d999e99ee.png')
+					no-repeat;
+				background-size: 52px;
+				background-position: 2px 5px;
+			}
+
+			&:nth-child(3) {
+				background: url('http://img.wkdao.com/image/30/2020/12/08/ebdb8ce82ae34b6f5eac586b2063d03a.png')
+					no-repeat;
+				background-size: 52px;
+				background-position: 2px 5px;
+			}
+
+			&:nth-child(4) {
+				background: url('http://img.wkdao.com/image/30/2020/12/08/bc41dd2c0b5dc0017f2bf386e6640495.png')
+					no-repeat;
+				background-size: 52px;
+				background-position: 2px 5px;
+			}
+
+			&__has {
+				background: url('http://img.wkdao.com/image/30/2020/12/08/162a5dda093147d39c09dd7083c90ae7.png')
+					no-repeat;
+			}
+
+			&__disable {
+				background: url('http://img.wkdao.com/image/30/2020/12/08/f597f977fe4a759bbd3c1d0c16e28626.png');
+			}
+
+			p.title {
+				color: rgb(0, 0, 0);
+				font-size: 12px;
+				font-weight: 400;
+			}
+
+			p.desc {
+				font-size: 12px;
+				font-weight: 400;
+				color: #999999;
+			}
+
+			p.action {
+				font-size: 12px;
+				font-weight: 400;
+				color: #ff394a;
+				line-height: 16px;
+
+				i {
+					font-size: 10px;
+				}
+			}
+		}
+	}
+}
