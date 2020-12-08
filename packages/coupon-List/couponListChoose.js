@@ -1,2 +1,2 @@
-import couponListChoose from './src/CouponList.vue'
+import couponListChoose from './src/couponListModal.vue'
 export default couponListChoose

@@ -85,6 +85,17 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination
+        style="float: right;"
+        :small="true"
+        class="pull-left"
+        @current-change="changeList"
+        :current-page="page_info.page"
+        :page-size="page_info.page_size"
+        layout="total,  prev, pager, next, jumper"
+        :total="page_info.total"
+      >
+      </el-pagination>
     </div>
     <div
       slot="footer"
@@ -109,7 +120,13 @@
         // 当前选中的条数
         multipleSelection: [],
         packCouponList: [],
-        ajaxing: false
+        cacheList: [],// 回显的数据
+        ajaxing: false,
+        page_info: {
+          total: 0,
+          page: 1,
+          page_size: 5
+        },
       };
     },
     mounted() {
@@ -125,6 +142,10 @@
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
+      changeList(page) {
+        this.page_info.page = page;
+        this.getList();
+      },
       // 加载列表
       getList(coupon) {
         this.$pcTpl.axios({
@@ -133,6 +154,14 @@
         }).then(res => {
           if (res.status === 1) {
             this.packCouponList = res.data;
+            this.$nextTick(() => {
+              this.packCouponList.forEach(row => {
+                let finexIndex = this.cacheList.findIndex(item => item.coupon_id == row.coupon_id)
+                if (finexIndex >= 0) {
+                  this.$refs.multipleTable.toggleRowSelection(row, true)
+                }
+              })
+            })
           } else {
             this.$message({
               message: res.msg,
