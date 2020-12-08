@@ -969,6 +969,7 @@
             },
             n
           );
+
           if (this.config.goods && this.config.goods.length > 0) {
             this.goodsList = this.config.goods.slice();
           } else {
@@ -1026,6 +1027,10 @@
           };
           this.goodsList = originGoodsList.slice();
           this.groups = originGroups.slice();
+        }
+        if (!this.isGroup && this.config.source == 1) {
+          this.config.goodsGroupId = '';
+          this.config.goodsGroupName = '';
         }
       },
       handleImg() {
