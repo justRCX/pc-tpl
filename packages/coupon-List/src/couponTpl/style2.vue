@@ -10,8 +10,8 @@
         v-for="item in list"
         :style="flexBasic"
         :class="{
-        'coupon__wrapper-style-item__disable':couponStatus == 3,
-        'coupon__wrapper-style-item__has':couponStatus == 2
+        '__disable':couponStatus == 3,
+        '__has':couponStatus == 2
         }"
       >
         <p class="title">{{item.title }}</p>

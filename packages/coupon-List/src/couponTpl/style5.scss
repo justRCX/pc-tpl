@@ -35,28 +35,34 @@
         background-position: 2px 5px;
       }
 
-      &__has {
-        background: url('http://img.wkdao.com/image/30/2020/12/08/162a5dda093147d39c09dd7083c90ae7.png') no-repeat !important;
-        background-size: 52px !important;
-        background-position: 2px 5px !important;
+      &.__has {
+        background: url('http://img.wkdao.com/image/30/2020/12/08/162a5dda093147d39c09dd7083c90ae7.png') no-repeat;
+        background-size: 52px;
+        background-position: 2px 5px;
       }
 
-      &__disable {
-        background: url('http://img.wkdao.com/image/30/2020/12/08/f597f977fe4a759bbd3c1d0c16e28626.png') no-repeat !important;
-        background-size: 52px !important;
-        background-position: 2px 5px !important;
+      &.__disable {
+        background: url('http://img.wkdao.com/image/30/2020/12/08/f597f977fe4a759bbd3c1d0c16e28626.png') no-repeat;
+        background-size: 52px;
+        background-position: 2px 5px;
       }
 
       p.title {
         color: rgb(0, 0, 0);
         font-size: 12px;
         font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       p.desc {
         font-size: 12px;
         font-weight: 400;
         color: #999999;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       p.action {
