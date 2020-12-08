@@ -16,8 +16,8 @@
             size="small"
             @change="handleChooseType"
           >
-            <el-radio-button label="1">手动获取</el-radio-button>
-            <el-radio-button label="2">自动获取</el-radio-button>
+            <el-radio label="1">手动获取</el-radio>
+            <el-radio label="2">自动获取</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item
@@ -64,11 +64,11 @@
             v-model="config.showTemplateType"
             size="small"
           >
-            <el-radio-button
+            <el-radio
               :label="item.value"
               v-for="item in editList.TemplateTypeList"
               :key="item.value"
-            >{{item.label}}</el-radio-button>
+            >{{item.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="排列样式">
@@ -76,11 +76,11 @@
             v-model="config.couponWay"
             size="small"
           >
-            <el-radio-button
+            <el-radio
               :label="item.value"
               v-for="item in editList.couponWayList"
               :key="item.value"
-            >{{item.label}}</el-radio-button>
+            >{{item.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="当前优惠券效果">
@@ -88,11 +88,11 @@
             v-model="config.couponStatus"
             size="small"
           >
-            <el-radio-button
+            <el-radio
               :label="item.value"
               v-for="item in editList.couponStatusList"
               :key="item.value"
-            >{{item.label}}</el-radio-button>
+            >{{item.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item
@@ -115,13 +115,11 @@
   import couponListModal from "./couponListModal.vue";
   import myDialog from '../../utils/popup'
   let couponPop = new myDialog(couponListModal)
-  // import CouponListShow from "./CouponListShow.vue";
   import editList from "./config";
   export default {
     name: "couponList",
     components: {
       draggable: draggable,
-      // "coupon-list-show": CouponListShow
     },
     props: [
       "belongIndex",
