@@ -232,9 +232,6 @@
   };
 </script>
 <style lang="scss" scoped>
-  /deep/.el-radio-group {
-    margin-top: 0 !important;
-  }
   .__width /deep/.el-form-item__label {
     width: auto !important;
   }
