@@ -273,14 +273,14 @@
     filters: {
       integer: function (value) {
         //包括小数点和小数点之前的整数值
-        if (value.indexOf(".") > -1) {
+        if (value && value.indexOf(".") > -1) {
           return value.slice(0, value.indexOf(".") + 1);
         }
         return value;
       },
       floatNum: function (value) {
         //小数点后面的数值
-        if (value.indexOf(".") > -1) {
+        if (value && value.indexOf(".") > -1) {
           return value.slice(value.indexOf(".") + 1);
         }
         return "";
