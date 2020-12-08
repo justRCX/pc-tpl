@@ -20,6 +20,11 @@ let editList = {
 			value: 4,
 			label: '样式4',
 		},
+		{
+			icon: 'el-icon-eleme',
+			value: 5,
+			label: '样式5',
+		},
 	],
 	couponWayList: [
 		{

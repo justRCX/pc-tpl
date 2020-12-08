@@ -14,9 +14,22 @@
         'coupon__wrapper-style-item__has':couponStatus == 2
         }"
       >
-        <p class="title">{{item.title }}</p>
-        <p class="desc">{{item.remark }}</p>
-        <p class="action">立即领取 <i class="iconfont icon-gengduo1"></i></p>
+        <div class="coupon__wrapper-style-item-price">
+          <span class="__icon">￥</span>
+          <span>10</span>
+        </div>
+        <div class="coupon__wrapper-style-item-up">{{item.remark}}</div>
+        <div class="coupon__wrapper-style-item-btn">{{
+        ['','点击领取','去看看','已失效'][couponStatus]
+      }}</div>
+        <span
+          class="coupon__wrapper-style-circle coupon__wrapper-style-circle__left"
+          :style="bg"
+        ></span>
+        <span
+          class="coupon__wrapper-style-circle coupon__wrapper-style-circle__right"
+          :style="bg"
+        ></span>
       </div>
     </div>
   </div>
@@ -69,26 +82,32 @@
 </script>
 
 <style scoped lang='scss'>
-  .coupon__wrapper-style-5,
-  .coupon__wrapper-style-5 {
-    .coupon__wrapper-style-row-1 {
-      border-left: none !important;
+  .coupon__wrapper-style-1,
+  .coupon__wrapper-style-2 {
+    .coupon__wrapper-style-item {
+      &:first-child {
+        border-left: none !important;
+      }
     }
+
     .coupon__wrapper-style-row-2 {
       .coupon__wrapper-style-item {
-        border-bottom: 1px #e9e9e9 solid;
-        &:nth-child(even) {
-          border-left: 1px #e9e9e9 solid;
-          padding-right: 0;
-          background-position: 12px 5px;
-          padding-left: 72px;
+        &:nth-child(odd) {
+          border-left: none !important;
         }
-        &:nth-child(3),
-        &:nth-child(4) {
-          border-bottom: none;
+      }
+    }
+
+    .coupon__wrapper-style-row-3 {
+      .coupon__wrapper-style-item {
+        &:nth-child(3n + 1) {
+          border-left: none !important;
         }
       }
     }
   }
-  @import "./style5.scss";
+  @import "./style1.scss";
+  @import "./style2.scss";
+  @import "./style3.scss";
+  @import "./style4.scss";
 </style>

@@ -1,9 +1,10 @@
 <template>
   <div class="sale-config-box">
-    <!-- <coupon-list-show
-      :list="couponList"
+    <component
+      :is="com"
       :configs="config"
-    ></coupon-list-show> -->
+      :list="couponListComputed"
+    ></component>
     <el-card
       header="优惠券"
       class="edit-area"
@@ -16,8 +17,8 @@
             size="small"
             @change="handleChooseType"
           >
-            <el-radio label="1">手动获取</el-radio>
-            <el-radio label="2">自动获取</el-radio>
+            <el-radio :label="1">手动获取</el-radio>
+            <el-radio :label="2">自动获取</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item
@@ -116,10 +117,14 @@
   import myDialog from '../../utils/popup'
   let couponPop = new myDialog(couponListModal)
   import editList from "./config";
+  import styleOne from './couponTpl/style1'
+  import styleTwo from './couponTpl/style2'
   export default {
     name: "couponList",
     components: {
       draggable: draggable,
+      styleOne,
+      styleTwo
     },
     props: [
       "belongIndex",
@@ -146,6 +151,27 @@
         couponList: [],
         ajaxing: false,
       };
+    },
+    computed: {
+      com() {
+        if (this.config.showTemplateType != 5) {
+          return 'styleOne'
+        } else {
+          return 'styleTwo'
+        }
+      },
+      couponListComputed() {
+        if (this.couponList.length > 0) {
+          return this.couponList
+        } else {
+          return [1, 2, 3, 4].map(item => {
+            return {
+              title: '满减券',
+              remark: '全场通用'
+            }
+          })
+        }
+      }
     },
     methods: {
       // 切换 自动获取/手动获取
