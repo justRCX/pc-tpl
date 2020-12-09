@@ -6,6 +6,7 @@
         :item="item"
         :key="index"
         :show-cart-num="index == 1"
+        :config="config"
       ></c-item>
     </template>
     <template v-else>
@@ -20,6 +21,7 @@
           :item="subItem"
           :waterfall="config.waterfall"
           :show-cart-num="index == 1"
+          :config="config"
         ></c-item>
       </div>
     </template>

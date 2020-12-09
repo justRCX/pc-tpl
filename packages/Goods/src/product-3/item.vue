@@ -13,7 +13,7 @@
       ></div>
     </div>
     <div class="tag">
-      <img :src="item.badge_path">
+      <img :src="config.badge_path">
     </div>
     <div class="product-bottom">
       <div
@@ -38,13 +38,13 @@
           <template v-else>
             <span
               class="__cart"
-              v-if="item.cart == 1"
+              v-if="config.cart == 1"
             >
               <i class="iconfont icon-cartfill"></i>
             </span>
             <span
               class="__plus"
-              v-if="item.cart == 2"
+              v-if="config.cart == 2"
             >
               <i class="iconfont icon-add1"></i>
             </span>
@@ -73,7 +73,7 @@
         return ` background-image: url(${this.item.thumb_image_path})`;
       }
     },
-    props: ['item', 'waterfall', 'showCartNum'],
+    props: ['item', 'waterfall', 'showCartNum', 'config'],
     watch: {},
     beforeRouteEnter(to, from, next) { },
     beforeRouteUpdate(to, from, next) { },
