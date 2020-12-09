@@ -350,6 +350,7 @@
                 this.config.goodsGroupId = "";
                 this.config.goodsGroupName = "";
                 this.config.goods = [];
+                this.group_good_list = [];
             },
             onClick_showGoodsPop() {
                 let selectList = JSON.parse(JSON.stringify(this.config.goods));
