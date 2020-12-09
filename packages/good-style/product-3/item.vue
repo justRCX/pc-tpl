@@ -22,8 +22,8 @@
       >{{item.item_title}}</div>
       <div
         class="product-desc"
-        v-if="waterfall && !item.selling_point"
-      >{{item.selling_point}}</div>
+        v-if="waterfall ? item.selling_point : true"
+      >{{item.selling_point || '商品描述为空会很难看'}}</div>
       <div class="product-sale">
         <span>已售999件</span>
         <span>库存999件</span>
@@ -94,18 +94,20 @@
 </script>
 
 <style scoped lang='scss'>
+  @import "../../util.scss";
   .product {
-    border-radius: 12/2 * 1px;
+    border-radius: to320(12);
     position: relative;
     width: calc(50% - 5px);
-    margin-top: 10px;
+    margin-top: to320(20);
     overflow: hidden;
     .tag {
       position: absolute;
-      top: 10/2 * 1px;
+      top: to320(10);
       left: 0;
-      width: 114/2 * 1px;
-      height: 38/2 * 1px;
+      width: to320(114);
+      height: to320(38);
+      overflow: hidden;
       z-index: 4;
       img {
         display: block;
@@ -117,7 +119,7 @@
     }
     &-img {
       position: relative;
-      border-radius: 12/2 * 1px 12/2 * 1px 0 0;
+      border-radius: to320(12) to320(12) 0 0;
       overflow: hidden;
       padding-top: 100%;
       position: relative;
@@ -139,15 +141,15 @@
       background-image: url("https://img.qianhuituan.cn/web/images/11_1569205880_Hh3hqHcUew.png");
     }
     &-bottom {
-      padding: 20/2 * 1px;
+      padding: to320(20);
       background: #fff;
     }
     &-title {
-      height: 64/2 * 1px;
-      font-size: 28/2 * 1px;
+      height: to320(64);
+      font-size: to320(28);
       font-weight: bold;
       color: #333333;
-      line-height: 36/2 * 1px;
+      line-height: to320(36);
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -158,11 +160,11 @@
       }
     }
     &-desc {
-      font-size: 24/2 * 1px;
+      font-size: to320(24);
       font-weight: 400;
       color: #999999;
-      height: 36 * 1px;
-      line-height: 36 * 1px;
+      height: to320(72);
+      line-height: to320(72);
       border-bottom: 1px solid #eeeeee;
       overflow: hidden;
       white-space: nowrap;
@@ -171,12 +173,12 @@
     &-sale {
       display: flex;
       justify-content: space-between;
-      font-size: 20/2 * 1px;
       font-weight: 400;
       color: #999999;
-      line-height: 36/2 * 1px;
-      margin-top: 18/2 * 1px;
+      line-height: to320(36);
+      margin-top: to320(18);
       span {
+        font-size: to320(20);
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -187,40 +189,40 @@
       justify-content: space-between;
       align-items: center;
       &-price {
-        margin-top: 16/2 * 1px;
-        line-height: 36/2 * 1px;
+        margin-top: to320(16);
+        line-height: to320(36);
         font-weight: 400;
         .__current {
-          font-size: 30/2 * 1px;
+          font-size: to320(30);
           color: #ff1947;
           display: block;
           i {
-            font-size: 20/2 * 1px;
+            font-size: to320(20);
           }
         }
         .before_price {
           text-decoration: line-through;
           color: #999999;
-          font-size: 20/2 * 1px;
+          font-size: to320(20);
           display: block;
         }
       }
       &-cart {
         .__cart {
           display: block;
-          width: 100/2 * 1px;
-          height: 46/2 * 1px;
-          line-height: 46/2 * 1px;
+          width: to320(100);
+          height: to320(46);
+          line-height: to320(46);
           background: #ff1947;
-          border-radius: 23/2 * 1px;
+          border-radius: to320(23);
           text-align: center;
           color: #fff;
         }
         .__plus {
           background: #ff1947;
-          height: 46/2 * 1px;
-          line-height: 46/2 * 1px;
-          width: 46/2 * 1px;
+          height: to320(46);
+          line-height: to320(46);
+          width: to320(46);
           text-align: center;
           color: #fff;
           border-radius: 50%;
