@@ -9,7 +9,7 @@
   import procuct3 from './product-3'
   export default {
     name: 'product',
-    components: { cProductThree },
+    components: { procuct3 },
     computed: {
       com() {
         return `procuct${this.listType}`
