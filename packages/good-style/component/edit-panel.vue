@@ -21,13 +21,9 @@
           :label="item.key"
           @change="onchange_getBadgeImg(item)"
         >{{item.name}}</el-radio>
-      </el-form-item>
-      <el-form-item
-        v-if="config.badge === 5"
-        label=""
-      >
         <c-img
-          @changeImg="onChange_chooseImg"
+          v-if="config.badge_id == 5"
+          v-model="config.badge_path"
           :number="1"
         ></c-img>
       </el-form-item>
