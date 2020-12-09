@@ -1,8 +1,9 @@
 <template>
     <div class="goods-tuan">
         <good-item
-            v-if="!isGroup"
             :config="config"
+            :list="config.goods"
+            :listType="config.listType"
             :group="false"
         ></good-item>
         <el-card
@@ -17,7 +18,6 @@
 <!--                商品来源-->
                 <div class="goods-origin-wrap">
                     <el-form-item
-                        v-if="!isGroup"
                         label="商品来源： "
                     >
                         <el-radio-group
@@ -30,7 +30,7 @@
 <!--                    复制黏贴过来的-->
                     <div
                         class="edit-box"
-                        v-show="!isGroup && config.source === 1"
+                        v-show="config.source === 1"
                     >
                         <div class="edit-label">商品:</div>
                         <div class="goods_flex">
@@ -74,7 +74,7 @@
                     </div>
                     <div
                         class="edit-box multi-line"
-                        v-show="!isGroup && config.source === 2"
+                        v-show="config.source === 2"
                     >
                         <div class="edit-item">
                             <div class="edit-label">商品分组:</div>
@@ -331,36 +331,19 @@
                 this.goodsGroupForm.visible = true;
             },
             handleGoodsGroupAddConfirm(groups) {
-                if (this.isGroup) {
-                    // 判断是否是商品修改
-                    if (this.goodsGroupForm.index !== "") {
-                        // 修改
-                        this.config.goodsGroups.splice(
-                            Number.parseInt(this.goodsGroupForm.index),
-                            1,
-                            groups
-                        );
-                        this.goodsGroupForm.index = "";
-                    } else {
-                        // 新增
-                        this.config.goodsGroups.push(groups);
+                this.config.goodsGroupId = groups.group_id;
+                this.config.goodsGroupName = groups.group_title;
+                this.$pcTpl.axios({
+                    url: '/Item/itemListWithGroup',
+                    method: 'get',
+                    params: {
+                        group_id: groups.group_id
                     }
-                    this.groups = this.config.goodsGroups.slice();
-                } else {
-                    this.config.goodsGroupId = groups.group_id;
-                    this.config.goodsGroupName = groups.group_title;
-                    this.$pcTpl.axios({
-                        url: '/Item/itemListWithGroup',
-                        method: 'get',
-                        params: {
-                            group_id: groups.group_id
-                        }
-                    }).then(res => {
-                        if (res.status == 1) {
-                            this.config.goods = res.data;
-                        }
-                    });
-                }
+                }).then(res => {
+                    if (res.status == 1) {
+                        this.config.goods = res.data;
+                    }
+                });
             },
             removeGoodsGroup() {
                 this.config.goodsGroupId = "";
