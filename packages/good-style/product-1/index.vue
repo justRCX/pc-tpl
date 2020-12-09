@@ -20,7 +20,9 @@
                 <p class="opare-line-buy__car g-flex g-flex-jc g-flex-ac" v-if="config.cart==1">
                   <i class="iconfont icon-cartfill"></i>
                 </p>
-                <i class="el-icon-circle-plus __add" v-if="config.cart==2"></i>
+                <div class="__add-btn" v-if="config.cart == 2">
+                  <i class="iconfont icon-add1"></i>
+                </div>
                 <!-- <p class="opare-line-buy__sku">选规格</p> -->
               </div>
             </div>

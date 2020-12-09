@@ -1,5 +1,5 @@
 <template>
-  <div class="opera flexBetween">
+  <div class="opera flexBetween" :class="size">
     <div class="sub flexCenter">
       <i class="iconfont icon-sub"></i>
     </div>
@@ -12,6 +12,7 @@
 
 <script>
   export default {
+    props:['size'],
     name: 'plus',
   }
 </script>
@@ -20,6 +21,7 @@
   .opera {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 66px;
     line-height: 23px;
     height: 23px;
@@ -47,5 +49,19 @@
     color: #fff;
     border-radius: 50%;
     display: block;
+  }
+  .large {
+    &.opera {
+      width: 90px;
+      height: auto;
+    }
+    .num {
+      font-size: 14px;
+    }
+    .add,.sub {
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+    }
   }
 </style>
