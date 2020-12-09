@@ -60,10 +60,6 @@
   export default {
     name: 'product-style-3',
     components: { CPlus },
-    filters: {},
-    directives: {},
-    mixins: [],
-    model: [],
     data() {
       return {
       }
@@ -74,22 +70,6 @@
       }
     },
     props: ['item', 'waterfall', 'showCartNum', 'config'],
-    watch: {},
-    beforeRouteEnter(to, from, next) { },
-    beforeRouteUpdate(to, from, next) { },
-    beforeRouteLeave(to, from, next) { },
-    beforeCreate() { },
-    created() { },
-    beforeMount() { },
-    mounted() { },
-    beforeUpdate() { },
-    updated() { },
-    beforeDestroy() { },
-    destroyed() { },
-    activated() { },
-    deactivated() { },
-    errorCaptured() { },
-    methods: {}
   }
 </script>
 
