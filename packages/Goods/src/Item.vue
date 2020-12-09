@@ -2,6 +2,7 @@
   <component
     :is="com"
     :config="config"
+    :list="list"
   ></component>
 </template>
 
@@ -15,7 +16,7 @@
         return `procuct${this.listType}`
       }
     },
-    props: ['listType', 'config'],
+    props: ['listType', 'config', 'list'],
   }
 </script>
 

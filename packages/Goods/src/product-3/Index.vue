@@ -63,7 +63,7 @@
         return [left, right]
       }
     },
-    props: ['waterFall'],
+    props: ['list'],
     watch: {},
     beforeRouteEnter(to, from, next) { },
     beforeRouteUpdate(to, from, next) { },
