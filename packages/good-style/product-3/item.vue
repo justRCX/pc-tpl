@@ -95,14 +95,14 @@
 
 <style scoped lang='scss'>
   .product {
-    border-radius: 6px;
+    border-radius: 12/2 * 1px;
     position: relative;
     width: calc(50% - 5px);
     margin-top: 10px;
     overflow: hidden;
     .tag {
       position: absolute;
-      top: 5px;
+      top: 10/2 * 1px;
       left: 0;
       width: 114/2 * 1px;
       height: 38/2 * 1px;
@@ -117,7 +117,7 @@
     }
     &-img {
       position: relative;
-      border-radius: 6px 6px 0 0;
+      border-radius: 12/2 * 1px 12/2 * 1px 0 0;
       overflow: hidden;
       padding-top: 100%;
       position: relative;
@@ -139,7 +139,7 @@
       background-image: url("https://img.qianhuituan.cn/web/images/11_1569205880_Hh3hqHcUew.png");
     }
     &-bottom {
-      padding: 10px;
+      padding: 20/1 * 1px;
       background: #fff;
     }
     &-title {
@@ -175,7 +175,7 @@
       font-weight: 400;
       color: #999999;
       line-height: 36/2 * 1px;
-      margin-top: 9px;
+      margin-top: 18/2 * 1px;
       span {
         overflow: hidden;
         white-space: nowrap;
@@ -187,7 +187,7 @@
       justify-content: space-between;
       align-items: center;
       &-price {
-        margin-top: 8px;
+        margin-top: 16/2 * 1px;
         line-height: 36/2 * 1px;
         font-weight: 400;
         .__current {
@@ -218,9 +218,9 @@
         }
         .__plus {
           background: #ff1947;
-          height: 23px;
-          line-height: 23px;
-          width: 23px;
+          height: 46/2 * 1px;
+          line-height: 46/2 * 1px;
+          width: 46/2 * 1px;
           text-align: center;
           color: #fff;
           border-radius: 50%;
