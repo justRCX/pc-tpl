@@ -5,7 +5,7 @@
         v-for="(item,index) in list"
         :item="item"
         :key="index"
-        :show-cart-num="index == 2"
+        :show-cart-num="index == 1"
       ></c-item>
     </template>
     <template v-else>
