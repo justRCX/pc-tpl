@@ -146,7 +146,7 @@
                     <el-radio
                         v-for="item in booleanOption"
                         :key="item.key"
-                        v-model="config.isshowCate"
+                        v-model="config.isShowCate"
                         :label="item.key"
                     >{{item.name}}</el-radio>
                 </el-form-item>
@@ -154,7 +154,7 @@
                     <el-radio
                         v-for="item in booleanOption"
                         :key="item.key"
-                        v-model="config.isshowBuyHis"
+                        v-model="config.isShowBuyHis"
                         :label="item.key"
                     >{{item.name}}</el-radio>
                 </el-form-item>
