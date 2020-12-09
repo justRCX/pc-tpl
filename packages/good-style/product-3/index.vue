@@ -18,6 +18,7 @@
       >
         <c-item
           v-for="subItem in item"
+          :key="subItem.itemm_id"
           :item="subItem"
           :waterfall="config.waterfall"
           :show-cart-num="index == 1"
@@ -40,8 +41,7 @@
     },
     computed: {
       waterFallList() {
-        let xx = this.list.map((i, index) => {
-          let item = {};
+        let xx = this.list.map((item, index) => {
           if (index % 2 == 0) {
             item.right = true;
           } else {
