@@ -119,8 +119,9 @@
                         <el-radio
                             v-for="item in badgeList"
                             :key="item.key"
-                            v-model="config.badge"
+                            v-model="config.badge_id"
                             :label="item.key"
+                            @change="onchange_getBadgeImg(item)"
                         >{{item.name}}</el-radio>
                     </el-form-item>
                     <el-form-item
@@ -128,7 +129,7 @@
                         label=""
                     >
                         <c-img
-                            v-model="config.customBadge"
+                            @changeImg="onChange_chooseImg"
                             :number="1"
                         ></c-img>
                     </el-form-item>
@@ -199,7 +200,8 @@
                     isGroup: 0,  //是不是商品分组
                     listType: 1,  //商品样式
                     cart: 1, //加购物车样式
-                    badge: 0, //角标
+                    badge_id: 0, //角标
+                    badge_path: '', //选中的角标路径
                     customBadge: '', //自定义角标
                     isshowCate: 1, //是否展示快捷进入分类
                     isshowBuyHis: 1, //是否显示购买记录
@@ -208,7 +210,6 @@
                     goodsGroupId: "",
                     goodsGroupName: "",
                     // 分组参数
-                    templateId: 1,
                     goodsGroups: [],
                     source: 1,
                 },
@@ -235,7 +236,8 @@
                 cartList: [
                     {
                         key: 1,
-                        name: '购物车图标'
+                        name: '购物车图标',
+                        image_path: ''
                     },
                     {
                         key: 2,
@@ -245,27 +247,33 @@
                 badgeList: [
                     {
                         key: 0,
-                        name: '无'
+                        name: '无',
+                        image_path:''
                     },
                     {
                         key: 1,
-                        name: '新品'
+                        name: '新品',
+                        image_path: 'https://img.qianhuituan.cn/uploads/images/202006/29/FBytqwCIMbjv0QUCmdBdhw2BlTNoKWkNFaJgVwKm.png'
                     },
                     {
                         key: 2,
-                        name: '热卖'
+                        name: '热卖',
+                        image_path: 'https://img.qianhuituan.cn/uploads/images/202006/29/Wo5VRQd3oyk69owjeOlslkKwoq1MJhwXYlnaoZJ9.png'
                     },
                     {
                         key: 3,
-                        name: 'NEW'
+                        name: 'NEW',
+                        image_path: 'https://img.qianhuituan.cn/uploads/images/202006/29/tVLDvUsNw1B5wo7J15wmoTjsYPXkK4ikCFavhynv.png'
                     },
                     {
                         key: 4,
-                        name: 'HOT'
+                        name: 'HOT',
+                        image_path: 'https://img.qianhuituan.cn/uploads/images/202006/29/tVLDvUsNw1B5wo7J15wmoTjsYPXkK4ikCFavhynv.png'
                     },
                     {
                         key: 5,
-                        name: '自定义上传'
+                        name: '自定义上传',
+                        image_path:''
                     },
                 ],
                 listTypes: [
@@ -305,14 +313,6 @@
                     this.$emit("update:content", this.config);
                 }
             },
-            config: {
-                handler(newVal) {
-                    trace(this.content, 'watch config')
-                    this.$emit("changeConfig", this.config);
-                },
-                deep: true,
-                immediate: true
-            }
         },
         created() {
             trace(this.content, 'created')
@@ -377,6 +377,12 @@
                         this.config.goods = [...goods];
                     })
                     .catch(() => { });
+            },
+            onchange_getBadgeImg($item) {
+                this.config.badge_path = $item.image_path;
+            },
+            onChange_chooseImg($imges) {
+                this.config.badge_path = $image;
             }
         }
     }
