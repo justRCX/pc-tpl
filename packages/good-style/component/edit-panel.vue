@@ -21,11 +21,13 @@
           :label="item.key"
           @change="onchange_getBadgeImg(item)"
         >{{item.name}}</el-radio>
-        <c-img
-          v-if="config.badge_id == 5"
-          v-model="config.badge_path"
-          :number="1"
-        ></c-img>
+        <div v-if="config.badge_id == 5">
+          <c-img
+            v-model="config.badge_path"
+            :number="1"
+          ></c-img>
+          建议上传宽度104px的png图片，高度等比例缩放
+        </div>
       </el-form-item>
     </div>
     <el-form-item label="加购物车样式： ">

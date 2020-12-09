@@ -83,20 +83,6 @@
 
       }
     },
-    filters:{
-      integer: value => {
-        if (value && value.indexOf('.') > -1) {
-          return value.slice(0, value.indexOf('.') + 1);
-        }
-        return value;
-      },
-      floatNum: value => {
-        if (value && value.indexOf('.') > -1) {
-          return value.slice(value.indexOf('.') + 1);
-        }
-        return '';
-      }
-    }
   }
 </script>
 <style scoped lang="scss">
