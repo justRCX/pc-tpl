@@ -139,7 +139,7 @@
       background-image: url("https://img.qianhuituan.cn/web/images/11_1569205880_Hh3hqHcUew.png");
     }
     &-bottom {
-      padding: 20/1 * 1px;
+      padding: 20/2 * 1px;
       background: #fff;
     }
     &-title {
