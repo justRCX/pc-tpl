@@ -3,11 +3,17 @@
     class=" product"
     :class="{waterfall:waterfall}"
   >
-    <div class="product-img">
-      <div class="__sale-out"></div>
+    <div
+      class="product-img"
+      :style="background"
+    >
+      <div
+        class="__sale-out"
+        v-if="num == 0"
+      ></div>
     </div>
     <div class="tag">
-      <img src="https://img.qianhuituan.cn/uploads/images/202006/29/FBytqwCIMbjv0QUCmdBdhw2BlTNoKWkNFaJgVwKm.png">
+      <img :src="item.badge_path">
     </div>
     <div class="product-bottom">
       <div
@@ -24,17 +30,25 @@
       </div>
       <div class="product-action">
         <div class="product-action-price">
-          <span class="__current"><i>￥</i>23.99</span>
-          <span class="before_price">￥59.99</span>
+          <span class="__current"><i>￥</i>66.66</span>
+          <span class="before_price">￥88.88</span>
         </div>
         <div class="product-action-cart">
-          <!-- <span class="__cart">
-            <i class="iconfont icon-cartfill"></i>
-          </span>
-          <span class="__plus">
-            <i class="iconfont icon-add1"></i>
-          </!-->
-          <c-plus></c-plus>
+          <c-plus v-if="showCartNum"></c-plus>
+          <template v-else>
+            <span
+              class="__cart"
+              v-if="item.cart == 1"
+            >
+              <i class="iconfont icon-cartfill"></i>
+            </span>
+            <span
+              class="__plus"
+              v-if="item.cart == 2"
+            >
+              <i class="iconfont icon-add1"></i>
+            </span>
+          </template>
         </div>
       </div>
     </div>
@@ -42,7 +56,7 @@
 </template>
 
 <script>
-  import CPlus from './plus'
+  import CPlus from '../component/plus'
   export default {
     name: 'product-style-3',
     components: { CPlus },
@@ -54,8 +68,12 @@
       return {
       }
     },
-    computed: {},
-    props: ['item', 'waterfall'],
+    computed: {
+      background() {
+        return ` background-image: url(${this.item.thumb_image_path})`;
+      }
+    },
+    props: ['item', 'waterfall', 'showCartNum'],
     watch: {},
     beforeRouteEnter(to, from, next) { },
     beforeRouteUpdate(to, from, next) { },
@@ -105,7 +123,6 @@
       position: relative;
       background: no-repeat center center;
       background-size: cover;
-      background-image: url("https://img.qianhuituan.cn/uploads/images/202006/01/J3Fgy5s1XXIyr94OOlzqMpDxtrYceEqlsOhjTGgv.jpeg");
     }
     .__sale-out {
       position: absolute;
@@ -159,6 +176,11 @@
       color: #999999;
       line-height: 36/2 * 1px;
       margin-top: 9px;
+      span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
     &-action {
       display: flex;

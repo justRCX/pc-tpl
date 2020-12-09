@@ -2,8 +2,10 @@
   <div class="product-three">
     <template v-if="!config.waterfall">
       <c-item
-        v-for="item in list"
+        v-for="(item,index) in list"
         :item="item"
+        :key="index"
+        :show-cart-num="index == 2"
       ></c-item>
     </template>
     <template v-else>
@@ -17,6 +19,7 @@
           v-for="subItem in item"
           :item="subItem"
           :waterfall="config.waterfall"
+          :show-cart-num="index == 1"
         ></c-item>
       </div>
     </template>
