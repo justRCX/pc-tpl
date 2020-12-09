@@ -170,9 +170,9 @@
 
 <script>
     import draggable from "vuedraggable";
-    import GoodsGroupForm from "./src/GroupForm.vue";
+    import GoodsGroupForm from "./GroupForm.vue";
     import GoodItem from "./Item.vue";
-    import GoodsGroup from "./src/GoodsGroup.vue";
+    import GoodsGroup from "./GoodsGroup.vue";
     const originGroups = [
         {
             group_id: "1",
