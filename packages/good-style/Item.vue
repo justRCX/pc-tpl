@@ -9,7 +9,7 @@
 <script>
   import product3 from './product-3/index.vue'
   export default {
-    name: 'product',
+    name: 'product1',
     components: { product3 },
     computed: {
       com() {
