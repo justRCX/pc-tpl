@@ -17,32 +17,33 @@
 </script>
 
 <style scoped lang='scss'>
+  @import "../../util.scss";
   .opera {
     display: flex;
     justify-content: space-between;
-    width: 66px;
-    line-height: 23px;
-    height: 23px;
+    width: to320(66 * 2);
+    line-height: to320(23 * 2);
+    height: to320(23 * 2);
     color: #333333;
-    font-size: 14px;
+    font-size: to320(28);
   }
   .sub {
-    height: 23px;
-    line-height: 23px;
-    width: 23px;
+    height: to320(46);
+    line-height: to320(46);
+    width: to320(46);
     text-align: center;
     color: #fff;
     border-radius: 50%;
     display: block;
     border: 1px #ff1947 solid;
-    font-size: 12px;
+    font-size: to320(24);
     color: #ff1947;
   }
   .add {
     background: #ff1947;
-    height: 23px;
-    line-height: 23px;
-    width: 23px;
+    height: to320(46);
+    line-height: to320(46);
+    width: to320(46);
     text-align: center;
     color: #fff;
     border-radius: 50%;
