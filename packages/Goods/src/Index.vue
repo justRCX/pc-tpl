@@ -1,10 +1,9 @@
 <template>
   <div class="goods-tuan">
     <good-item
-      v-if="!isGroup"
       :config="config"
       :listType="config.listType"
-      :group="false"
+      :list="config.goods"
     ></good-item>
     <el-card
       v-if="belongIndex === currentIndex"
@@ -382,4 +381,8 @@
 </script>
 
 <style scoped>
+  .goods-tuan {
+    background: #000;
+    min-height: 100px;
+  }
 </style>

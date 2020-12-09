@@ -13,8 +13,11 @@
       <div
         class="product-title"
         :class="waterfall?'__height-auto':''"
-      >{{item.title}}</div>
-      <div class="product-desc">这是商品描述</div>
+      >{{item.item_title}}</div>
+      <div
+        class="product-desc"
+        v-if="waterfall && !item.selling_point"
+      >{{item.selling_point}}</div>
       <div class="product-sale">
         <span>已售999件</span>
         <span>库存999件</span>
@@ -86,9 +89,9 @@
       width: 114/2 * 1px;
       height: 38/2 * 1px;
       z-index: 4;
-      img{
+      img {
         display: block;
-    width: 100%;
+        width: 100%;
       }
     }
     &.waterfall {

@@ -7,13 +7,13 @@
 </template>
 
 <script>
-  import procuct3 from './product-3'
+  import product3 from './product-3/index.vue'
   export default {
     name: 'product',
-    components: { procuct3 },
+    components: { product3 },
     computed: {
       com() {
-        return `procuct${this.listType}`
+        return `product${this.listType}`
       }
     },
     props: ['listType', 'config', 'list'],
