@@ -32,7 +32,7 @@
             <span class="opare-word__line-price">{{item.current_price}}</span>
           </div>
           <template v-if="config.isShowCate != 1">
-              <div class="opare-word__add" v-if="config.cart == 1">加入购物车</div>
+              <div class="opare-word__add __go-btn" v-if="config.cart == 1">加入购物车</div>
               <!-- <c-plus v-if="config.cart == 2" size="large"></c-plus> -->
               <div class="__add-btn" v-if="config.cart == 2">
                 <i class="iconfont icon-add1"></i>
@@ -41,8 +41,8 @@
         </div>
       </div>
       <div class="goods-conetnt-btn g-flex g-flex-sb g-flex-ac" v-if="config.isShowCate == 1">
-          <div class="goods-conetnt-btn__goin __btn">进入分类页</div>
-          <div class="goods-conetnt-btn__add __btn" v-if="config.cart == 1">加入购物车</div>
+          <div class="goods-conetnt-btn__goin __go-btn">进入分类页</div>
+          <div class="goods-conetnt-btn__add __go-btn" v-if="config.cart == 1">加入购物车</div>
           <!-- <c-plus v-if="config.cart == 2" size="large"></c-plus> -->
           <div class="__add-btn" v-if="config.cart == 2">
             <i class="iconfont icon-add1"></i>
@@ -70,5 +70,6 @@
   }
 </script>
 <style scoped lang="scss">
+ @import "../../util.scss";
  @import "./index.scss";
 </style>
