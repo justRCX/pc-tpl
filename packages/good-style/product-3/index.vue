@@ -34,25 +34,18 @@
   export default {
     name: 'product-style-3',
     components: { CItem },
-    filters: {},
-    directives: {},
-    mixins: [],
-    model: [],
     data() {
       return {
       }
     },
     computed: {
       waterFallList() {
-        let arr = new Array(10).fill(1)
-        let xx = arr.map((i, index) => {
+        let xx = this.list.map((i, index) => {
           let item = {};
           if (index % 2 == 0) {
             item.right = true;
-            item.title = '这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题'
           } else {
             item.right = false;
-            item.title = '这是商品标题'
           }
           return item
         })
@@ -62,22 +55,6 @@
       }
     },
     props: ['list', 'config'],
-    watch: {},
-    beforeRouteEnter(to, from, next) { },
-    beforeRouteUpdate(to, from, next) { },
-    beforeRouteLeave(to, from, next) { },
-    beforeCreate() { },
-    created() { },
-    beforeMount() { },
-    mounted() { },
-    beforeUpdate() { },
-    updated() { },
-    beforeDestroy() { },
-    destroyed() { },
-    activated() { },
-    deactivated() { },
-    errorCaptured() { },
-    methods: {}
   }
 </script>
 
