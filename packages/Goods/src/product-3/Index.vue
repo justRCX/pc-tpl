@@ -1,20 +1,26 @@
 <template>
   <div class="product-three">
-    <!-- <c-item
-      v-for="item in list"
-      :item="item"
-    ></c-item> -->
-    <div
-      v-for="(item,index) in waterFallList"
-      class="waterFall-wrapper"
-      :class="index == 0? 'right':'left'"
-    >
+    <template v-if="!config.waterfall">
       <c-item
-        v-for="subItem in item"
-        :item="subItem"
-        :waterfall="true"
+        v-for="item in list"
+        :item="item"
       ></c-item>
-    </div>
+    </template>
+    <template v-else>
+      <div
+        v-for="(item,index) in waterFallList"
+        class="waterFall-wrapper"
+        :key="index"
+        :class="index == 0? 'right':'left'"
+      >
+        <c-item
+          v-for="subItem in item"
+          :item="subItem"
+          :waterfall="config.waterfall"
+        ></c-item>
+      </div>
+    </template>
+
   </div>
 </template>
 
@@ -32,19 +38,6 @@
       }
     },
     computed: {
-      list() {
-        let arr = new Array(10).fill(1)
-        let xx = arr.map((i, index) => {
-          let item = {};
-          if (index == 5) {
-            item.title = '这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题这是商品标题'
-          } else {
-            item.title = '这是商品标题'
-          }
-          return item
-        })
-        return xx
-      },
       waterFallList() {
         let arr = new Array(10).fill(1)
         let xx = arr.map((i, index) => {
@@ -63,7 +56,7 @@
         return [left, right]
       }
     },
-    props: ['list'],
+    props: ['list', 'config'],
     watch: {},
     beforeRouteEnter(to, from, next) { },
     beforeRouteUpdate(to, from, next) { },

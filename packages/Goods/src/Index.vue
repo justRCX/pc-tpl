@@ -174,6 +174,7 @@
     import GoodsGroupForm from "./GroupForm.vue";
     import GoodItem from "./Item.vue";
     import GoodsGroup from "./GoodsGroup.vue";
+
     const originGroups = [
         {
             group_id: "1",
@@ -191,12 +192,6 @@
                 type: 1,
                 // 传进去的参数
                 config: {
-                    // TBMargin: 0, //商品组件上下边距
-                    // isHeader: 1, // 是否要头部
-                    // isShowIco: 1, //是否显示头部图标
-                    // isDefaultIco: 1, //是否使用默认头部图标
-                    // defaultIco: '', //默认头部图标url
-                    // customIco: '', //自定义ico
                     isGroup: 0,  //是不是商品分组
                     listType: 1,  //商品样式
                     cart: 1, //加购物车样式
@@ -371,6 +366,26 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    .goods_flex {
+        display: flex;
+        flex-wrap: wrap;
+    .wrapper {
 
+        span {
+            max-width: 400px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+    }
+    .flexs {
+        display: flex;
+    }
+
+    }
+  .goods-tuan {
+    background: #000;
+    min-height: 100px;
+  }
 </style>
