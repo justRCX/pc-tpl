@@ -88,5 +88,6 @@
   }
 </script>
 <style scoped lang="scss">
+ @import "../../util.scss";
  @import "./index.scss";
 </style>
