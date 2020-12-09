@@ -146,7 +146,7 @@
                     <el-radio
                         v-for="item in booleanOption"
                         :key="item.key"
-                        v-model="config.isshowCate"
+                        v-model="config.isShowCate"
                         :label="item.key"
                     >{{item.name}}</el-radio>
                 </el-form-item>
@@ -154,7 +154,7 @@
                     <el-radio
                         v-for="item in booleanOption"
                         :key="item.key"
-                        v-model="config.isshowBuyHis"
+                        v-model="config.isShowBuyHis"
                         :label="item.key"
                     >{{item.name}}</el-radio>
                 </el-form-item>
@@ -198,8 +198,8 @@
                     badge_id: 0, //角标
                     badge_path: '', //选中的角标路径
                     customBadge: '', //自定义角标
-                    isshowCate: 1, //是否展示快捷进入分类
-                    isshowBuyHis: 1, //是否显示购买记录
+                    isShowCate: 1, //是否展示快捷进入分类
+                    isShowBuyHis: 1, //是否显示购买记录
                     showCount: 6,
                     goods: [], //商品列表
                     goodsGroupId: "",
