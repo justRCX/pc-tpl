@@ -9,7 +9,7 @@
     >
       <div
         class="__sale-out"
-        v-if="num == 0"
+        v-if="item.num == 0"
       ></div>
     </div>
     <div class="tag">

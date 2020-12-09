@@ -150,7 +150,7 @@
                         :label="item.key"
                     >{{item.name}}</el-radio>
                 </el-form-item>
-                <el-form-item label="购买记录： ">
+                <el-form-item v-if="config.listType === 1" label="购买记录： ">
                     <el-radio
                         v-for="item in booleanOption"
                         :key="item.key"
@@ -172,8 +172,7 @@
 <script>
     import draggable from "vuedraggable";
     import GoodsGroupForm from "./GroupForm.vue";
-    import GoodItem from "../../good-style/Item";
-    import GoodsGroup from "./GoodsGroup.vue";
+    import GoodItem from "../../good-style/Item.vue";
 
     const originGroups = [
         {
@@ -295,7 +294,6 @@
         components: {
             "good-item": GoodItem,
             draggable: draggable,
-            "goods-group": GoodsGroup,
             "goods-group-form": GoodsGroupForm,
         },
         watch: {
