@@ -33,13 +33,13 @@
                         v-show="config.source === 1"
                     >
                         <div class="edit-label">商品:</div>
-                        <div class="goods_flex">
+                        <div class="">
                             <draggable
-                                class="wrapper"
+                                class="wrapper goods_flex"
                                 v-model="config.goods"
                                 :options="{draggable:'.item'}"
                             >
-                                <transition-group>
+<!--                                <transition-group>-->
                                     <div
                                         v-for="(obj, index) in config.goods"
                                         :key="index+Math.random()+Math.random()"
@@ -68,7 +68,7 @@
                                             class="iconfont icon-add1"
                                         ></i>
                                     </div>
-                                </transition-group>
+<!--                                </transition-group>-->
                             </draggable>
                         </div>
                     </div>
@@ -106,7 +106,8 @@
                         </div>
                     </div>
                 </div>
-                <el-form-item label="列表样式： ">
+                <edit-panel :config='config'>zhangbo</edit-panel>
+                <!-- <el-form-item label="列表样式： ">
                     <el-radio
                         v-for="item in listTypes"
                         :key="item.key"
@@ -155,7 +156,7 @@
                         v-model="config.isShowBuyHis"
                         :label="item.key"
                     >{{item.name}}</el-radio>
-                </el-form-item>
+                </el-form-item> -->
             </el-form>
         </el-card>
 <!--        商品分组弹窗组件-->
@@ -171,6 +172,7 @@
     import draggable from "vuedraggable";
     import GoodsGroupForm from "./GroupForm.vue";
     import GoodItem from "../../good-style/Item.vue";
+    import EditPanel from '../../good-style/component/edit-panel.vue';
 
     const originGroups = [
         {
@@ -214,7 +216,7 @@
                 },
                 // 分组
                 groups: originGroups.slice(),
-                goodsList: [],
+                goodsList: [{"item_id":5150,"item_type":1,"item_title":"快递商品","selling_point":"","thumb_image_path":"https://cbu01.alicdn.com/img/ibank/2020/053/860/17218068350_609132103.jpg","current_price":"12.00","num":79,"create_time":"2020-05-26 17:34:34","shelf_time":"2020-11-27 10:45:45","shelf_off_time":"","_item_type":"实物商品"},{"item_id":5130,"item_type":1,"item_title":"3333","selling_point":"","thumb_image_path":"http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20180829/5c52764eeb0246ec8887e669374fc16e.jpeg","current_price":"11.00","num":78,"create_time":"2020-05-23 10:17:36","shelf_time":"2020-10-14 21:09:29","shelf_off_time":"","_item_type":"实物商品"},{"item_id":5126,"item_type":1,"item_title":"平邮商品","selling_point":"","thumb_image_path":"http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20180829/5c52764eeb0246ec8887e669374fc16e.jpeg","current_price":"90.00","num":1396,"create_time":"2020-05-20 10:35:18","shelf_time":"2020-12-05 16:42:57","shelf_off_time":"","_item_type":"实物商品"},{"item_id":7035,"item_type":1,"item_title":"贡献值测试（勿删）","selling_point":"","thumb_image_path":"http://img.wkdao.com/image/65/2020/12/03/94456288f8844e4abd7f67b1eef3540f.png","current_price":"200.00","num":93,"create_time":"2020-12-09 10:09:06","shelf_time":"2020-12-09 13:23:54","shelf_off_time":"","_item_type":"实物商品"},{"item_id":7034,"item_type":1,"item_title":"贡献值测试（倪克松专用）","selling_point":"43124313","thumb_image_path":"http://img.alicdn.com/imgextra/i1/595412874/O1CN01Qwle3X1X6Kr4HCqCs_!!595412874.jpg","current_price":"100.00","num":1243,"create_time":"2020-12-08 16:10:22","shelf_time":"2020-12-09 11:19:53","shelf_off_time":"","_item_type":"实物商品"},{"item_id":7033,"item_type":1,"item_title":"供应商商品","selling_point":"","thumb_image_path":"http://img.wkdao.com/image/65/2020/11/13/8b51f92a808a8174e20bfca51fa98da5.jpg","current_price":"60.00","num":137,"create_time":"2020-12-04 10:28:00","shelf_time":"2020-12-08 14:24:18","shelf_off_time":"","_item_type":"实物商品"},{"item_id":7028,"item_type":4,"item_title":"酒店测试","selling_point":"","thumb_image_path":"http://img.wkdao.com/image/65/2020/11/03/904da7ac885fc2344e2f0683bfbd9b42.png","current_price":"100.00","num":900,"create_time":"2020-11-21 10:11:59","shelf_time":"2020-12-07 15:05:07","shelf_off_time":"","_item_type":"酒店商品"},{"item_id":7012,"item_type":1,"item_title":"湛江特产食神牌水晶凤爪冰公主子6包实惠装180g零食送泡沫箱包邮","selling_point":"我是卖点我是卖点我是卖点我是卖点我是卖点","thumb_image_path":"https://img.alicdn.com/imgextra/i4/2372362463/O1CN01S8d9uD1U4652AB2tI_!!2372362463.jpg","current_price":"39.80","num":75550,"create_time":"2020-11-15 15:54:29","shelf_time":"2020-12-09 11:43:53","shelf_off_time":"","_item_type":"实物商品"}][{"item_id":5150,"item_type":1,"item_title":"快递商品","selling_point":"","thumb_image_path":"https://cbu01.alicdn.com/img/ibank/2020/053/860/17218068350_609132103.jpg","current_price":"12.00","num":79,"create_time":"2020-05-26 17:34:34","shelf_time":"2020-11-27 10:45:45","shelf_off_time":"","_item_type":"实物商品"},{"item_id":5130,"item_type":1,"item_title":"3333","selling_point":"","thumb_image_path":"http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20180829/5c52764eeb0246ec8887e669374fc16e.jpeg","current_price":"11.00","num":78,"create_time":"2020-05-23 10:17:36","shelf_time":"2020-10-14 21:09:29","shelf_off_time":"","_item_type":"实物商品"},{"item_id":5126,"item_type":1,"item_title":"平邮商品","selling_point":"","thumb_image_path":"http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20180829/5c52764eeb0246ec8887e669374fc16e.jpeg","current_price":"90.00","num":1396,"create_time":"2020-05-20 10:35:18","shelf_time":"2020-12-05 16:42:57","shelf_off_time":"","_item_type":"实物商品"},{"item_id":7035,"item_type":1,"item_title":"贡献值测试（勿删）","selling_point":"","thumb_image_path":"http://img.wkdao.com/image/65/2020/12/03/94456288f8844e4abd7f67b1eef3540f.png","current_price":"200.00","num":93,"create_time":"2020-12-09 10:09:06","shelf_time":"2020-12-09 13:23:54","shelf_off_time":"","_item_type":"实物商品"},{"item_id":7034,"item_type":1,"item_title":"贡献值测试（倪克松专用）","selling_point":"43124313","thumb_image_path":"http://img.alicdn.com/imgextra/i1/595412874/O1CN01Qwle3X1X6Kr4HCqCs_!!595412874.jpg","current_price":"100.00","num":1243,"create_time":"2020-12-08 16:10:22","shelf_time":"2020-12-09 11:19:53","shelf_off_time":"","_item_type":"实物商品"},{"item_id":7033,"item_type":1,"item_title":"供应商商品","selling_point":"","thumb_image_path":"http://img.wkdao.com/image/65/2020/11/13/8b51f92a808a8174e20bfca51fa98da5.jpg","current_price":"60.00","num":137,"create_time":"2020-12-04 10:28:00","shelf_time":"2020-12-08 14:24:18","shelf_off_time":"","_item_type":"实物商品"},{"item_id":7028,"item_type":4,"item_title":"酒店测试","selling_point":"","thumb_image_path":"http://img.wkdao.com/image/65/2020/11/03/904da7ac885fc2344e2f0683bfbd9b42.png","current_price":"100.00","num":900,"create_time":"2020-11-21 10:11:59","shelf_time":"2020-12-07 15:05:07","shelf_off_time":"","_item_type":"酒店商品"},{"item_id":7012,"item_type":1,"item_title":"湛江特产食神牌水晶凤爪冰公主子6包实惠装180g零食送泡沫箱包邮","selling_point":"我是卖点我是卖点我是卖点我是卖点我是卖点","thumb_image_path":"https://img.alicdn.com/imgextra/i4/2372362463/O1CN01S8d9uD1U4652AB2tI_!!2372362463.jpg","current_price":"39.80","num":75550,"create_time":"2020-11-15 15:54:29","shelf_time":"2020-12-09 11:43:53","shelf_off_time":"","_item_type":"实物商品"}],
                 booleanOption:  [
                     {
                         key: 1,
@@ -293,8 +295,9 @@
             "good-item": GoodItem,
             draggable: draggable,
             "goods-group-form": GoodsGroupForm,
+            'edit-panel': EditPanel
         },
-        watch: {
+   watch: {
             content(n) {
                 trace(n, 'content')
                 this.init(n);
@@ -363,7 +366,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .goods_flex {
+    .edit-box .goods_flex {
         display: flex;
         flex-wrap: wrap;
     .wrapper {
