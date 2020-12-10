@@ -56,17 +56,17 @@
   }
   .large {
     &.opera {
-      width: 90px;
+      width: to320(180);
       height: auto;
     }
     .num {
-      font-size: 14px;
+      font-size: to320(28);
     }
     .add,
     .sub {
-      width: 28px;
-      height: 28px;
-      line-height: 28px;
+      width: to320(50);
+      height: to320(50);
+      line-height: to320(50);
     }
   }
 </style>
