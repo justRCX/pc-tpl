@@ -9,8 +9,6 @@
       :header="config.headName"
     v-if="belongIndex === currentIndex"
     >
-
-
         <edit-panel :config='config'>
           <div class="edit-box">
             <div class="edit-label">选择营销活动:</div>
@@ -163,7 +161,7 @@
         config: {
           saleList: [],
           isShowHeadIco: 1, //是否默认头部ico
-          headIconUrl: 'https://img.qianhuituan.cn/uploads/images/202006/29/FAiaT2Bxw79LRpvkN8N8EpkrCtTDWRckt6EX3D5a.png', //头部图标
+          headIconUrl: '', //头部图标
           defIconUrl:"https://img.qianhuituan.cn/uploads/images/202006/29/FAiaT2Bxw79LRpvkN8N8EpkrCtTDWRckt6EX3D5a.png", //默认头部图标
           isDefHeadIco: 1,  //是否默认头部ico
           isShowHeadName: 1, //是否显示头部名称
@@ -294,10 +292,8 @@
             // <!-- debugger -->
             // this.getList()
           }
-          if (newVal.isDefHeadIco == 2) {
-            this.config.headIconUrl = ""
-          }
-          // this.saleList = newVal.saleList;
+          if (newVal.isDefHeadIco == 2) this.config.headIconUrl = "";
+          if (newVal.isDefHeadIco == 1) this.config.headIconUrl = this.config.defIconUrl
         },
         deep: true,
         immediate: true,
