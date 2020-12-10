@@ -98,9 +98,10 @@
                             <el-input
                                 v-model="config.showCount"
                                 style="width:80px"
-                                max="50"
+                                max="10"
                                 type="number"
                                 size="small"
+                                @input="onChange_showCount"
                             ></el-input>
                             <span class="grey-span">最多显示10</span>
                         </div>
@@ -273,21 +274,22 @@
                 listTypes: [
                     {
                         key: 1,
-                        name: '样式一'
+                        name: '详细列表'
                     },
                     {
                         key: 2,
-                        name: '样式二'
+                        name: '大图'
                     },
                     {
                         key: 3,
-                        name: '样式三'
+                        name: '一行两个'
                     },
                     {
                         key: 4,
-                        name: '样式四'
+                        name: '一行三个'
                     },
                 ],
+                group_good_list:[]
             }
         },
         props: ["belongIndex", "currentIndex", "isGroup", "content"],
@@ -297,7 +299,8 @@
             "goods-group-form": GoodsGroupForm,
             'edit-panel': EditPanel
         },
-   watch: {
+
+        watch: {
             content(n) {
                 trace(n, 'content')
                 this.init(n);
@@ -307,6 +310,9 @@
                     this.$emit("update:content", this.config);
                 }
             },
+            'config.showCount'() {
+                this.config.goods = this.group_good_list.slice(0, this.config.showCount);
+            }
         },
         created() {
             trace(this.content, 'created')
@@ -331,11 +337,12 @@
                     url: '/Item/itemListWithGroup',
                     method: 'get',
                     params: {
-                        group_id: groups.group_id
+                        group_id: groups.group_id,
                     }
                 }).then(res => {
                     if (res.status == 1) {
-                        this.config.goods = res.data;
+                        this.group_good_list = __merge([], res.data);
+                        this.config.goods = this.group_good_list.slice(0, this.config.showCount);
                     }
                 });
             },
@@ -343,6 +350,7 @@
                 this.config.goodsGroupId = "";
                 this.config.goodsGroupName = "";
                 this.config.goods = [];
+                this.group_good_list = [];
             },
             onClick_showGoodsPop() {
                 let selectList = JSON.parse(JSON.stringify(this.config.goods));
@@ -360,6 +368,11 @@
             },
             onChange_chooseImg($imges) {
                 this.config.badge_path = $image;
+            },
+            onChange_showCount($val) {
+                if ($val > 10) {
+                    this.config.showCount = 10;
+                }
             }
         }
     }

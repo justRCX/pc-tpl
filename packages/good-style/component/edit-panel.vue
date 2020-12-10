@@ -46,7 +46,7 @@
         :label="item.key"
       >{{item.name}}</el-radio>
     </el-form-item>
-    <el-form-item label="购买记录： ">
+    <el-form-item v-if="config.listType == 1" label="购买记录： " >
       <el-radio
         v-for="item in booleanOption"
         :key="item.key"
@@ -126,19 +126,19 @@
         listTypes: [
           {
             key: 1,
-            name: '样式一'
+            name: '详细列表'
           },
           {
             key: 2,
-            name: '样式二'
+            name: '大图'
           },
           {
             key: 3,
-            name: '样式三'
+            name: '一行两个'
           },
           {
             key: 4,
-            name: '样式四'
+            name: '一行三个'
           },
         ],
       }
