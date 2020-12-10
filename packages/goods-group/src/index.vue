@@ -1,12 +1,6 @@
 <template>
   <div class="goods-tuan">
-    <!-- <good-item
-      :config="config"
-      :list="config.goods"
-      :listType="config.listType"
-      :group="false"
-    ></good-item> -->
-    <div>商品分组</div>
+    <goods-group-view :config="config"></goods-group-view>
     <el-card
       v-if="belongIndex === currentIndex"
       class="edit-area"
@@ -15,7 +9,7 @@
       <edit-panel :config='config'>
         <div
           slot="goods"
-          v-if="templateId == 1"
+          v-if="config.templateId == 2"
         ></div>
         <el-form-item label="商品来源： ">
           <el-radio-group v-model="config.templateId">
@@ -82,8 +76,9 @@
           <span class="active-span">添加商品分组</span>
         </div>
         <el-form-item
-          label="样式："
+          label="tab头样式："
           @change="handleStyleChange"
+          v-show="config.templateId == 1"
         >
           <el-radio-group v-model="config.style">
             <el-radio :label="1">样式1</el-radio>
@@ -109,6 +104,7 @@
   import GoodItem from "../../good-style/Item.vue";
   import EditPanel from '../../good-style/component/edit-panel.vue';
   import goodsStyleConfig from '../../good-style/config'
+  import goodsGroupView from './views'
   export default {
     name: "goodsGroup",
     data() {
@@ -138,8 +134,7 @@
     },
     props: ["belongIndex", "currentIndex", "content"],
     components: {
-      "good-item": GoodItem,
-      draggable: draggable,
+      "goods-group-view": goodsGroupView,
       'edit-panel': EditPanel
     },
 
