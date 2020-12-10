@@ -211,7 +211,6 @@
         goods.forEach((elem) => {
           saleList.push(JSON.parse(JSON.stringify(elem)));
         });
-        debugger
         this.config.saleList = saleList;
       },
       deleteGood(index) {
