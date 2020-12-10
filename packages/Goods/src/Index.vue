@@ -11,11 +11,7 @@
             class="edit-area"
             header="商品"
         >
-            <el-form
-                label-width="120px"
-                style="text-align:left;"
-            >
-<!--                商品来源-->
+            <edit-panel :config='config'>
                 <div class="goods-origin-wrap">
                     <el-form-item
                         label="商品来源： "
@@ -27,7 +23,7 @@
                             <el-radio :label="2">商品分组</el-radio>
                         </el-radio-group>
                     </el-form-item>
-<!--                    复制黏贴过来的-->
+                    <!--                    复制黏贴过来的-->
                     <div
                         class="edit-box"
                         v-show="config.source === 1"
@@ -35,40 +31,40 @@
                         <div class="edit-label">商品:</div>
                         <div class="">
                             <draggable
+                                :options="{draggable:'.item'}"
                                 class="wrapper goods_flex"
                                 v-model="config.goods"
-                                :options="{draggable:'.item'}"
                             >
-<!--                                <transition-group>-->
-                                    <div
-                                        v-for="(obj, index) in config.goods"
-                                        :key="index+Math.random()+Math.random()"
-                                        class="flexs item"
-                                    >
-                                        <div class="card-img">
-                                            <i
-                                                class="el-icon-close close-btn"
-                                                @click="onClick_deleteGood(index)"
-                                            ></i>
-                                            <img
-                                                style="width:100%;height:100%;"
-                                                :src="obj.thumb_image_path"
-                                                alt="商品图片"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="card-add"
-                                        @click="onClick_showGoodsPop"
-                                        :key="1234"
-                                        sortable
-                                    >
+                                <!--                                <transition-group>-->
+                                <div
+                                    :key="index+Math.random()+Math.random()"
+                                    class="flexs item"
+                                    v-for="(obj, index) in config.goods"
+                                >
+                                    <div class="card-img">
                                         <i
-                                            style="color:#409EFF"
-                                            class="iconfont icon-add1"
+                                            @click="onClick_deleteGood(index)"
+                                            class="el-icon-close close-btn"
                                         ></i>
+                                        <img
+                                            :src="obj.thumb_image_path"
+                                            alt="商品图片"
+                                            style="width:100%;height:100%;"
+                                        />
                                     </div>
-<!--                                </transition-group>-->
+                                </div>
+                                <div
+                                    :key="1234"
+                                    @click="onClick_showGoodsPop"
+                                    class="card-add"
+                                    sortable
+                                >
+                                    <i
+                                        class="iconfont icon-add1"
+                                        style="color:#409EFF"
+                                    ></i>
+                                </div>
+                                <!--                                </transition-group>-->
                             </draggable>
                         </div>
                     </div>
@@ -79,86 +75,35 @@
                         <div class="edit-item">
                             <div class="edit-label">商品分组:</div>
                             <el-tag
-                                size="medium"
-                                v-show="config.goodsGroupId !== ''"
                                 @close="removeGoodsGroup"
                                 closable
+                                size="medium"
+                                v-show="config.goodsGroupId !== ''"
                             >
                                 <span>商品标签|</span>
                                 <span>{{config.goodsGroupName}}</span>
                             </el-tag>
                             <span
-                                v-show="config.goodsGroupId === ''"
-                                class="active-span"
                                 @click="onClick_showGoodsGroupPop(1)"
+                                class="active-span"
+                                v-show="config.goodsGroupId === ''"
                             >从商品分组中选择</span>
                         </div>
                         <div class="edit-item">
                             <div class="edit-label">显示数量:</div>
                             <el-input
-                                v-model="config.showCount"
-                                style="width:80px"
-                                max="10"
-                                type="number"
-                                size="small"
                                 @input="onChange_showCount"
+                                max="10"
+                                size="small"
+                                style="width:80px"
+                                type="number"
+                                v-model="config.showCount"
                             ></el-input>
                             <span class="grey-span">最多显示10</span>
                         </div>
                     </div>
                 </div>
-                <edit-panel :config='config'>zhangbo</edit-panel>
-                <!-- <el-form-item label="列表样式： ">
-                    <el-radio
-                        v-for="item in listTypes"
-                        :key="item.key"
-                        v-model="config.listType"
-                        :label="item.key"
-                    >{{item.name}}</el-radio>
-                </el-form-item>
-                <div class="badge-wrap">
-                    <el-form-item label="商品角标： ">
-                        <el-radio
-                            v-for="item in badgeList"
-                            :key="item.key"
-                            v-model="config.badge_id"
-                            :label="item.key"
-                            @change="onchange_getBadgeImg(item)"
-                        >{{item.name}}</el-radio>
-                    </el-form-item>
-                    <el-form-item>
-                        <c-img
-                            v-if="config.badge_id == 5"
-                            v-model="config.badge_path"
-                            :number="1"
-                        ></c-img>
-                    </el-form-item>
-                </div>
-                <el-form-item label="加购物车样式： ">
-                    <el-radio
-                        v-for="item in cartList"
-                        :key="item.key"
-                        v-model="config.cart"
-                        :label="item.key"
-                    >{{item.name}}</el-radio>
-                </el-form-item>
-                <el-form-item label="快捷进入分类： ">
-                    <el-radio
-                        v-for="item in booleanOption"
-                        :key="item.key"
-                        v-model="config.isShowCate"
-                        :label="item.key"
-                    >{{item.name}}</el-radio>
-                </el-form-item>
-                <el-form-item v-if="config.listType === 1" label="购买记录： ">
-                    <el-radio
-                        v-for="item in booleanOption"
-                        :key="item.key"
-                        v-model="config.isShowBuyHis"
-                        :label="item.key"
-                    >{{item.name}}</el-radio>
-                </el-form-item> -->
-            </el-form>
+            </edit-panel>
         </el-card>
 <!--        商品分组弹窗组件-->
         <goods-group-form
