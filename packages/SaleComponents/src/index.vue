@@ -136,7 +136,7 @@
                   <el-form-item label="链接：">
                     <page-link-select
                         :ref="'pageLinkSelect'"
-                        :selectValue="moreLink"
+                        :selectValue="config.moreLink"
                         @linkSelected="(e)=>{linkSelected(e)}"
                     ></page-link-select>
                   </el-form-item>
@@ -154,6 +154,7 @@
   import { saleOnModelInstance } from "./sale-on-model.vue";
   import SaleShow from "./SaleShow.vue";
   import EditPanel from '../../good-style/component/edit-panel.vue';
+  import goodsStyleConfig from '../../good-style/config'
 
   export default {
     name: "SaleComponents",
@@ -177,13 +178,7 @@
             choose: null,
           }, //更多链接
           isShowHead: 1, //是否显示头部
-          listType: 1,  //商品样式
-          cart: 1, //加购物车样式
-          badge_id: 0, //角标
-          badge_path: '', //选中的角标路径
-          customBadge: '', //自定义角标
-          isShowCate: 1, //是否展示快捷进入分类
-          isShowBuyHis: 1, //是否显示购买记录
+          ...goodsStyleConfig
         },
         ajaxing: false,
       };
