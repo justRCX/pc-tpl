@@ -128,44 +128,32 @@
 				width: calc(100% - 110px);
 				&-content {
 					position: relative;
-					left: to320(100);
-					top: to320(-4);
-					width: to320(200);
+					display: flex;
+					align-items: center;
+					width: to320(300);
+					height: to320(70);
 					.avatar_i {
 						height: to320(44);
 						width: to320(44);
 						position: absolute;
-						left: 0;
-						top: 0;
-						&:nth-of-type(1) {
-							left: to320(30);
-						}
-						&:nth-of-type(2) {
-							left: to320(60);
-						}
-						&:nth-of-type(3) {
-							left: to320(90);
-						}
-						&:nth-of-type(4) {
-							left: to320(120);
-						}
-						&:nth-of-type(5) {
-							left: to320(150);
-						}
-						&:last-of-type {
-							left: to320(200);
-						}
+						right: 0;
+						top: 50%;
+						margin-top: to320(-22);
+						border: 1px solid #ffffff;
+						border-radius: 50%;
 						img {
 							width: 100%;
 							border-radius: 50%;
 						}
 					}
-					&__head {
-					}
+				}
+				&__head {
 				}
 				&__desc {
 					color: #999;
 					font-size: to320(24);
+					display: flex;
+					align-items: center;
 				}
 			}
 		}
