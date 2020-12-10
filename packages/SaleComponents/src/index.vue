@@ -129,15 +129,18 @@
                     <el-radio :label="0">不展示</el-radio>
                   </el-radio-group>
                 </el-form-item>
-                <el-form-item label=" ">
-                  <el-input style="width:250px" size="mini" v-if="config.isShowMore" v-model="config.moreText" maxlength></el-input>
-                </el-form-item>
-                <el-form-item label="链接：">
-                  <page-link-select
-                      :ref="'pageLinkSelect'"
-                      @linkSelected="(e)=>{linkSelected(e)}"
-                  ></page-link-select>
-                </el-form-item>
+                <div v-if="config.isShowMore">
+                  <el-form-item label=" ">
+                    <el-input style="width:250px" size="mini"  v-model="config.moreText" maxlength></el-input>
+                  </el-form-item>
+                  <el-form-item label="链接：">
+                    <page-link-select
+                        :ref="'pageLinkSelect'"
+                        :selectValue="moreLink"
+                        @linkSelected="(e)=>{linkSelected(e)}"
+                    ></page-link-select>
+                  </el-form-item>
+                </div>
               </div>
             </div>
           </div>
@@ -167,7 +170,12 @@
           isShowCD: 1, //是否显示倒计时
           isShowMore: 1, //是否显示更多
           moreText: '更多', //更多文案
-          moreLink: '', //更多链接
+          moreLink: {
+            origin_id: '',
+            urlType: "",
+            urlTitle: "",
+            choose: null,
+          }, //更多链接
           isShowHead: 1, //是否显示头部
           listType: 1,  //商品样式
           cart: 1, //加购物车样式
@@ -188,7 +196,7 @@
     },
     methods: {
       linkSelected($data) {
-        this.config.moreLink = $data.url;
+        this.config.moreLink = $data
       },
       saleOnModelInstance() {
         let selectList = JSON.parse(JSON.stringify(this.config.saleList));
@@ -290,6 +298,9 @@
           if (newVal.saleList.length > 0) {
             // <!-- debugger -->
             // this.getList()
+          }
+          if (newVal.isDefHeadIco == 2) {
+            this.config.headIconUrl = ""
           }
           // this.saleList = newVal.saleList;
         },
