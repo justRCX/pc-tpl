@@ -17,12 +17,12 @@
             <div class="goods_flex">
               <draggable
                   class="wrapper"
-                  v-model="saleList"
+                  v-model="config.saleList"
                   :options="{draggable:'.item'}"
               >
                 <transition-group>
                   <div
-                      v-for="(obj, index) in saleList"
+                      v-for="(obj, index) in config.saleList"
                       :key="index"
                       class="flexs item"
                   >
@@ -211,6 +211,7 @@
         goods.forEach((elem) => {
           saleList.push(JSON.parse(JSON.stringify(elem)));
         });
+        debugger
         this.config.saleList = saleList;
       },
       deleteGood(index) {
