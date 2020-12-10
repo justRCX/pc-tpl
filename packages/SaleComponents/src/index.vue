@@ -2,7 +2,7 @@
   <div class="sale-config-box">
     <sale-show
       :config="config"
-      :list="saleList"
+      :list="config.saleList"
     ></sale-show>
     <el-card
       class="edit-area"
@@ -242,7 +242,7 @@
           .then((res) => {
             if (res.status === 1) {
               this.ajaxing = false;
-              this.saleList = [];
+              this.config.saleList = [];
               self.config.saleList.forEach((item) => {
                 let info = {};
                 for (let i = 0; i < res.data.length; i++) {
@@ -251,7 +251,7 @@
                     break;
                   }
                 }
-                this.saleList.push(info);
+                this.config.saleList.push(info);
               });
             } else {
               this.$message({
