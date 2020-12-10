@@ -115,6 +115,7 @@
   import GoodsGroupForm from "./GroupForm.vue";
   import GoodItem from "../../good-style/Item.vue";
   import EditPanel from '../../good-style/component/edit-panel.vue';
+  import goodsStyleConfig from '../../good-style/config'
 
   const originGroups = [
     {
@@ -133,14 +134,7 @@
         type: 1,
         // 传进去的参数
         config: {
-          isGroup: 0,  //是不是商品分组
-          listType: 1,  //商品样式
-          cart: 1, //加购物车样式
-          badge_id: 0, //角标
-          badge_path: '', //选中的角标路径
-          customBadge: '', //自定义角标
-          isShowCate: 1, //是否展示快捷进入分类
-          isShowBuyHis: 1, //是否显示购买记录
+          ...goodsStyleConfig,
           showCount: 6,
           goods: [], //商品列表
           goodsGroupId: "",
@@ -162,7 +156,7 @@
         group_good_list: []
       }
     },
-    props: ["belongIndex", "currentIndex", "isGroup", "content"],
+    props: ["belongIndex", "currentIndex", "content"],
     components: {
       "good-item": GoodItem,
       draggable: draggable,
