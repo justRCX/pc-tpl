@@ -78,6 +78,7 @@
                     label="图标： "
                 >
                   <el-radio-group
+                      @change="onchange_headIcon"
                       v-model="config.isDefHeadIco"
                   >
                     <el-radio :label="1">默认</el-radio>
@@ -161,7 +162,7 @@
         config: {
           saleList: [],
           isShowHeadIco: 1, //是否默认头部ico
-          headIconUrl: '', //头部图标
+          headIconUrl: 'https://img.qianhuituan.cn/uploads/images/202006/29/FAiaT2Bxw79LRpvkN8N8EpkrCtTDWRckt6EX3D5a.png', //头部图标
           defIconUrl:"https://img.qianhuituan.cn/uploads/images/202006/29/FAiaT2Bxw79LRpvkN8N8EpkrCtTDWRckt6EX3D5a.png", //默认头部图标
           isDefHeadIco: 1,  //是否默认头部ico
           isShowHeadName: 1, //是否显示头部名称
@@ -188,6 +189,10 @@
       'edit-panel': EditPanel
     },
     methods: {
+      onchange_headIcon($val) {
+        if ($val == 2) this.config.headIconUrl = "";
+        if ($val == 1) this.config.headIconUrl = this.config.defIconUrl
+      },
       linkSelected($data) {
         this.config.moreLink = $data
       },
@@ -287,13 +292,11 @@
         }
       },
       config: {
-        handler(newVal) {
+        handler(newVal, oldVal) {
           if (newVal.saleList.length > 0) {
             // <!-- debugger -->
             // this.getList()
           }
-          if (newVal.isDefHeadIco == 2) this.config.headIconUrl = "";
-          if (newVal.isDefHeadIco == 1) this.config.headIconUrl = this.config.defIconUrl
         },
         deep: true,
         immediate: true,
