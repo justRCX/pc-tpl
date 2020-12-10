@@ -11,6 +11,7 @@ import CImg from './img-upload/c-img.vue'
 import imgContentAgent from './img-upload/img-content-agent.vue'
 import imgContentPc from './img-upload/img-content-pc.vue'
 import CPager from './pager/index.js'
+import GoodsGroup from './goods-group/index.js'
 import goodsOnShelves from './choose-list/index.js'
 import CPreview from './preview'
 let components = [
@@ -29,6 +30,7 @@ let components = [
 	goodsOnShelves,
 	CPager,
 	CPreview,
+	GoodsGroup,
 ]
 
 import { getAxiosAgent, getAxiosPc } from './utils/request'
