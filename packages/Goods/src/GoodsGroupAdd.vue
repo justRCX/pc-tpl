@@ -1,6 +1,10 @@
 <template>
   <div class="u-goods-edit">
-    <good-item :list="goodsList" :config="config"></good-item>
+    <good-item
+      :list="goodsList"
+      :config="config"
+      :listType="config.listType">
+    </good-item>
     <el-card
       :header="isEdit ? '编辑商品分组':'新建商品分组'"
       class="edit-area"
@@ -54,59 +58,7 @@
             <el-radio :label="1">是</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="列表样式">
-          <el-radio
-            @change="handleListTypeChange"
-            v-for="item in configs.listTypes2"
-            :key="item.key"
-            v-model="config.listType"
-            :label="item.key"
-          >{{item.name}}</el-radio>
-        </el-form-item>
-        <el-form-item label="显示比例">
-            <el-radio
-              v-for="item in configs.zooms"
-              :key="item.key"
-              v-model="config.zoom"
-              :label="item.key"
-            >{{item.name}}</el-radio>
-          </el-form-item>
-        <el-form-item label="显示样式">
-          <el-radio
-            v-for="item in configs.styles"
-            :key="item.key"
-            v-model="config.style"
-            :label="item.key"
-          >{{item.name}}</el-radio>
-        </el-form-item>
-        <el-form-item label="显示内容">
-          <el-checkbox-group v-model="config.content" :min="1">
-            <el-checkbox class="check-line" :label="1" v-show="config.style !== 4">商品名称</el-checkbox>
-            <el-checkbox class="check-line" :label="3" v-show="config.style !== 4">商品价格</el-checkbox>
-            <el-checkbox class="check-line" :label="4">购买按钮</el-checkbox>
-            <el-radio-group
-              class="check-sub"
-              v-show="config.style !== 1 && config.content.includes(4)"
-              v-model="config.buyIcon"
-            >
-              <el-radio
-                v-for="item in configs.buyIcons"
-                :label="item.key"
-                :key="item.key"
-              >{{item.name}}</el-radio>
-            </el-radio-group>
-            <el-input
-              v-show="config.buyIcon === 3 || config.buyIcon === 4"
-              v-model="config.buyText"
-              placeholder="点击输入"
-              maxlength="4"
-            ></el-input>
-            <!-- <el-checkbox class="check-line" :label="5">商品角标</el-checkbox>
-                        <el-radio-group class="check-sub" v-show="config.content.includes(5)" v-model="config.cornerIcon">
-                            <el-radio v-for="item in configs.cornerIcons" :label="item.key" :key="item.key">{{item.name}}</el-radio>
-            </el-radio-group>-->
-          </el-checkbox-group>
-        </el-form-item>
+        <edit-panel :config="config"></edit-panel>
         <el-form-item label="商品标签简介">
           <div ref="editor"></div>
         </el-form-item>
@@ -117,10 +69,13 @@
 
 <script>
 import E from "wangeditor";
-import GoodItem from "./Item.vue";
-import ConfigData from "./config.ts";
+import GoodItem from "../../good-style/Item.vue";
+import ConfigData from "./config";
 import GoodsService from "@/api/goods/goods";
-const originImgUrl = require("../../assets/preview.png");
+import EditPanel from '../../good-style/component/edit-panel.vue';
+import goodsStyleConfig from '../../good-style/config'
+
+const originImgUrl = require("@/assets/preview.png");
 const originGoodsList = [
   {
     item_id: 1,
@@ -152,7 +107,7 @@ const originGoodsList = [
   }
 ];
 export default {
-  name: "goodsGroupAdd",
+  name: "GoodsGroupAdd",
   data() {
     return {
       goodsList: originGoodsList.slice(),
@@ -168,7 +123,9 @@ export default {
   },
   props: ["belongIndex", "currentIndex", "isGroup", "content", "isEdit"],
   components: {
-    "good-item": GoodItem
+    "good-item": GoodItem,
+    'edit-panel': EditPanel,
+
   },
   methods: {
     // 列表样式控制
@@ -219,7 +176,8 @@ export default {
         buyIcon: 1,
         cornerIcon: 1,
         decorateHtml: "",
-        buyText: "马上抢"
+        buyText: "马上抢",
+        ...goodsStyleConfig
       },
       this.content
     );
