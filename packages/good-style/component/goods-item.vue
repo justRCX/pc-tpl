@@ -4,14 +4,14 @@
       class="goods-item__img"
       :style="background"
     ></div>
-    <p class="goods-item__title g-ellipsis-2">{{list.item_title}}</p>
+    <p class="goods-item__title g-ellipsis-2">{{item.item_title}}</p>
     <div class="g-flex g-flex-sb g-flex-ac goods-item-foot">
       <div>
         <p class="goods-item-foot__price-current">
           <span class="__symbol">￥</span>
-          <span class="__price">{{list.current_price}}</span>
+          <span class="__price">{{item.current_price}}</span>
         </p>
-        <p class="goods-item-foot__price-line">￥{{list.current_price}}</p>
+        <p class="goods-item-foot__price-line">￥{{item.current_price}}</p>
       </div>
       <div class="goods-item-buy">
         <p class="goods-item-buy__car g-flex g-flex-jc g-flex-ac">
@@ -24,7 +24,7 @@
 </template>
 <script>
   export default {
-    props: ['config', 'list'],
+    props: ['config', 'item'],
     data() {
       return {
 
@@ -32,7 +32,7 @@
     },
     computed: {
       background() {
-        return ` background-image: url(${this.list.thumb_image_path})`;
+        return ` background-image: url(${this.item.thumb_image_path})`;
       }
     },
     mounted() {

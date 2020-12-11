@@ -7,7 +7,7 @@
         class="goods-wapper-item"
       >
         <goods-item
-          :list="item"
+          :item="item"
           :config="config"
         ></goods-item>
       </div>
