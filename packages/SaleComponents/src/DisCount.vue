@@ -111,8 +111,10 @@
                   <el-radio :label="1">展示</el-radio>
                   <el-radio :label="0">不展示</el-radio>
                 </el-radio-group>
-                <el-input style="width:250px" size="mini"  v-if="config.isShowHeadName"  v-model="config.headName" maxlength></el-input>
-                <div class="txt-limit-tip">建议最多4个字以内</div>
+                <div v-if="config.isShowHeadName">
+                  <el-input style="width:250px" size="mini"    v-model="config.headName" maxlength></el-input>
+                  <div class="txt-limit-tip">建议最多4个字以内</div>
+                </div>
               </el-form-item>
               <el-form-item
                   label="倒计时模块： "
