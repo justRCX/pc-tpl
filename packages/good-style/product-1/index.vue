@@ -27,8 +27,8 @@
             <p class="goods-conetnt__sub-title g-ellipsis-1">{{item.selling_point}}</p>
           </div>
           <div>
-            <div class="opare-line g-flex g-flex-sb g-flex-ac">
-              <span class="opare-line-label">团购价</span>
+            <div class="opare-line g-flex g-flex-ac">
+              <!-- <span class="opare-line-label">团购价</span> -->
               <div class="opare-line-buy">
                 <p
                   class="opare-line-buy__car g-flex g-flex-jc g-flex-ac"

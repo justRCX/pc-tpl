@@ -1,12 +1,15 @@
 <template>
-  <div>
+  <div class="container">
     <div class="goods-wapper">
       <div
         v-for="(item,index) in list"
         :key="index"
         class="goods-wapper-item"
       >
-        <goods-item></goods-item>
+        <goods-item
+          :list="item"
+          :config="config"
+        ></goods-item>
       </div>
     </div>
   </div>
@@ -23,20 +26,25 @@
 
       }
     },
-    mounted() {
-
-    }
   }
 </script>
 <style scoped lang="scss">
   @import "../../util.scss";
+  .container {
+    padding: 0 to320(20);
+    background: #fff;
+  }
   .goods-wapper {
     display: flex;
-    flex-wrap: wrap;
-    background: #fff;
+    overflow-x: auto;
+    padding: to320(30) 0;
     &-item {
-      width: to320(220);
+      width: to320(190);
       flex-shrink: 0;
+      margin-right: to320(20);
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 </style>
