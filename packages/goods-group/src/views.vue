@@ -78,19 +78,11 @@
         :key="goods.id"
       >
         <div class="group-title">{{goods.group_title}}</div>
-        <div
-          class="goods-item-box"
-          v-for="(item,index) in list"
-          :key="item.id"
-        >
-          <div
-            class="goods-item__wrapper"
-            style="margin-bottom:5px;"
-            v-if="index<10"
-          >
-
-          </div>
-        </div>
+        <good-item
+          :config="config"
+          :list="list"
+          :listType="2"
+        ></good-item>
       </div>
     </div>
   </div>
