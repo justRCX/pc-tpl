@@ -11,8 +11,6 @@
       class="edit-area"
       header="商品"
     >
-      <!--                商品来源-->
-
       <edit-panel :config='config'>
         <div class="goods-origin-wrap">
           <el-form-item label="商品来源： ">
