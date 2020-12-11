@@ -14,7 +14,9 @@ import CPager from './pager/index.js'
 import goodsGroup from './goods-group/index.js'
 import goodsOnShelves from './choose-list/index.js'
 import CPreview from './preview'
+import richText from './rich-text/index.js'
 let components = [
+	richText,
 	commonHeader,
 	MZText,
 	MZTitle,
