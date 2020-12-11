@@ -61,7 +61,7 @@
           </el-form-item>
         </edit-panel>
         <el-form-item label="商品标签简介">
-          <div ref="editor"></div>
+          <rich-text v-model="config.decorateHtml"></rich-text>
         </el-form-item>
       </el-form>
     </el-card>
@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import E from "wangeditor";
 import GoodItem from "../../good-style/Item.vue";
 import ConfigData from "./config";
 import GoodsService from "@/api/goods/goods";
@@ -148,22 +147,12 @@ export default {
         is_rank_only: 0,
         content: [1, 3, 4], //这个不知道干嘛的
         decorateHtml: "",
-        buyText: "马上抢",
         ranks: [],
         ...goodsStyleConfig
       },
       this.content
     );
     this.goodsList = originGoodsList.slice();
-  },
-  mounted: function() {
-    this.editor = new E(this.$refs.editor);
-    this.editor.customConfig.onchange = html => {
-      this.config.decorateHtml = html;
-    };
-    this.editor.create();
-    // 初始设置富文本编辑器
-    this.editor.txt.html(this.config.decorateHtml);
   },
   watch: {
     currentIndex: function(n) {
