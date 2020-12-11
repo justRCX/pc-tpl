@@ -139,11 +139,11 @@
     created() { },
     methods: {
       groupTabClass(index) {
-        if (index > 0) {
+        if (index > 0 || this.config.templateId == 2) {
           return "";
         }
         let str = "";
-        if (this.config.style === 1 || this.config.templateId == 1) {
+        if (this.config.style === 1) {
           str = "current";
         } else if (this.config.style === 2) {
           str = "current2";
@@ -179,15 +179,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .g-flex {
-    font-size: 10px;
-    font-weight: 400;
-    color: rgba(153, 153, 153, 1);
-    line-height: 45px;
-    p.__buy {
-      margin-left: 10px;
-    }
-  }
   .goods-list {
     padding: 10px;
     //   background:#f7f7f7;
@@ -202,359 +193,9 @@
         display: flex;
         justify-content: center;
         padding: 10px;
-        .img-square {
-          width: 70%;
-          position: relative;
-          padding-bottom: 70%;
-          height: 0px;
-          .myImg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-size: 100%;
-            background-repeat: no-repeat;
-            background-position: center center;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-          }
-        }
-        .corner-ctn {
-          position: absolute;
-          background: #ff4873;
-          left: 0;
-          top: 0;
-          color: #fff;
-          border-radius: 5px;
-          z-index: 999;
-          font-size: 12px;
-          padding: 2px 8px;
-        }
-        .corner-ctn-img {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 40px;
-        }
-      }
-      .item-content {
-        background: #fff;
-        .contentBox {
-          .buy-icon1 {
-            width: 25px;
-            position: absolute;
-            right: 20px;
-            bottom: 10px;
-          }
-          .buy-text {
-            position: absolute;
-            right: 20px;
-            bottom: 10px;
-            // background: #FF4873;
-            background: linear-gradient(
-              90deg,
-              rgba(255, 72, 115, 1),
-              rgba(254, 114, 100, 1)
-            );
-            color: #fff;
-            padding: 2px 8px;
-            border-radius: 15px;
-          }
-          .buy-text1 {
-            position: absolute;
-            right: 20px;
-            bottom: 10px;
-            color: #ff4873;
-            padding: 2px 8px;
-            border: 1px solid #ff4873;
-            border-radius: 5px;
-          }
-          h3 {
-            font-size: 13px;
-            height: 34px;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            font-weight: 400;
-            text-overflow: -o-ellipsis-lastline;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            -webkit-box-orient: vertical;
-          }
-          .price {
-            display: block;
-            color: #ff4873;
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 5px;
-          }
-          p {
-            line-height: 15px;
-            height: 15px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          .sub-title {
-            line-height: 15px;
-            height: 15px;
-            margin-top: 5px;
-            color: #999999;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          .card_right_price_integral {
-            position: relative;
-            margin-top: 5px !important;
-          }
-        }
-        .card {
-          padding: 0px 20px 10px 10px;
-          position: relative;
-        }
-        .simple {
-          padding: 0px 20px 10px 10px;
-          // text-align: center;
-        }
-      }
-      .img-white {
-        position: relative;
-        .img-square {
-          width: 100%;
-          position: relative;
-          padding-bottom: 100%;
-          height: 0px;
-        }
-        .average1 {
-          width: 100%;
-          position: relative;
-          padding-bottom: 66.67%;
-          height: 0px;
-        }
-      }
-      .img-full {
-        position: relative;
-        padding: 0px;
-        .img-square {
-          width: 100%;
-          position: relative;
-          padding-bottom: 100%;
-          height: 0px;
-        }
-        .average1 {
-          width: 100%;
-          position: relative;
-          padding-bottom: 66.67%;
-          height: 0px;
-        }
       }
     }
-    .small-img {
-      width: 50%;
-      float: left;
-      .item-content {
-        .contentBox {
-          .buy-icon1 {
-            width: 25px;
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-          }
-          .price {
-            font-size: 14px;
-          }
-          .buy-text {
-            right: 5px;
-          }
-          .buy-text1 {
-            right: 5px;
-          }
-        }
-        .card {
-          padding: 0px 10px 10px 10px;
-          position: relative;
-        }
-        .simple {
-          padding: 0px 10px 10px 10px;
-          // text-align: center;
-        }
-      }
-    }
-    .one-two {
-      &:nth-child(3n + 1) {
-        width: 100%;
-      }
-      &:nth-child(3n + 2) {
-        width: 50%;
-        float: left;
-        .item-content {
-          .contentBox {
-            .buy-icon1 {
-              width: 25px;
-              position: absolute;
-              right: 10px;
-              bottom: 10px;
-            }
-            .price {
-              font-size: 14px;
-            }
-            .buy-text {
-              right: 5px;
-            }
-            .buy-text1 {
-              right: 5px;
-            }
-          }
-          .card {
-            padding: 0px 10px 10px 10px;
-            position: relative;
-          }
-          .simple {
-            padding: 0px 10px 10px 10px;
-            // text-align: center;
-          }
-        }
-      }
-      &:nth-child(3n) {
-        width: 50%;
-        float: left;
-        .item-content {
-          .contentBox {
-            .buy-icon1 {
-              width: 25px;
-              position: absolute;
-              right: 10px;
-              bottom: 10px;
-            }
-            .price {
-              font-size: 14px;
-            }
-            .buy-text {
-              right: 5px;
-            }
-            .buy-text1 {
-              right: 5px;
-            }
-          }
-          .card {
-            padding: 0px 10px 10px 10px;
-            position: relative;
-          }
-          .simple {
-            padding: 0px 10px 10px 10px;
-            // text-align: center;
-          }
-        }
-      }
-    }
-    .three-part {
-      width: 33.33%;
-      float: left;
-      .item-content {
-        .contentBox {
-          .buy-icon1 {
-            width: 25px;
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-          }
-          h3 {
-            line-height: 30px;
-            font-size: 14px;
-            // padding-top:10px;
-            margin-bottom: 0px;
-            margin-top: 0px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          .price {
-            display: block;
-            color: #ff4873;
-            font-size: 14px;
-            font-weight: bold;
-            margin-top: 0px;
-          }
-          p {
-            // margin-bottom:10px;
-            line-height: 15px;
-            height: 15px;
-            overflow: hidden;
-          }
-        }
-        .card {
-          padding: 0px 10px 10px 10px;
-          position: relative;
-        }
-        .simple {
-          padding: 0px 10px 10px 10px;
-          // text-align: center;
-        }
-      }
-    }
-    .detail-list {
-      // display: flex;
-      // background: #fff;
-      margin-bottom: 10px;
-      .goods-item__wrapper {
-        width: 100px;
-        height: 100px;
-        padding: 0px;
-        float: left;
-        .img-square {
-          width: 100%;
-          height: 100%;
-          .myImg {
-            border-radius: 10px;
-          }
-        }
-      }
-      .item-content {
-        // flex:1;
-        height: 100px;
-        float: left;
-        width: calc(100% - 100px);
-        .card {
-          height: 100%;
-          width: 100%;
-          position: relative;
-          h3 {
-            word-break: break-all;
-            white-space: pre-wrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            line-height: 20px;
-          }
-          .price {
-            display: block;
-            position: absolute;
-            bottom: 5px;
-          }
-          .buy-icon1 {
-            bottom: 5px;
-            right: 10px;
-          }
-          .buy-text {
-            right: 5px;
-            bottom: 5px;
-          }
-          .buy-text1 {
-            right: 5px;
-            bottom: 5px;
-          }
-        }
-      }
-      &::after {
-        clear: both;
-        display: block;
-        content: "";
-      }
-    }
+
     &::after {
       clear: both;
       display: block;
@@ -631,33 +272,6 @@
             border-radius: 10px;
           }
         }
-        .item-content {
-          float: left;
-          padding-left: 5px;
-          h3 {
-            margin: 0;
-            height: 24px;
-          }
-          .purchased {
-            margin-top: 5px;
-          }
-          .sub-title {
-            margin-top: 5px;
-            color: #999999;
-          }
-          .price {
-            color: #ff4873;
-            font-size: 14px;
-            margin-top: 20px;
-            display: inline-block;
-          }
-          .buy-icon1 {
-            width: 20px;
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-          }
-        }
       }
       &::after {
         clear: both;
@@ -672,41 +286,11 @@
     background: #fff;
     margin-bottom: 5px;
   }
-  .card_right_price_integral,
-  .card_right_price_original {
-    color: #ff1f19;
-    font-size: 16px !important;
-    display: inline-block;
-    .Identification {
-      font-size: 12px !important;
-    }
-    .prices {
-      font-weight: bold;
-      font-size: 15px;
-    }
-    .point_prices {
-      font-size: 12px !important;
-    }
-  }
-  .card_right_price_original {
-    color: #999;
-    text-decoration: line-through;
-  }
-  .purchased {
-    font-size: 12px;
-    font-weight: 400;
-    color: #bbbdc0;
-    margin-top: 10px;
-    margin-left: 2px;
-  }
   .goods-item__wrapper {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
-  .item-content {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
+
   .tabStyle3 {
     display: flex;
     justify-content: space-between;
@@ -801,10 +385,7 @@
       padding: 0;
       border-radius: 0 0 (16 * 318/750 + px) (16 * 318/750 + px);
       overflow: hidden;
-      .detail-list {
-        margin-bottom: 0;
-        border-bottom: 1px solid #efefef;
-      }
+
       .goods-item-box {
         padding: (30 * 318/750 + px);
       }
