@@ -13,7 +13,7 @@
   import emitter from 'element-ui/src/mixins/emitter';
   import Debounce from './debounce.js';
   export default {
-    name: 'ricText',
+    name: 'richText',
     mixins: [emitter],
     data() {
       return {
@@ -22,12 +22,96 @@
         mode: window.MutationObserver ? 'observer' : 'listener',
         defaultConfig: {
           UEDITOR_HOME_URL: '/ueditor/'
-        }
+        },
+        commonToolbars: [
+          [
+            "fullscreen",
+            "source",
+            "|",
+            "undo",
+            "redo",
+            "|",
+            "bold",
+            "italic",
+            "underline",
+            "fontborder",
+            "strikethrough",
+            "superscript",
+            "subscript",
+            "removeformat",
+            "formatmatch",
+            "autotypeset",
+            "blockquote",
+            "pasteplain",
+            "|",
+            "forecolor",
+            "backcolor",
+            "insertorderedlist",
+            "insertunorderedlist",
+            "|",
+            "rowspacingtop",
+            "rowspacingbottom",
+            "lineheight",
+            "|",
+            "customstyle",
+            "paragraph",
+            "fontfamily",
+            "fontsize",
+            "|",
+            "directionalityltr",
+            "directionalityrtl",
+            "indent",
+            "|",
+            "justifyleft",
+            "justifycenter",
+            "justifyright",
+            "justifyjustify",
+            "|",
+            "touppercase",
+            "tolowercase",
+            "|",
+            "link",
+            "unlink",
+            "anchor",
+            "|",
+            "imagenone",
+            "imageleft",
+            "imageright",
+            "imagecenter",
+            "|",
+            "emotion",
+            "pagebreak",
+            "|",
+            "horizontal",
+            "date",
+            "time",
+            "spechars",
+            "|",
+            "inserttable",
+            "deletetable",
+            "insertparagraphbeforetable",
+            "insertrow",
+            "deleterow",
+            "insertcol",
+            "deletecol",
+            "mergecells",
+            "mergeright",
+            "mergedown",
+            "splittocells",
+            "splittorows",
+            "splittocols",
+            "charts",
+            "|",
+            "searchreplace",
+            "drafts"
+          ]
+        ]
       };
     },
     computed: {
       mixedConfig() {
-        return Object.assign({}, this.defaultConfig, this.config);
+        let config = { toolbars: [...this.commonToolbars], ...this.config }
+        return Object.assign({}, this.defaultConfig, config);
       }
     },
     props: {
@@ -35,6 +119,7 @@
         type: String,
         default: ''
       },
+
       config: {
         type: Object,
         default: function () {
@@ -50,6 +135,10 @@
       destroy: {
         type: Boolean,
         default: false
+      },
+      addImg: {
+        type: Boolean,
+        default: true
       },
       name: {
         type: String,
@@ -134,6 +223,7 @@
       _initEditor() {
         this.$refs.script.id = this.id = this.editorId || 'editor_' + Math.random().toString(16).slice(-6); // 这么做是为了支持 Vue SSR，因为如果把 id 属性放在 data 里会导致服务端和客户端分别计算该属性的值，而造成 id 不匹配无法初始化的 BUG
         this.init();
+        this.addImg && this.addImgEvent()
         this.$emit('before-init', this.id, this.mixedConfig);
         this.$emit('beforeInit', this.id, this.mixedConfig); // 虽然这个驼峰的写法会导致使用 DOM 模版时出现监听事件自动转小写的 BUG，但如果经过编译的话并不会有这个问题，为了兼容历史版本，不做删除，参考 https://vuejs.org/v2/guide/components-custom-events.html#Event-Names
         this.editor = window.UE.getEditor(this.id, this.mixedConfig);
@@ -152,13 +242,45 @@
           } else {
             this._normalChangeListener();
           }
+
         });
-        this.editor.addListener('imgChoose', (type, arg) => {
-          console.log('111');
-          setTimeout(() => {
-            let imgList = ['http://img.wkdao.com/image/6862/2020/09/18/c0ba581aa51ef0ae10112d3ce9165110.jpg', 'http://img.wkdao.com/image/6862/2020/09/25/8bd01dd4cfbc401afa674590a6ad3e1b.jpg'];
-            arg.inserHtmlFun(imgList);
-          }, 5000);
+      },
+      addImgEvent() {
+        let that = this;
+        UE.registerUI("addImg", function (editor, uiName) {
+          editor.registerCommand(uiName, {
+            execCommand: function () {
+              alert('execCommand:' + uiName)
+            }
+          });
+          //创建一个button
+          var btn = new UE.ui.Button({
+            //按钮的名字
+            name: 'addImg',
+            //提示
+            title: '插入图片',
+            //添加额外样式，指定icon图标，这里默认使用一个重复的icon
+            cssRules: 'background-position: -380px 0',
+            //点击时执行的命令
+            onclick: function () {
+              that.$pcTpl.imgChoose.popup({
+                picMax: 1000
+              }).then((img) => {
+                if (img.length > 0) {
+                  let imgELE = img.reduce((total, current) => {
+                    let image_path = current.image_path
+                    if (image_path) {
+                      return total + `<img src="${image_path}"/>`
+                    } else {
+                      return total
+                    }
+                  }, '')
+                  editor.execCommand('insertHtml', imgELE);
+                }
+              })
+            }
+          });
+          return btn;
         });
       },
       // 检测依赖,确保 UEditor 资源文件已加载完毕
