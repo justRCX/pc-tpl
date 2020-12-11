@@ -5,7 +5,9 @@ import MZWhite from './MZWhite/index.js'
 import PicAd from './PicAD/index.js'
 import Goods from './Goods/index.js'
 import couponList from './coupon-List/index.js'
-import SaleComponents from './SaleComponents/index.js'
+// import {DiscountComponent, SecondKillComponent} from './SaleComponents/index.js'
+import SecondKillComponent from './SaleComponents/src/SecondKill.vue'
+import DiscountComponent from './SaleComponents/src/DisCount.vue'
 import couponListChoose from './coupon-List/couponListChoose.js'
 import CImg from './img-upload/c-img.vue'
 import imgContentAgent from './img-upload/img-content-agent.vue'
@@ -24,7 +26,9 @@ let components = [
 	PicAd,
 	Goods,
 	couponList,
-	SaleComponents,
+	// SaleComponents,
+	DiscountComponent,
+	SecondKillComponent,
 	couponListChoose,
 	CImg,
 	imgContentAgent,
