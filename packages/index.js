@@ -4,6 +4,7 @@ import MZTitle from './MZTitle/index.js'
 import MZWhite from './MZWhite/index.js'
 import PicAd from './PicAD/index.js'
 import Goods from './Goods/index.js'
+import GoodsGroupAdd from './Goods/src/GoodsGroupAdd.vue'
 import couponList from './coupon-List/index.js'
 // import {DiscountComponent, SecondKillComponent} from './SaleComponents/index.js'
 import SecondKillComponent from './SaleComponents/src/SecondKill.vue'
@@ -25,6 +26,7 @@ let components = [
 	MZWhite,
 	PicAd,
 	Goods,
+	GoodsGroupAdd,
 	couponList,
 	// SaleComponents,
 	DiscountComponent,
