@@ -7,50 +7,51 @@
     <el-card
       class="edit-area"
       :header="config.headName"
-    v-if="belongIndex === currentIndex"
+      v-if="belongIndex === currentIndex"
     >
-        <edit-panel :config='config'>
-          <div class="edit-box">
-            <div class="edit-label">选择营销活动:</div>
-            <div class="goods_flex">
-              <draggable
-                  class="wrapper"
-                  v-model="config.saleList"
-                  :options="{draggable:'.item'}"
-              >
-                <transition-group>
-                  <div
-                      v-for="(obj, index) in config.saleList"
-                      :key="index"
-                      class="flexs item"
-                  >
-                    <div class="card-img">
-                      <i
-                          class="el-icon-close close-btn"
-                          @click="deleteGood(index)"
-                      ></i>
-                      <img
-                          style="width:100%;height:100%;"
-                          :src="obj.item.length>0 && obj.item[0].thumb_image_path"
-                          alt="商品图片"
-                      />
-                    </div>
-                  </div>
-                  <div
-                      class="card-add"
-                      @click="saleOnModelInstance"
-                      :key="1234"
-                      sortable
-                  >
+      <edit-panel :config='config'>
+        <div class="edit-box">
+          <div class="edit-label">选择营销活动:</div>
+          <div class="goods_flex">
+            <draggable
+                class="wrapper"
+                v-model="config.saleList"
+                :options="{draggable:'.item'}"
+            >
+              <transition-group>
+                <div
+                    v-for="(obj, index) in config.saleList"
+                    :key="index"
+                    class="flexs item"
+                >
+                  <div class="card-img">
                     <i
-                        style="color:#409EFF"
-                        class="iconfont icon-add1"
+                        class="el-icon-close close-btn"
+                        @click="deleteGood(index)"
                     ></i>
+                    <img
+                        style="width:100%;height:100%;"
+                        :src="obj.item.length>0 && obj.item[0].thumb_image_path"
+                        alt="商品图片"
+                    />
                   </div>
-                </transition-group>
-              </draggable>
-            </div>
+                </div>
+                <div
+                    class="card-add"
+                    @click="saleOnModelInstance"
+                    :key="1234"
+                    sortable
+                >
+                  <i
+                      style="color:#409EFF"
+                      class="iconfont icon-add1"
+                  ></i>
+                </div>
+              </transition-group>
+            </draggable>
           </div>
+        </div>
+        <div class="discount-option">
           <div class="edit-header">
             <el-form-item
                 label="模块头部样式： "
@@ -74,76 +75,79 @@
                     <el-radio :label="0">不展示</el-radio>
                   </el-radio-group>
                 </el-form-item>
-                <el-form-item
-                    label="图标： "
-                >
-                  <el-radio-group
-                      @change="onchange_headIcon"
-                      v-model="config.isDefHeadIco"
+                <div v-if="config.isShowHeadIco">
+                  <el-form-item
+                      label="图标： "
                   >
-                    <el-radio :label="1">默认</el-radio>
-                    <el-radio :label="2">自定义</el-radio>
-                  </el-radio-group>
-                </el-form-item>
-                <el-form-item>
-                  <div class="img" v-if="config.isDefHeadIco == 1">
-                    <img :src="config.defIconUrl" alt="">
-                  </div>
-                  <c-img
-                      v-if="config.isDefHeadIco == 2"
-                      v-model="config.headIconUrl"
-                      :number="1"
-                  ></c-img>
-                </el-form-item>
-              </div>
-              <el-form-item
-                  label="标题名称： "
-              >
-                <el-radio-group
-                    v-model="config.isShowHeadName"
-                >
-                  <el-radio :label="1">展示</el-radio>
-                  <el-radio :label="0">不展示</el-radio>
-                </el-radio-group>
-                <el-input style="width:250px" size="mini"  v-if="config.isShowHeadName"  v-model="config.headName" maxlength></el-input>
-              </el-form-item>
-              <el-form-item
-                  label="倒计时模块： "
-              >
-                <el-radio-group
-                    v-model="config.isShowCD"
-                >
-                  <el-radio :label="1">展示</el-radio>
-                  <el-radio :label="0">不展示</el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <div class="head-more">
-                <el-form-item
-                    label="更多模块： "
-                >
-                  <el-radio-group
-                      v-model="config.isShowMore"
-                  >
-                    <el-radio :label="1">展示</el-radio>
-                    <el-radio :label="0">不展示</el-radio>
-                  </el-radio-group>
-                </el-form-item>
-                <div v-if="config.isShowMore">
-                  <el-form-item label=" ">
-                    <el-input style="width:250px" size="mini"  v-model="config.moreText" maxlength></el-input>
+                    <el-radio-group
+                        @change="onchange_headIcon"
+                        v-model="config.isDefHeadIco"
+                    >
+                      <el-radio :label="1">默认</el-radio>
+                      <el-radio :label="2">自定义</el-radio>
+                    </el-radio-group>
                   </el-form-item>
-                  <el-form-item label="链接：">
-                    <page-link-select
-                        :ref="'pageLinkSelect'"
-                        :selectValue="config.moreLink"
-                        @linkSelected="(e)=>{linkSelected(e)}"
-                    ></page-link-select>
+                  <el-form-item>
+                    <div class="img" v-if="config.isDefHeadIco == 1">
+                      <img :src="config.defIconUrl" alt="">
+                    </div>
+                    <c-img
+                        v-if="config.isDefHeadIco == 2"
+                        v-model="config.headIconUrl"
+                        :number="1"
+                    ></c-img>
                   </el-form-item>
                 </div>
               </div>
             </div>
+            <el-form-item
+                label="标题名称： "
+            >
+              <el-radio-group
+                  v-model="config.isShowHeadName"
+              >
+                <el-radio :label="1">展示</el-radio>
+                <el-radio :label="0">不展示</el-radio>
+              </el-radio-group>
+              <el-input style="width:250px" size="mini"  v-if="config.isShowHeadName"  v-model="config.headName" maxlength></el-input>
+            </el-form-item>
+            <el-form-item
+                label="倒计时模块： "
+            >
+              <el-radio-group
+                  v-model="config.isShowCD"
+              >
+                <el-radio :label="1">展示</el-radio>
+                <el-radio :label="0">不展示</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <div class="head-more">
+              <el-form-item
+                  label="更多模块： "
+              >
+                <el-radio-group
+                    v-model="config.isShowMore"
+                >
+                  <el-radio :label="1">展示</el-radio>
+                  <el-radio :label="0">不展示</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <div v-if="config.isShowMore">
+                <el-form-item label=" ">
+                  <el-input style="width:250px" size="mini"  v-model="config.moreText" maxlength></el-input>
+                </el-form-item>
+                <el-form-item label="链接：">
+                  <page-link-select
+                      :ref="'pageLinkSelect'"
+                      :selectValue="config.moreLink"
+                      @linkSelected="(e)=>{linkSelected(e)}"
+                  ></page-link-select>
+                </el-form-item>
+              </div>
+            </div>
           </div>
-        </edit-panel>
+        </div>
+      </edit-panel>
     </el-card>
   </div>
 </template>
@@ -153,13 +157,15 @@
   import { saleOnModelInstance } from "./sale-on-model.vue";
   import SaleShow from "./SaleShow.vue";
   import EditPanel from '../../good-style/component/edit-panel.vue';
+  import SaleOption from './Sale-option.vue';
   import goodsStyleConfig from '../../good-style/config'
 
   export default {
-    name: "SaleComponents",
+    name: "DiscountComponent",
     data() {
       return {
         config: {
+          type: this.type,
           saleList: [],
           isShowHeadIco: 1, //是否默认头部ico
           headIconUrl: 'https://img.qianhuituan.cn/uploads/images/202006/29/FAiaT2Bxw79LRpvkN8N8EpkrCtTDWRckt6EX3D5a.png', //头部图标
@@ -186,12 +192,13 @@
     components: {
       draggable: draggable,
       "sale-show": SaleShow,
-      'edit-panel': EditPanel
+      'edit-panel': EditPanel,
+      'sale-option': SaleOption,
     },
     methods: {
       onchange_headIcon($val) {
         if ($val == 2) this.config.headIconUrl = "";
-        if ($val == 1) this.config.headIconUrl = this.config.defIconUrl
+        if ($val == 1) this.config.headIconUrl = this.config.defIconUrl;
       },
       linkSelected($data) {
         this.config.moreLink = $data

@@ -1,2 +1,3 @@
-import SaleComponents from './src/index.vue'
-export default SaleComponents
+import SecondKillComponent from './src/SecondKill.vue'
+import DiscountComponent from './src/DisCount.vue'
+export default {DiscountComponent, SecondKillComponent }
