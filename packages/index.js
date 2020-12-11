@@ -13,10 +13,12 @@ import CImg from './img-upload/c-img.vue'
 import imgContentAgent from './img-upload/img-content-agent.vue'
 import imgContentPc from './img-upload/img-content-pc.vue'
 import CPager from './pager/index.js'
-import GoodsGroup from './goods-group/index.js'
+import goodsGroup from './goods-group/index.js'
 import goodsOnShelves from './choose-list/index.js'
 import CPreview from './preview'
+import richText from './rich-text/index.js'
 let components = [
+	richText,
 	commonHeader,
 	MZText,
 	MZTitle,
@@ -34,7 +36,7 @@ let components = [
 	goodsOnShelves,
 	CPager,
 	CPreview,
-	GoodsGroup,
+	goodsGroup,
 ]
 
 import { getAxiosAgent, getAxiosPc } from './utils/request'

@@ -4,56 +4,61 @@
     style="text-align:left;"
   >
     <slot></slot>
-    <el-form-item label="列表样式： ">
-      <el-radio
-        v-for="item in listTypes"
-        :key="item.key"
-        v-model="config.listType"
-        :label="item.key"
-      >{{item.name}}</el-radio>
-    </el-form-item>
-    <div class="badge-wrap">
-      <el-form-item label="商品角标： ">
+    <slot name="goods">
+      <el-form-item label="列表样式： ">
         <el-radio
-          v-for="item in badgeList"
+          v-for="item in listTypes"
           :key="item.key"
-          v-model="config.badge_id"
+          v-model="config.listType"
           :label="item.key"
-          @change="onchange_getBadgeImg(item)"
         >{{item.name}}</el-radio>
-        <div v-if="config.badge_id == 5">
-          <c-img
-            v-model="config.badge_path"
-            :number="1"
-          ></c-img>
-          建议上传宽度104px的png图片，高度等比例缩放
-        </div>
       </el-form-item>
-    </div>
-    <el-form-item label="加购物车样式： ">
-      <el-radio
-        v-for="item in cartList"
-        :key="item.key"
-        v-model="config.cart"
-        :label="item.key"
-      >{{item.name}}</el-radio>
-    </el-form-item>
-    <el-form-item label="快捷进入分类： ">
-      <el-radio
-        v-for="item in booleanOption"
-        :key="item.key"
-        v-model="config.isShowCate"
-        :label="item.key"
-      >{{item.name}}</el-radio>
-    </el-form-item>
-    <el-form-item v-if="config.listType == 1" label="购买记录： " >
-      <el-radio
-        v-for="item in booleanOption"
-        :key="item.key"
-        v-model="config.isShowBuyHis"
-        :label="item.key"
-      >{{item.name}}</el-radio>
-    </el-form-item>
+      <div class="badge-wrap">
+        <el-form-item label="商品角标： ">
+          <el-radio
+            v-for="item in badgeList"
+            :key="item.key"
+            v-model="config.badge_id"
+            :label="item.key"
+            @change="onchange_getBadgeImg(item)"
+          >{{item.name}}</el-radio>
+          <div v-if="config.badge_id == 5">
+            <c-img
+              v-model="config.badge_path"
+              :number="1"
+            ></c-img>
+            建议上传宽度104px的png图片，高度等比例缩放
+          </div>
+        </el-form-item>
+      </div>
+      <el-form-item label="加购物车样式： ">
+        <el-radio
+          v-for="item in cartList"
+          :key="item.key"
+          v-model="config.cart"
+          :label="item.key"
+        >{{item.name}}</el-radio>
+      </el-form-item>
+      <el-form-item label="快捷进入分类： ">
+        <el-radio
+          v-for="item in booleanOption"
+          :key="item.key"
+          v-model="config.isShowCate"
+          :label="item.key"
+        >{{item.name}}</el-radio>
+      </el-form-item>
+      <el-form-item
+        v-if="config.listType == 1"
+        label="购买记录： "
+      >
+        <el-radio
+          v-for="item in booleanOption"
+          :key="item.key"
+          v-model="config.isShowBuyHis"
+          :label="item.key"
+        >{{item.name}}</el-radio>
+      </el-form-item>
+    </slot>
   </el-form>
 </template>
 
@@ -62,7 +67,11 @@
 
   export default {
     name: 'edit-panel',
-    props: ['config'],
+    props: {
+      config: {
+        type: Object
+      }
+    },
     model: {
       prop: 'config',
       event: 'change'
