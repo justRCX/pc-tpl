@@ -99,52 +99,53 @@
                   </el-form-item>
                 </div>
               </div>
-            </div>
-            <el-form-item
-                label="标题名称： "
-            >
-              <el-radio-group
-                  v-model="config.isShowHeadName"
-              >
-                <el-radio :label="1">展示</el-radio>
-                <el-radio :label="0">不展示</el-radio>
-              </el-radio-group>
-              <el-input style="width:250px" size="mini"  v-if="config.isShowHeadName"  v-model="config.headName" maxlength></el-input>
-            </el-form-item>
-            <el-form-item
-                label="倒计时模块： "
-            >
-              <el-radio-group
-                  v-model="config.isShowCD"
-              >
-                <el-radio :label="1">展示</el-radio>
-                <el-radio :label="0">不展示</el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <div class="head-more">
               <el-form-item
-                  label="更多模块： "
+                  label="标题名称： "
               >
                 <el-radio-group
-                    v-model="config.isShowMore"
+                    v-model="config.isShowHeadName"
+                >
+                  <el-radio :label="1">展示</el-radio>
+                  <el-radio :label="0">不展示</el-radio>
+                </el-radio-group>
+                <el-input style="width:250px" size="mini"  v-if="config.isShowHeadName"  v-model="config.headName" maxlength></el-input>
+              </el-form-item>
+              <el-form-item
+                  label="倒计时模块： "
+              >
+                <el-radio-group
+                    v-model="config.isShowCD"
                 >
                   <el-radio :label="1">展示</el-radio>
                   <el-radio :label="0">不展示</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <div v-if="config.isShowMore">
-                <el-form-item label=" ">
-                  <el-input style="width:250px" size="mini"  v-model="config.moreText" maxlength></el-input>
+              <div class="head-more">
+                <el-form-item
+                    label="更多模块： "
+                >
+                  <el-radio-group
+                      v-model="config.isShowMore"
+                  >
+                    <el-radio :label="1">展示</el-radio>
+                    <el-radio :label="0">不展示</el-radio>
+                  </el-radio-group>
                 </el-form-item>
-                <el-form-item label="链接：">
-                  <page-link-select
-                      :ref="'pageLinkSelect'"
-                      :selectValue="config.moreLink"
-                      @linkSelected="(e)=>{linkSelected(e)}"
-                  ></page-link-select>
-                </el-form-item>
+                <div v-if="config.isShowMore">
+                  <el-form-item label=" ">
+                    <el-input style="width:250px" size="mini"  v-model="config.moreText" maxlength></el-input>
+                  </el-form-item>
+                  <el-form-item label="链接：">
+                    <page-link-select
+                        :ref="'pageLinkSelect'"
+                        :selectValue="config.moreLink"
+                        @linkSelected="(e)=>{linkSelected(e)}"
+                    ></page-link-select>
+                  </el-form-item>
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </edit-panel>
