@@ -88,14 +88,17 @@
                     </el-radio-group>
                   </el-form-item>
                   <el-form-item>
-                    <div class="img" v-if="config.isDefHeadIco == 1">
-                      <img :src="config.defIconUrl" alt="">
+                    <div class="img-wrap">
+                      <div class="img" v-if="config.isDefHeadIco == 1">
+                        <img :src="config.defIconUrl" alt="">
+                      </div>
+                      <c-img
+                          v-if="config.isDefHeadIco == 2"
+                          v-model="config.headIconUrl"
+                          :number="1"
+                      ></c-img>
                     </div>
-                    <c-img
-                        v-if="config.isDefHeadIco == 2"
-                        v-model="config.headIconUrl"
-                        :number="1"
-                    ></c-img>
+                    <div class="txt-limit-tip">建议上传8px*28px的png图片</div>
                   </el-form-item>
                 </div>
               </div>
@@ -109,6 +112,7 @@
                   <el-radio :label="0">不展示</el-radio>
                 </el-radio-group>
                 <el-input style="width:250px" size="mini"  v-if="config.isShowHeadName"  v-model="config.headName" maxlength></el-input>
+                <div class="txt-limit-tip">建议最多4个字以内</div>
               </el-form-item>
               <el-form-item
                   label="倒计时模块： "
@@ -134,8 +138,9 @@
                 <div v-if="config.isShowMore">
                   <el-form-item label=" ">
                     <el-input style="width:250px" size="mini"  v-model="config.moreText" maxlength></el-input>
+                    <div class="txt-limit-tip">建议最多4个字以内</div>
                   </el-form-item>
-                  <el-form-item label="链接：">
+                  <el-form-item label="链接到：">
                     <page-link-select
                         :ref="'pageLinkSelect'"
                         :selectValue="config.moreLink"
@@ -165,6 +170,7 @@
     name: "DiscountComponent",
     data() {
       return {
+        tileLimitTip:"建议最多4个字以内",
         config: {
           type: this.type,
           saleList: [],
@@ -329,20 +335,27 @@
   }
 
   .edit-header {
+    .txt-limit-tip {
+      line-height: 1;
+      color: rgb(153, 153, 153);
+    }
     .head-icon {
-      .img{
-        width: 80px;
-        height: 80px;
-        background: #fff;
-        border: 1px solid #c0ccda;
-        margin: 5px;
-        overflow: hidden;
-        vertical-align: top;
-        border-radius: 6px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        img {
+      .img-wrap{
+        padding-bottom: 5px;
+        .img{
+          width: 80px;
+          height: 80px;
+          background: #fff;
+          border: 1px solid #c0ccda;
+          margin-top:10px;
+          overflow: hidden;
+          vertical-align: top;
+          border-radius: 6px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+          }
         }
       }
     }
