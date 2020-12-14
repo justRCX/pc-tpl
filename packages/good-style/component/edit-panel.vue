@@ -13,7 +13,7 @@
           :label="item.key"
         >{{item.name}}</el-radio>
       </el-form-item>
-      <div class="badge-wrap">
+      <div class="badge-wrap"  v-if="config.listType !== 4 && config.listType !== 5">
         <el-form-item label="商品角标： ">
           <el-radio
             v-for="item in badgeList"
@@ -31,7 +31,7 @@
           </div>
         </el-form-item>
       </div>
-      <el-form-item label="加购物车样式： ">
+      <el-form-item label="加购物车样式： " v-if="config.listType !== 4 && config.listType !== 5">
         <el-radio
           v-for="item in cartList"
           :key="item.key"
@@ -39,7 +39,7 @@
           :label="item.key"
         >{{item.name}}</el-radio>
       </el-form-item>
-      <el-form-item label="快捷进入分类： ">
+      <el-form-item label="快捷进入分类： " v-if="config.listType == 1 || config.listType == 2">
         <el-radio
           v-for="item in booleanOption"
           :key="item.key"
