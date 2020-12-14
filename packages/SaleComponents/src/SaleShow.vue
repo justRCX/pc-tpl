@@ -6,7 +6,7 @@
     >
       <img
         v-if="config.isShowHeadIco"
-        :src="config.isDefHeadIco ?  config.defIconUrl : config.headIconUrl"
+        :src="config.isDefHeadIco == 1 ?  config.defIconUrl : config.headIconUrl"
         class="header-img"
       >
       <div
