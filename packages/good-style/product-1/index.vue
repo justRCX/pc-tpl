@@ -63,11 +63,13 @@
         class="goods-item-foot g-flex g-flex-sb g-flex-ac"
         v-if="config.isShowBuyHis==1 || config.isShowCate == 1"
       >
-        <div
-          v-if="config.isShowCate == 1"
-          class="goods-item-foot__btn g-flex g-flex-ac g-flex-jc"
-        >
-          进入分类页<i class="iconfont icon-zuoyoujiantou2"></i>
+        <div>
+          <div
+            v-if="config.isShowCate == 1"
+            class="goods-item-foot__btn g-flex g-flex-ac g-flex-jc"
+          >
+            进入分类页<i class="iconfont icon-zuoyoujiantou2"></i>
+          </div>
         </div>
         <div
           class="goods-customer g-flex g-flex-sb"
