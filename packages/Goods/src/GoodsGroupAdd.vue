@@ -16,51 +16,52 @@
         :model="config"
         :rules="rules"
         label-width="120px">
-        <el-form-item label="分组名称" prop="title">
-          <el-input size="mini" v-model="config.title" maxlength></el-input>
-        </el-form-item>
-        <el-form-item label="名称字体大小">
+        <edit-panel :config="config">
+          <el-form-item label="分组名称" prop="title">
+            <el-input size="mini" v-model="config.title" maxlength></el-input>
+          </el-form-item>
+          <el-form-item label="名称字体大小">
             <el-radio v-model="config.titleFontsize" label="18px">大</el-radio>
             <el-radio v-model="config.titleFontsize" label="16px">中</el-radio>
             <el-radio v-model="config.titleFontsize" label="14px">小</el-radio>
-        </el-form-item>
-        <el-form-item label="名称背景颜色">
+          </el-form-item>
+          <el-form-item label="名称背景颜色">
             <el-color-picker v-model="config.titleBackgroundColor"></el-color-picker>
-        </el-form-item>
-        <el-form-item label="名称文字颜色">
+          </el-form-item>
+          <el-form-item label="名称文字颜色">
             <el-color-picker v-model="config.titleColor"></el-color-picker>
-        </el-form-item>
-        <el-form-item label="名称显示位置">
+          </el-form-item>
+          <el-form-item label="名称显示位置">
             <el-radio v-model="config.titleAlign" label="left">居左</el-radio>
             <el-radio v-model="config.titleAlign" label="center">居中</el-radio>
             <el-radio v-model="config.titleAlign" label="right">局右</el-radio>
-        </el-form-item>
-        <el-form-item label="权限">
-          <el-radio-group v-model="config.auth_type" @change="handleAuthTypeChange">
-            <el-radio :label="1">全部会员</el-radio>
-            <el-radio :label="2">推客</el-radio>
-            <el-radio :label="3">渠道商</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item :label="config.rank_name">
-          <el-select v-model="config.rank_id" placeholder="请选择等级">
-            <el-option
-              v-for="item in ranks"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="是否仅限等级">
-          <el-radio-group v-model="config.is_rank_only">
-            <el-radio :label="0">否</el-radio>
-            <el-radio :label="1">是</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <edit-panel :config="config"></edit-panel>
+          </el-form-item>
+          <el-form-item label="权限">
+            <el-radio-group v-model="config.auth_type" @change="handleAuthTypeChange">
+              <el-radio :label="1">全部会员</el-radio>
+              <el-radio :label="2">推客</el-radio>
+              <el-radio :label="3">渠道商</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item :label="config.rank_name">
+            <el-select v-model="config.rank_id" placeholder="请选择等级">
+              <el-option
+                  v-for="item in config.ranks"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="是否仅限等级">
+            <el-radio-group v-model="config.is_rank_only">
+              <el-radio :label="0">否</el-radio>
+              <el-radio :label="1">是</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </edit-panel>
         <el-form-item label="商品标签简介">
-          <div ref="editor"></div>
+          <rich-text v-model="config.decorateHtml"></rich-text>
         </el-form-item>
       </el-form>
     </el-card>
@@ -68,7 +69,6 @@
 </template>
 
 <script>
-import E from "wangeditor";
 import GoodItem from "../../good-style/Item.vue";
 import ConfigData from "./config";
 import GoodsService from "@/api/goods/goods";
@@ -128,29 +128,6 @@ export default {
 
   },
   methods: {
-    // 列表样式控制
-    handleListTypeChange(e) {
-      if (e === 5 || e === 6) {
-        this.config.style = 1;
-        this.configs.styles = [
-          {
-            key: 1,
-            name: "极简"
-          }
-        ];
-      } else {
-        this.configs.styles = [
-          {
-            key: 1,
-            name: "极简"
-          },
-          {
-            key: 2,
-            name: "卡片"
-          }
-        ];
-      }
-    },
     handleAuthTypeChange(e) {
       this.config.rank_id = 0;
     }
@@ -159,7 +136,7 @@ export default {
     // todo 获取商品分组名称
     this.config = Object.assign(
       {
-        title: "",
+        title: "",  //之前老的字段
         auth_type: 1,
         titleFontsize:'18px',
         titleBackgroundColor:'#FFFFFF',
@@ -168,31 +145,15 @@ export default {
         rank_id: 0,
         rank_name: "",
         is_rank_only: 0,
-        listType: 1,
-        fillType: 1,
-        zoom: 2,
-        style: 2,
-        content: [1, 3, 4],
-        buyIcon: 1,
-        cornerIcon: 1,
+        content: [1, 3, 4], //这个不知道干嘛的
         decorateHtml: "",
-        buyText: "马上抢",
+        ranks: [],
         ...goodsStyleConfig
       },
       this.content
     );
     this.goodsList = originGoodsList.slice();
   },
-  mounted: function() {
-    this.editor = new E(this.$refs.editor);
-    this.editor.customConfig.onchange = html => {
-      this.config.decorateHtml = html;
-    };
-    this.editor.create();
-    // 初始设置富文本编辑器
-    this.editor.txt.html(this.config.decorateHtml);
-  },
-
   watch: {
     currentIndex: function(n) {
       if (n === -1) {
@@ -214,7 +175,7 @@ export default {
       }
       GoodsService.groupRankList({ auth_type: n }).then(res => {
         if (res.data.code) {
-          this.ranks = res.data.data;
+          this.config.ranks = res.data.data;
         }
       });
     }
