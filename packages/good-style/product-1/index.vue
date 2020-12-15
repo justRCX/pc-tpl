@@ -31,11 +31,11 @@
               <div class="opare-line-buy">
                 <p
                   class="opare-line-buy__car g-flex g-flex-jc g-flex-ac"
-                  v-if="config.cart==1"
+                  v-if="!item.is_sku"
                 >
                   <i class="iconfont icon-cartfill"></i>
                 </p>
-                <p class="opare-line-buy__sku">选规格</p>
+                <p class="opare-line-buy__sku" v-else>选规格</p>
               </div>
             </div>
             <div class="g-flex g-flex-sb g-flex-ac opare-word">
