@@ -28,21 +28,14 @@
           </div>
           <div>
             <div class="opare-line g-flex g-flex-ac">
-              <!-- <span class="opare-line-label">团购价</span> -->
               <div class="opare-line-buy">
                 <p
                   class="opare-line-buy__car g-flex g-flex-jc g-flex-ac"
-                  v-if="config.cart==1"
+                  v-if="!item.is_sku"
                 >
                   <i class="iconfont icon-cartfill"></i>
                 </p>
-                <div
-                  class="__add-btn"
-                  v-if="config.cart == 2"
-                >
-                  <i class="iconfont icon-add1"></i>
-                </div>
-                <!-- <p class="opare-line-buy__sku">选规格</p> -->
+                <p class="opare-line-buy__sku" v-else>选规格</p>
               </div>
             </div>
             <div class="g-flex g-flex-sb g-flex-ac opare-word">
@@ -63,11 +56,13 @@
         class="goods-item-foot g-flex g-flex-sb g-flex-ac"
         v-if="config.isShowBuyHis==1 || config.isShowCate == 1"
       >
-        <div
-          v-if="config.isShowCate == 1"
-          class="goods-item-foot__btn g-flex g-flex-ac g-flex-jc"
-        >
-          进入分类页<i class="iconfont icon-zuoyoujiantou2"></i>
+        <div>
+          <div
+            v-if="config.isShowCate == 1"
+            class="goods-item-foot__btn g-flex g-flex-ac g-flex-jc"
+          >
+            进入分类页<i class="iconfont icon-zuoyoujiantou2"></i>
+          </div>
         </div>
         <div
           class="goods-customer g-flex g-flex-sb"
