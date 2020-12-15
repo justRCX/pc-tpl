@@ -77,7 +77,6 @@
         </div>
         <el-form-item
           label="tab头样式："
-          @change="handleStyleChange"
           v-show="config.templateId == 1"
         >
           <el-radio-group v-model="config.style">
@@ -87,10 +86,7 @@
             <el-radio :label="4">样式4</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item
-          label="颜色："
-          v-show="config.style != 4"
-        >
+        <el-form-item label="颜色：">
           <el-color-picker v-model="config.menuColor"></el-color-picker>
         </el-form-item>
       </edit-panel>
@@ -154,9 +150,6 @@
       this.init(this.content);
     },
     methods: {
-      handleStyleChange(val) {
-        this.config.menuColor = ''
-      },
       init($data) {
         // this.config = __merge(this.config,n, true)
         __merge(this.config, $data, true)

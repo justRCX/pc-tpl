@@ -183,6 +183,7 @@
         couponPop.popup({
           cacheList: this.couponList
         }).then(res => {
+          console.log(res, /res/)
           this.couponList = JSON.parse(JSON.stringify(res));
         }).catch(() => { })
       },
@@ -224,7 +225,7 @@
       },
       currentIndex: function (n) {
         if (n === -1) {
-          this.config.coupon_id = this.config.couponList.map(item => item.coupon_id);
+          this.config.coupon_id = this.couponList.map(item => item.coupon_id);
           this.$emit("update:content", this.config);
         }
       }

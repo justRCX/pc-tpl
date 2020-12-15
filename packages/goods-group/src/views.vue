@@ -23,11 +23,13 @@
       <div
         v-if="config.style == 4 && config.templateId === 1"
         class="tabStyle"
+        :style="'borderColor:'+config.menuColor"
       >
         <div class="goods">
           <div
-            v-for="item in groupList.slice(0,3)"
+            v-for="(item,index) in groupList.slice(0,3)"
             :key="item.group_id"
+            :style="index==0 ? firstOneStyle:''"
             class="item-goods"
           >{{item.group_title}}</div>
         </div>
@@ -155,16 +157,18 @@
         }]
       },
       firstOneStyle() {
+        let style = {};
         if (this.config.style == 1) {
-          return {
+          style = {
             color: this.config.menuColor,
             borderBottom: '2px solid ' + this.config.menuColor
           }
         } else {
-          return {
+          style = {
             background: this.config.menuColor
           }
         }
+        return style
       }
     }
   };
