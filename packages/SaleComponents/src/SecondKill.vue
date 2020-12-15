@@ -1,9 +1,9 @@
 <template>
   <div class="sale-config-box">
-    <sale-show
+    <second-kill-show
       :config="config"
       :list="config.saleList"
-    ></sale-show>
+    ></second-kill-show>
     <el-card
       class="edit-area"
       :header="config.headName"
@@ -103,6 +103,7 @@
   import { saleOnModelInstance } from "./sale-on-model.vue";
   import SaleShow from "./SaleShow.vue";
   import EditPanel from '../../good-style/component/edit-panel.vue';
+  import SecondKillShow from '../../good-style/second-kill/index.vue'
 
   export default {
     name: "SecondKill",
@@ -123,7 +124,8 @@
     components: {
       draggable: draggable,
       "sale-show": SaleShow,
-      'edit-panel': EditPanel
+      'edit-panel': EditPanel,
+      'second-kill-show': SecondKillShow
     },
     methods: {
       onchange_Icon($val) {
@@ -144,6 +146,7 @@
           .catch(() => { });
       },
       handleGoodsAddConfirm(goods, type) {
+        debugger
         let saleList = [];
         goods.forEach((elem) => {
           saleList.push(JSON.parse(JSON.stringify(elem)));
@@ -214,13 +217,13 @@
       },
       currentIndex: function (n) {
         if (n === -1) {
-          if (this.config.type != 40) {
-            this.config.saleList = this.saleList.map(item => item.sale_id)
-          } else {
-            this.config.saleList = this.saleList.map(item => {
-              return item.item[0].item_id;
-            })
-          }
+          // if (this.config.type != 40) {
+          //   this.config.saleList = this.config.saleList.map(item => item.sale_id)
+          // } else {
+          //   this.config.saleList = this.config.saleList.map(item => {
+          //     return item.item[0].item_id;
+          //   })
+          // }
           // console.log(this.saleList, this.config.saleList, '保存')
           this.$emit("update:content", this.config);
         }
