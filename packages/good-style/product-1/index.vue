@@ -28,7 +28,6 @@
           </div>
           <div>
             <div class="opare-line g-flex g-flex-ac">
-              <!-- <span class="opare-line-label">团购价</span> -->
               <div class="opare-line-buy">
                 <p
                   class="opare-line-buy__car g-flex g-flex-jc g-flex-ac"
@@ -36,13 +35,7 @@
                 >
                   <i class="iconfont icon-cartfill"></i>
                 </p>
-                <div
-                  class="__add-btn"
-                  v-if="config.cart == 2"
-                >
-                  <i class="iconfont icon-add1"></i>
-                </div>
-                <!-- <p class="opare-line-buy__sku">选规格</p> -->
+                <p class="opare-line-buy__sku">选规格</p>
               </div>
             </div>
             <div class="g-flex g-flex-sb g-flex-ac opare-word">
