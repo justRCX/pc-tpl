@@ -108,7 +108,6 @@
         // 传进去的参数
         config: {
           ...goodsStyleConfig,
-          showCount: 6,
           style: 1,
           templateId: 1,
           menuColor: '',
@@ -152,7 +151,14 @@
     methods: {
       init($data) {
         // this.config = __merge(this.config,n, true)
+        let goodsGroups = $data.goodsGroups;
+        if (goodsGroups.length > 0) {
+          goodsGroups.forEach(item => {
+            this.$set(item, 'showCount', item.showCount || '')
+          })
+        }
         __merge(this.config, $data, true)
+        this.config.goodsGroups = JSON.parse(JSON.stringify(this.config.goodsGroups))
       },
       onClick_showGoodsGroupPop($id) {
         goodsGroupFormDialog.popup({
