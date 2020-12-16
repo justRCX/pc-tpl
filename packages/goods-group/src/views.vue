@@ -23,7 +23,7 @@
       <div
         v-if="config.style == 4 && config.templateId === 1"
         class="tabStyle"
-        :style="'borderColor:'+config.menuColor"
+        :class="{'fill-style':config.fillType==2}"
       >
         <div class="goods">
           <div
@@ -169,14 +169,14 @@
           }
         }
         return style
-      }
+      },
     }
   };
 </script>
 
 <style lang="scss" scoped>
   .goods-list {
-    padding: 10px;
+    // padding: 10px;
     //   background:#f7f7f7;
     .goods-item-box {
       // background:#fff;
@@ -338,7 +338,7 @@
   }
   .tabStyle {
     display: flex;
-    width: 100%;
+    // width: 100%;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(254, 101, 104, 1);
@@ -386,5 +386,8 @@
         padding: (30 * 318/750 + px);
       }
     }
+  }
+  .fill-style {
+    margin: 0 (20 * 318/750 + px);
   }
 </style>

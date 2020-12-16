@@ -89,6 +89,20 @@
         <el-form-item label="颜色：">
           <el-color-picker v-model="config.menuColor"></el-color-picker>
         </el-form-item>
+        <el-form-item
+          label="标题填充："
+          v-show="config.templateId == 1"
+        >
+          <el-radio-group v-model="config.fillType">
+            <el-radio :label="1">填充</el-radio>
+            <el-radio :label="2">留白</el-radio>
+          </el-radio-group>
+          <el-slider
+            v-model="config.lrMargin"
+            :max="50"
+            show-input
+          ></el-slider>
+        </el-form-item>
       </edit-panel>
     </el-card>
   </div>
@@ -111,6 +125,7 @@
           style: 1,
           templateId: 1,
           menuColor: '',
+          fillType: 1,
           // 分组参数
           goodsGroups: [],
         },

@@ -39,33 +39,35 @@
         </p>
       </div>
       <!-- 个性样式 -->
-      <div
-        class="mz-title-show3"
-        :style="backgroundStyle"
-        v-if="config.templateId === 3"
-      >
-        <div class="title-wap">
-          <img
-            :src="config.personality.img"
-            v-if="config.personality.img"
-          />
-          <p
-            class="title"
-            :style="{ color:config.personality.titleColor3 ,'fontWeight':config.personality.blod ? 700:'normal'}"
-          >{{config.title}}</p>
-          <p
-            class="sub-title"
-            v-if="config.subTitle"
-            :style="{ color:config.personality.titleColor3 }"
-          >{{config.subTitle}}</p>
-        </div>
+      <div :style="paddingStyle">
         <div
-          class="btn-wap"
-          :style="{ color:config.personality.wordColor3,background: config.personality.backgroundColorBtn }"
-          v-if="config.personality.btnTitle"
+          class="mz-title-show3"
+          :style="backgroundStyle"
+          v-if="config.templateId === 3"
         >
-          <span class="btnTitle">{{config.personality.btnTitle}}</span>
-          <span class="iconfont icon-arrow"></span>
+          <div class="title-wap">
+            <img
+              :src="config.personality.img"
+              v-if="config.personality.img"
+            />
+            <p
+              class="title"
+              :style="{ color:config.personality.titleColor3 ,'fontWeight':config.personality.blod ? 700:'normal'}"
+            >{{config.title}}</p>
+            <p
+              class="sub-title"
+              v-if="config.subTitle"
+              :style="{ color:config.personality.titleColor3 }"
+            >{{config.subTitle}}</p>
+          </div>
+          <div
+            class="btn-wap"
+            :style="{ color:config.personality.wordColor3,background: config.personality.backgroundColorBtn }"
+            v-if="config.personality.btnTitle"
+          >
+            <span class="btnTitle">{{config.personality.btnTitle}}</span>
+            <span class="iconfont icon-arrow"></span>
+          </div>
         </div>
       </div>
       <!-- 滑动标题 -->
@@ -142,8 +144,12 @@
         let right = this.config.personality.backgroundColorRight || "#FE7264";
         return `
           background-image: linear-gradient(to right,${left},${right});
-          padding-left: ${this.config.personality.lrMargin}px;
-          padding-right: ${this.config.personality.lrMargin}px;
+        `;
+      },
+      paddingStyle() {
+        return `
+          padding-left: ${(this.config.personality.lrMargin * 320) / 750}px;
+          padding-right: ${(this.config.personality.lrMargin * 320) / 750}px;
         `;
       },
       BlankStyle() {
@@ -234,6 +240,7 @@
     justify-content: space-between;
     height: (78 * 318/750 + px);
     border-radius: (20 * 318/750 + px) (20 * 318/750 + px) 0 0;
+    padding: 0 (20 * 318/750 + px);
     .title-wap {
       display: flex;
       align-items: center;
