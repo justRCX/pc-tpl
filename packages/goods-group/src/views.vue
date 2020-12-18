@@ -23,11 +23,13 @@
       <div
         v-if="config.style == 4 && config.templateId === 1"
         class="tabStyle"
+        :class="{'fill-style':config.fillType==2}"
       >
         <div class="goods">
           <div
-            v-for="item in groupList.slice(0,3)"
+            v-for="(item,index) in groupList.slice(0,3)"
             :key="item.group_id"
+            :style="index==0 ? firstOneStyle:''"
             class="item-goods"
           >{{item.group_title}}</div>
         </div>
@@ -155,24 +157,26 @@
         }]
       },
       firstOneStyle() {
+        let style = {};
         if (this.config.style == 1) {
-          return {
+          style = {
             color: this.config.menuColor,
             borderBottom: '2px solid ' + this.config.menuColor
           }
         } else {
-          return {
+          style = {
             background: this.config.menuColor
           }
         }
-      }
+        return style
+      },
     }
   };
 </script>
 
 <style lang="scss" scoped>
   .goods-list {
-    padding: 10px;
+    // padding: 10px;
     //   background:#f7f7f7;
     .goods-item-box {
       // background:#fff;
@@ -334,7 +338,7 @@
   }
   .tabStyle {
     display: flex;
-    width: 100%;
+    // width: 100%;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid rgba(254, 101, 104, 1);
@@ -382,5 +386,8 @@
         padding: (30 * 318/750 + px);
       }
     }
+  }
+  .fill-style {
+    margin: 0 (20 * 318/750 + px);
   }
 </style>

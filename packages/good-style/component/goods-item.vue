@@ -17,7 +17,7 @@
         <p class="goods-item-buy__car g-flex g-flex-jc g-flex-ac">
           <i class="iconfont icon-cartfill"></i>
         </p>
-        <p class="goods-item-buy__num">9</p>
+        <p class="goods-item-buy__num">1</p>
       </div>
     </div>
   </div>

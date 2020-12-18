@@ -77,7 +77,6 @@
         </div>
         <el-form-item
           label="tab头样式："
-          @change="handleStyleChange"
           v-show="config.templateId == 1"
         >
           <el-radio-group v-model="config.style">
@@ -87,11 +86,22 @@
             <el-radio :label="4">样式4</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item
-          label="颜色："
-          v-show="config.style != 4"
-        >
+        <el-form-item label="颜色：">
           <el-color-picker v-model="config.menuColor"></el-color-picker>
+        </el-form-item>
+        <el-form-item
+          label="标题填充："
+          v-show="config.templateId == 1"
+        >
+          <el-radio-group v-model="config.fillType">
+            <el-radio :label="1">填充</el-radio>
+            <el-radio :label="2">留白</el-radio>
+          </el-radio-group>
+          <el-slider
+            v-model="config.lrMargin"
+            :max="50"
+            show-input
+          ></el-slider>
         </el-form-item>
       </edit-panel>
     </el-card>
@@ -112,10 +122,10 @@
         // 传进去的参数
         config: {
           ...goodsStyleConfig,
-          showCount: 6,
           style: 1,
           templateId: 1,
           menuColor: '',
+          fillType: 1,
           // 分组参数
           goodsGroups: [],
         },
@@ -154,12 +164,16 @@
       this.init(this.content);
     },
     methods: {
-      handleStyleChange(val) {
-        this.config.menuColor = ''
-      },
       init($data) {
         // this.config = __merge(this.config,n, true)
+        let goodsGroups = $data.goodsGroups;
+        if (goodsGroups.length > 0) {
+          goodsGroups.forEach(item => {
+            this.$set(item, 'showCount', item.showCount || '')
+          })
+        }
         __merge(this.config, $data, true)
+        this.config.goodsGroups = JSON.parse(JSON.stringify(this.config.goodsGroups))
       },
       onClick_showGoodsGroupPop($id) {
         goodsGroupFormDialog.popup({
