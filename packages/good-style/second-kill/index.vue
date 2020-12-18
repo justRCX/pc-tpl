@@ -46,7 +46,7 @@
         <div class="kill-goods-list">
             <div class="goods-item" v-for="item in list">
                 <div class="cover-image">
-                    <img :src="item.item[0].thumb_image_path" alt="">
+                    <img :src="item.thumb_image_path" alt="">
                 </div>
                 <div class="good-info">
                     <div class="title">
@@ -238,7 +238,6 @@
                       }
                   }
               }
-
           }
       }
   }

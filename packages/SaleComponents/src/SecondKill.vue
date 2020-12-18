@@ -9,47 +9,47 @@
       :header="config.headName"
       v-if="belongIndex === currentIndex"
     >
-      <div class="edit-box">
-        <div class="edit-label">选择营销活动:</div>
-        <div class="goods_flex">
-          <draggable
-              class="wrapper"
-              v-model="config.saleList"
-              :options="{draggable:'.item'}"
-          >
-            <transition-group>
-              <div
-                  v-for="(obj, index) in config.saleList"
-                  :key="index"
-                  class="flexs item"
-              >
-                <div class="card-img">
-                  <i
-                      class="el-icon-close close-btn"
-                      @click="deleteGood(index)"
-                  ></i>
-                  <img
-                      style="width:100%;height:100%;"
-                      :src="obj.item.length>0 && obj.item[0].thumb_image_path"
-                      alt="商品图片"
-                  />
-                </div>
-              </div>
-              <div
-                  class="card-add"
-                  @click="saleOnModelInstance"
-                  :key="1234"
-                  sortable
-              >
-                <i
-                    style="color:#409EFF"
-                    class="iconfont icon-add1"
-                ></i>
-              </div>
-            </transition-group>
-          </draggable>
-        </div>
-      </div>
+<!--      <div class="edit-box">-->
+<!--        <div class="edit-label">选择营销活动:</div>-->
+<!--        <div class="goods_flex">-->
+<!--          <draggable-->
+<!--              class="wrapper"-->
+<!--              v-model="config.saleList"-->
+<!--              :options="{draggable:'.item'}"-->
+<!--          >-->
+<!--            <transition-group>-->
+<!--              <div-->
+<!--                  v-for="(obj, index) in config.saleList"-->
+<!--                  :key="index"-->
+<!--                  class="flexs item"-->
+<!--              >-->
+<!--                <div class="card-img">-->
+<!--                  <i-->
+<!--                      class="el-icon-close close-btn"-->
+<!--                      @click="deleteGood(index)"-->
+<!--                  ></i>-->
+<!--                  <img-->
+<!--                      style="width:100%;height:100%;"-->
+<!--                      :src="obj.item.length>0 && obj.item[0].thumb_image_path"-->
+<!--                      alt="商品图片"-->
+<!--                  />-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div-->
+<!--                  class="card-add"-->
+<!--                  @click="saleOnModelInstance"-->
+<!--                  :key="1234"-->
+<!--                  sortable-->
+<!--              >-->
+<!--                <i-->
+<!--                    style="color:#409EFF"-->
+<!--                    class="iconfont icon-add1"-->
+<!--                ></i>-->
+<!--              </div>-->
+<!--            </transition-group>-->
+<!--          </draggable>-->
+<!--        </div>-->
+<!--      </div>-->
       <el-form
           label-width="120px"
           style="text-align:left;"
@@ -111,7 +111,37 @@
       return {
         config: {
           type: this.type,
-          saleList: [],
+          saleList: [
+            {
+              create_time: "2020-12-10 17:01:11",
+              current_price: "200.00",
+              item_id: 7040,
+              item_title: "供货价测试",
+              item_type: 1,
+              num: 140,
+              selling_point: "123",
+              shelf_off_time: "",
+              shelf_time: "2020-12-15 11:09:27",
+              thumb_image_path: "http://img.wkdao.com/image/65/2020/12/03/94456288f8844e4abd7f67b1eef3540f.png",
+              _item_type: "实物商品"
+            },
+            {
+              create_time: "2020-12-10 16:58:35",
+              current_price: "200.00",
+              item_id: 7038,
+              item_title: "11111",
+              item_type: 1,
+              num: 20,
+              selling_point: "",
+              shelf_off_time: "",
+              shelf_time: "2020-12-10 17:06:44",
+              thumb_image_path: "http://img.wkdao.com/image/65/2020/07/31/e83d205f3e6540724a20a43cb50d3a18.png",
+              _item_type: "实物商品"
+            },
+            {
+              thumb_image_path: "http://img.wkdao.com/image/65/2020/12/03/94456288f8844e4abd7f67b1eef3540f.png"
+            }
+          ],
           sellOutUrl: 'https://img.kemanyun.com/qianhuituan/2019-09-23/11_1569205880_Hh3hqHcUew.png',
           defSellOutUrl: "https://img.kemanyun.com/qianhuituan/2019-09-23/11_1569205880_Hh3hqHcUew.png",
           isDefSellOut: 1,
@@ -167,7 +197,7 @@
         this.config.saleList.forEach((item) => {
           sale.push({
             sale_id: item,
-            tool_id: this.configs.toolIds[this.config.type],
+            tool_id: 1,
           });
         });
         params = {
@@ -209,7 +239,7 @@
     },
     created() {
       this.init(this.content);
-      this.getList();
+      // this.getList();
     },
     watch: {
       content(n) {
