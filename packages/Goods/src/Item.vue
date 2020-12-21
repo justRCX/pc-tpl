@@ -840,6 +840,9 @@
       // display: flex;
       background: #fff;
       margin-bottom: 10px;
+      padding: 0;
+      border-radius: 10px;
+      overflow: hidden;
       .goods-item__wrapper {
         width: 100px;
         height: 100px;
@@ -858,6 +861,7 @@
         height: 100px;
         float: left;
         width: calc(100% - 100px);
+        border-radius: 0;
         .card {
           height: 100%;
           width: 100%;
