@@ -838,7 +838,6 @@
     }
     .detail-list {
       // display: flex;
-      background: #fff;
       margin-bottom: 10px;
       padding: 0;
       border-radius: 10px;
@@ -848,6 +847,8 @@
         height: 100px;
         padding: 0px;
         float: left;
+        background: #fff;
+        border-radius: 0;
         .img-square {
           width: 100%;
           height: 100%;
@@ -862,6 +863,7 @@
         float: left;
         width: calc(100% - 100px);
         border-radius: 0;
+        background: #fff;
         .card {
           height: 100%;
           width: 100%;
