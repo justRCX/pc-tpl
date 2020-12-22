@@ -235,7 +235,7 @@
           </el-form-item>
           <el-form-item
             label="整体风格"
-            v-if="config.listType == 4"
+            v-if="config.listType == 4 && isGroup"
           >
             <el-radio
               v-for="item in configs.listStyles"
