@@ -1,10 +1,23 @@
 <template>
   <div class="goods-container">
-    <div v-for="(item,index) in list" :key="index" class="goods-item">
+    <div
+      v-for="(item,index) in list"
+      :key="index"
+      class="goods-item"
+    >
       <div class="goods-imgs">
-        <div :style="'background-image:url('+item.thumb_image_path+');'" class="goods-imgs__img"></div>
-        <div class="goods-imgs__label" v-if="config.badge_path">
-          <img :src="config.badge_path" alt="logo">
+        <div
+          :style="'background-image:url('+item.thumb_image_path+');'"
+          class="goods-imgs__img"
+        ></div>
+        <div
+          class="goods-imgs__label"
+          v-if="config.badge_path"
+        >
+          <img
+            :src="config.badge_path"
+            alt="logo"
+          >
         </div>
       </div>
       <div class="goods-conetnt">
@@ -12,10 +25,9 @@
           <p class="goods-conetnt__title g-ellipsis-2">{{item.item_title}}</p>
           <p class="goods-conetnt__sub-title g-ellipsis-1">{{item.selling_point}}</p>
         </div>
-        <div class="g-flex g-flex-sb goods-conetnt-sales">
+        <div class="g-flex g-flex-sb g-flex-ac goods-conetnt-sales">
           <div class="__color-yellow">
-            <p>预售时间：03月05日</p>
-            <p>提货时间：03月05日</p>
+            预售时间：03月05日
           </div>
           <div>
             <p>已售<span class="__color-red">{{item.num}}</span>件</p>
@@ -32,30 +44,45 @@
             <span class="opare-word__line-price">{{item.current_price}}</span>
           </div>
           <template v-if="config.isShowCate != 1">
-              <div class="opare-word__add __go-btn" v-if="config.cart == 1">加入购物车</div>
-              <!-- <c-plus v-if="config.cart == 2" size="large"></c-plus> -->
-              <div class="__add-btn" v-if="config.cart == 2">
-                <i class="iconfont icon-add1"></i>
-              </div>
+            <div
+              class="opare-word__add __go-btn"
+              v-if="config.cart == 1"
+            >加入购物车</div>
+            <!-- <c-plus v-if="config.cart == 2" size="large"></c-plus> -->
+            <div
+              class="__add-btn"
+              v-if="config.cart == 2"
+            >
+              <i class="iconfont icon-add1"></i>
+            </div>
           </template>
         </div>
       </div>
-      <div class="goods-conetnt-btn g-flex g-flex-sb g-flex-ac" v-if="config.isShowCate == 1">
-          <div class="goods-conetnt-btn__goin __go-btn">进入分类页</div>
-          <div class="goods-conetnt-btn__add __go-btn" v-if="config.cart == 1">加入购物车</div>
-          <!-- <c-plus v-if="config.cart == 2" size="large"></c-plus> -->
-          <div class="__add-btn" v-if="config.cart == 2">
-            <i class="iconfont icon-add1"></i>
-          </div>
+      <div
+        class="goods-conetnt-btn g-flex g-flex-sb g-flex-ac"
+        v-if="config.isShowCate == 1"
+      >
+        <div class="goods-conetnt-btn__goin __go-btn">进入分类页</div>
+        <div
+          class="goods-conetnt-btn__add __go-btn"
+          v-if="config.cart == 1"
+        >加入购物车</div>
+        <!-- <c-plus v-if="config.cart == 2" size="large"></c-plus> -->
+        <div
+          class="__add-btn"
+          v-if="config.cart == 2"
+        >
+          <i class="iconfont icon-add1"></i>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 <script>
   import CPlus from '../component/plus'
   export default {
-    props:['config','list'],
+    props: ['config', 'list'],
     components: {
       CPlus
     },
@@ -70,6 +97,6 @@
   }
 </script>
 <style scoped lang="scss">
- @import "../../util.scss";
- @import "./index.scss";
+  @import "../../util.scss";
+  @import "./index.scss";
 </style>
