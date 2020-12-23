@@ -18,16 +18,16 @@
         v-if="api.indexOf('receiveItemListWithSku')<0"
       >刷新</el-button>
       <el-input
+        placeholder="搜索"
         style="float:right;
                 width:200px;"
-        placeholder="搜索"
-        @keyup.enter.native="refresh"
         v-model="item_keywords"
       >
-        <i
-          slot="prefix"
-          class="el-input__icon el-icon-search"
-        ></i>
+        <el-button
+          slot="append"
+          icon="el-icon-search"
+          @click="refresh"
+        ></el-button>
       </el-input>
     </div>
     <el-tabs
