@@ -89,7 +89,7 @@
       margin-top: to320(12);
     }
     &-title {
-      width: to320(112);
+      min-width: to320(130);
       height: to320(28);
       font-size: to320(28);
       font-weight: bold;
