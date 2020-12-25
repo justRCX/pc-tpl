@@ -27,7 +27,7 @@
         </div>
         <div class="g-flex g-flex-sb g-flex-ac goods-conetnt-sales">
           <div class="__color-yellow">
-            预售时间：03月05日
+            提货时间：03月05日
           </div>
           <div>
             <p>已售<span class="__color-red">{{item.num}}</span>件</p>
