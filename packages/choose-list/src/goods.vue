@@ -50,15 +50,13 @@
         :key="index"
         class="list-item"
         :class="{'list-item--checked': item.checked}"
+        @click="handleSelect(item)"
       >
         <el-checkbox
           v-model="item.checked"
-          :disabled="chooseList.length>=defaultNum && !item.checked && defaultNum>0"
+          :disabled="chooseList.length>=defaultNum && !item.checked && defaultNum>0 || item.disabled"
         ></el-checkbox>
-        <div
-          class="list-item-content"
-          @click="handleSelect(item)"
-        >
+        <div class="list-item-content">
           <img
             :src="item.thumb_image_path"
             style="width:50px;height:50px"
@@ -137,6 +135,8 @@
         chooseList: [],
         // 回显list
         cacheList: [],
+        // 禁选list
+        disableList: [],
         // 接口
         api: '/Item/shelfItemList'
       }
@@ -176,6 +176,10 @@
               if (finexIndex >= 0) {
                 row.checked = true;
               }
+              let disableIndex = this.disableList.findIndex(item => item.item_id == row.item_id)
+              if (disableIndex >= 0) {
+                this.$set(row, 'disabled', true)
+              }
             })
             this.ajaxing = false;
           })
@@ -189,7 +193,7 @@
       },
       handleSelect(row) {
         // 将勾选值去掉的时候 也要去掉cache的勾选值
-        if (this.chooseList.length >= this.defaultNum && !row.checked && this.defaultNum > 0) {
+        if (this.chooseList.length >= this.defaultNum && !row.checked && this.defaultNum > 0 || row.disabled) {
           return
         }
         row.checked = !row.checked;
