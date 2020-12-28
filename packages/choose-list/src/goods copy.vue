@@ -3,41 +3,32 @@
     :title="title"
     @closed="handleClosed"
     :visible.sync="visible"
-    width="60%"
   >
-    <div>
-      <el-form
-        ref="form"
-        :model="form"
-        label-width="100px"
-        size="small"
+    <div class="modal-header">
+      <el-button
+        @click="routerTo('GoodsManageAdd')"
+        v-if="api.indexOf('receiveItemListWithSku')<0"
+      >新建</el-button>
+      <el-button
+        @click="routerTo('GoodsManage')"
+        v-if="api.indexOf('receiveItemListWithSku')<0"
+      >草稿管理</el-button>
+      <el-button
+        @click="refresh"
+        v-if="api.indexOf('receiveItemListWithSku')<0"
+      >刷新</el-button>
+      <el-input
+        placeholder="搜索"
+        style="float:right;
+                width:200px;"
+        v-model="item_keywords"
       >
-        <el-row class="m-search-box">
-          <el-col :span="8">
-            <el-form-item label="商品名称：">
-              <el-input
-                v-model="form.item_keywords"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="商品id：">
-              <el-input
-                v-model="form.item_keywords"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <el-row class="btns">
         <el-button
-          type="primary"
+          slot="append"
+          icon="el-icon-search"
           @click="refresh"
-          size="small"
-        >查询</el-button>
-      </el-row>
+        ></el-button>
+      </el-input>
     </div>
     <el-tabs
       v-model="activeName"
@@ -53,32 +44,41 @@
         name="Store"
       >门店</el-tab-pane>
     </el-tabs>
-    <div class="list-wapper">
-      <div
-        :span="8"
-        v-for="(item,index) in list"
-        :key="index"
-        class="list-item"
-        :class="{'list-item--checked': item.checked}"
-        @click="handleSelect(item)"
+    <el-table
+      :data="list"
+      v-loading="ajaxing"
+      @selection-change="handleSelectionChange"
+      @select="handleSelect"
+      @select-all="handleSelectAll"
+      ref="table"
+      row-key="item_id"
+    >
+      <el-table-column
+        type="selection"
+        width="55"
+        reserve-selection
       >
-        <el-checkbox v-model="item.checked"></el-checkbox>
-        <div class="list-item-content">
-          <img
-            :src="item.thumb_image_path"
-            style="width:50px;height:50px"
-            class="list-item-content__img"
-          />
-          <div class="list-item-content-word">
-            <p class="g-ellipsis-2">{{item.item_title}}</p>
-            <p>价格：<span class="__color">{{item.current_price}}</span></p>
+      </el-table-column>
+      <el-table-column label="标题">
+        <template slot-scope="scope">
+          <div class="goods-info-box">
+            <img
+              :src="scope.row.thumb_image_path"
+              style="width:50px;height:50px"
+            />
+            <span class="goods-name">{{scope.row.item_title}}
+            </span>
           </div>
-        </div>
-      </div>
-    </div>
-    </div>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="create_time"
+        label="创建时间"
+        v-if="list[0] && list[0].create_time"
+      ></el-table-column>
+    </el-table>
     <el-pagination
-      style="float: left;"
+      style="float: right;"
       :small="true"
       class="pull-left"
       @current-change="changeList"
@@ -97,6 +97,7 @@
         type="primary"
         @click="handleConfirm"
       >确 定</el-button>
+
     </div>
   </el-dialog>
 </template>
@@ -114,7 +115,7 @@
 
     data() {
       return {
-        title: '选择商品',
+        title: '已上架商品',
         activeName: '',
         visible: false,
         list: [],
@@ -124,9 +125,7 @@
           page: 1,
           page_size: 5
         },
-        form: {
-          item_keywords: '',
-        },
+        item_keywords: '',
         // 要发送给后台的额外数据
         sendOtherData: {
         },
@@ -160,23 +159,22 @@
           data: {
             page_size: this.page_info.page_size,
             page: this.page_info.page,
-            item_keywords: this.form.item_keywords,
+            item_keywords: this.item_keywords,
             type: this.activeName,
             ...this.sendOtherData,
           }
         }).then(res => {
           let list = res.data.data
+          this.ajaxing = false;
           this.list = list;
           this.page_info = res.data.page_info;
           this.$nextTick(() => {
             this.list.forEach(row => {
-              this.$set(row, 'checked', false)
-              let finexIndex = this.chooseList.findIndex(item => item.item_id == row.item_id)
+              let finexIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
               if (finexIndex >= 0) {
-                row.checked = true;
+                this.$refs.table.toggleRowSelection(row, true)
               }
             })
-            this.ajaxing = false;
           })
         }).catch(err => {
           this.ajaxing = false;
@@ -186,15 +184,30 @@
         this.page_info.page = page;
         this.getList();
       },
-      handleSelect(row) {
+      handleSelect(selection, row) {
         // 将勾选值去掉的时候 也要去掉cache的勾选值
-        row.checked = !row.checked;
-        if (row.checked) {
-          this.chooseList.push(row)
-        } else {
-          let finexIndex = this.chooseList.findIndex(item => item.item_id == row.item_id)
-          this.chooseList.splice(finexIndex, 1)
+        let find = selection.findIndex(item => item.item_id == row.item_id);
+        if (find < 0) {
+          let cacheIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
+          if (cacheIndex >= 0) {
+            this.cacheList.splice(cacheIndex, 1)
+          }
         }
+      },
+      handleSelectAll(selection) {
+        // 将勾选值去掉的时候 也要去掉cache的勾选值
+        let isCurrentPageClear = selection.find(item => this.list.find(listItem => item.item_id == listItem.item_id))
+        if (!isCurrentPageClear) {
+          this.list.forEach(row => {
+            let cacheIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
+            if (cacheIndex >= 0) {
+              this.cacheList.splice(cacheIndex, 1)
+            }
+          })
+        }
+      },
+      handleSelectionChange(e) {
+        this.chooseList = e;
       },
       handleConfirm() {
         if (this.chooseList.length == 0) {
@@ -206,7 +219,7 @@
           return
         }
         // 去重
-        let endList = this.chooseList;
+        let endList = [...this.chooseList, ...this.cacheList];
         let endIds = endList.map(item => item.item_id);
         let idsList = Array.from(new Set(endIds))
         let lists = idsList.map(id => {
@@ -225,8 +238,7 @@
       }
     },
     mounted() {
-      this.chooseList = JSON.parse(JSON.stringify(this.cacheList));
-      this.getList();
+      this.getList()
     },
   }
   export default goodsOnShelves;
@@ -235,50 +247,19 @@
 </script>
 
 <style scoped lang='scss'>
-  .btns {
-    padding: 0 30px 10px;
-  }
-  .__color {
-    color: #ff5e52;
-  }
-  .dialog-footer {
+  .goods-info-box {
     display: flex;
-    justify-content: flex-end;
-  }
-  .list-wapper {
-    display: flex;
-    flex-wrap: wrap;
-    .list-item {
-      cursor: pointer;
-      box-sizing: border-box;
-      padding: 20px 10px;
-      margin: 0 5px 10px;
-      width: calc(calc(100% / 3) - 10px);
-      height: 100px;
-      overflow: hidden;
-      border: 1px solid #eee;
-      position: relative;
-      display: flex;
-      align-items: center;
-      &--checked {
-        background-color: rgba(144, 147, 153, 0.1);
-      }
-      &-content {
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        padding-left: 10px;
-        &__img {
-          width: 60px;
-          height: 60px;
-        }
-        &-word {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          padding-left: 10px;
-        }
-      }
+    align-items: center;
+    justify-items: center;
+    img {
+      float: none;
     }
+  }
+  .goods-name {
+    color: #38f;
+    text-indent: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 </style>
