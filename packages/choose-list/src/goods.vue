@@ -5,39 +5,30 @@
     :visible.sync="visible"
     width="60%"
   >
-    <div>
-      <el-form
-        ref="form"
-        :model="form"
-        label-width="100px"
-        size="small"
+    <div class="btns">
+      <el-button
+        @click="routerTo('GoodsManageAdd')"
+        v-if="api.indexOf('receiveItemListWithSku')<0"
+      >新建</el-button>
+      <el-button
+        @click="routerTo('GoodsManage')"
+        v-if="api.indexOf('receiveItemListWithSku')<0"
+      >草稿管理</el-button>
+      <el-button
+        @click="refresh"
+        v-if="api.indexOf('receiveItemListWithSku')<0"
+      >刷新</el-button>
+      <el-input
+        placeholder="搜索"
+        style="float:right;width:200px;"
+        v-model="form.item_keywords"
       >
-        <el-row class="m-search-box">
-          <el-col :span="8">
-            <el-form-item label="商品名称：">
-              <el-input
-                v-model="form.item_keywords"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="商品id：">
-              <el-input
-                v-model="form.item_keywords"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <el-row class="btns">
         <el-button
-          type="primary"
+          slot="append"
+          icon="el-icon-search"
           @click="refresh"
-          size="small"
-        >查询</el-button>
-      </el-row>
+        ></el-button>
+      </el-input>
     </div>
     <el-tabs
       v-model="activeName"
@@ -55,15 +46,19 @@
     </el-tabs>
     <div class="list-wapper">
       <div
-        :span="8"
         v-for="(item,index) in list"
         :key="index"
         class="list-item"
         :class="{'list-item--checked': item.checked}"
-        @click="handleSelect(item)"
       >
-        <el-checkbox v-model="item.checked"></el-checkbox>
-        <div class="list-item-content">
+        <el-checkbox
+          v-model="item.checked"
+          :disabled="chooseList.length>=defaultNum && !item.checked && defaultNum>0"
+        ></el-checkbox>
+        <div
+          class="list-item-content"
+          @click="handleSelect(item)"
+        >
           <img
             :src="item.thumb_image_path"
             style="width:50px;height:50px"
@@ -76,27 +71,33 @@
         </div>
       </div>
     </div>
-    </div>
-    <el-pagination
-      style="float: left;"
-      :small="true"
-      class="pull-left"
-      @current-change="changeList"
-      :current-page="page_info.page"
-      :page-size="page_info.page_size"
-      layout="total,  prev, pager, next, jumper"
-      :total="page_info.total"
+    <div
+      v-if="list.length==0"
+      class="full-wapper"
     >
-    </el-pagination>
+      暂无数据
+    </div>
     <div
       slot="footer"
       class="dialog-footer"
     >
-      <el-button @click="handleCancel">取 消</el-button>
-      <el-button
-        type="primary"
-        @click="handleConfirm"
-      >确 定</el-button>
+      <el-pagination
+        :small="true"
+        class="pull-left"
+        @current-change="changeList"
+        :current-page="page_info.page"
+        :page-size="page_info.page_size"
+        layout="total,  prev, pager, next, jumper"
+        :total="page_info.total"
+      >
+      </el-pagination>
+      <div>
+        <el-button @click="handleCancel">取 消</el-button>
+        <el-button
+          type="primary"
+          @click="handleConfirm"
+        >确 定</el-button>
+      </div>
     </div>
   </el-dialog>
 </template>
@@ -188,6 +189,9 @@
       },
       handleSelect(row) {
         // 将勾选值去掉的时候 也要去掉cache的勾选值
+        if (this.chooseList.length >= this.defaultNum && !row.checked && this.defaultNum > 0) {
+          return
+        }
         row.checked = !row.checked;
         if (row.checked) {
           this.chooseList.push(row)
@@ -236,14 +240,15 @@
 
 <style scoped lang='scss'>
   .btns {
-    padding: 0 30px 10px;
+    padding: 0 5px 10px;
   }
   .__color {
     color: #ff5e52;
   }
   .dialog-footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
   }
   .list-wapper {
     display: flex;
@@ -280,5 +285,11 @@
         }
       }
     }
+  }
+  .full-wapper {
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    border: 1px solid #eee;
   }
 </style>
