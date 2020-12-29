@@ -7,12 +7,12 @@
     >
       <div
         class="coupon__wrapper-style-item"
-        v-for="item in list"
+        v-for="(item,index) in list"
         :style="flexBasic"
-        :class="{
+        :class="[{
         '__disable':couponStatus == 3,
-        '__has':couponStatus == 2
-        }"
+        '__has':couponStatus == 2,
+        },`__color-${(index+1)%4}`]"
       >
         <p class="title">{{item.title }}</p>
         <p class="desc">{{item.remark }}</p>
