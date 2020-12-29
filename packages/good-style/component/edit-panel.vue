@@ -109,22 +109,22 @@
           {
             key: 1,
             name: '新品',
-            image_path: 'https://img.qianhuituan.cn/uploads/images/202006/29/FBytqwCIMbjv0QUCmdBdhw2BlTNoKWkNFaJgVwKm.png'
+            image_path: 'http://img.wkdao.com/image/65/2020/12/28/9c8d13a192c80c6ec2ef76e28d4c045b.png'
           },
           {
             key: 2,
             name: '热卖',
-            image_path: 'https://img.qianhuituan.cn/uploads/images/202006/29/Wo5VRQd3oyk69owjeOlslkKwoq1MJhwXYlnaoZJ9.png'
+            image_path: 'http://img.wkdao.com/image/65/2020/12/28/8197f84c5cf6c3076967e3a695579e47.png'
           },
           {
             key: 3,
             name: 'NEW',
-            image_path: 'https://img.qianhuituan.cn/uploads/images/202006/29/tVLDvUsNw1B5wo7J15wmoTjsYPXkK4ikCFavhynv.png'
+            image_path: 'http://img.wkdao.com/image/65/2020/12/28/f54cc7c1a57559bf00fe73e7aa647f8b.png'
           },
           {
             key: 4,
             name: 'HOT',
-            image_path: 'https://img.qianhuituan.cn/uploads/images/202006/29/tVLDvUsNw1B5wo7J15wmoTjsYPXkK4ikCFavhynv.png'
+            image_path: 'http://img.wkdao.com/image/65/2020/12/28/4f1884240b33493c88ca867889387c3a.png'
           },
           {
             key: 5,
