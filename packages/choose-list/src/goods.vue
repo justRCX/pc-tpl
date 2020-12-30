@@ -53,7 +53,7 @@
       >
         <el-checkbox
           v-model="item.checked"
-          :disabled="chooseList.length>=defaultNum && !item.checked && defaultNum>0 || item.disabled"
+          :disabled="chooseList.length>=defaultNum && !item.checked && defaultNum>0 || item.disabled || item.sale_status == 3"
           @change="handleSelect($event,item)"
         >
           <div class="list-item-content">
