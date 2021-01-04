@@ -6,7 +6,7 @@
     ></second-kill-show>
     <el-card
       class="edit-area"
-      :header="config.headName"
+      header="秒杀组件"
       v-if="belongIndex === currentIndex"
     >
 <!--      <div class="edit-box">-->
@@ -146,6 +146,7 @@
           defSellOutUrl: "https://img.kemanyun.com/qianhuituan/2019-09-23/11_1569205880_Hh3hqHcUew.png",
           isDefSellOut: 1,
           isShowSellOut: 1,
+          headName: '秒杀组件'
         },
         ajaxing: false,
       };

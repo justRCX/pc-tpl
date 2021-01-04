@@ -3,9 +3,8 @@
     :title="title"
     @closed="handleClosed"
     :visible.sync="visible"
-    width="60%"
   >
-    <div class="btns">
+    <div class="modal-header">
       <el-button
         @click="routerTo('GoodsManageAdd')"
         v-if="api.indexOf('receiveItemListWithSku')<0"
@@ -20,8 +19,9 @@
       >刷新</el-button>
       <el-input
         placeholder="搜索"
-        style="float:right;width:200px;"
-        v-model="form.item_keywords"
+        style="float:right;
+                width:200px;"
+        v-model="item_keywords"
       >
         <el-button
           slot="append"
@@ -44,59 +44,60 @@
         name="Store"
       >门店</el-tab-pane>
     </el-tabs>
-    <div class="list-wapper">
-      <div
-        v-for="(item,index) in list"
-        :key="index"
-        class="list-item"
-        :class="{'list-item--checked': item.checked}"
-      >
-        <el-checkbox
-          v-model="item.checked"
-          :disabled="chooseList.length>=defaultNum && !item.checked && defaultNum>0 || item.disabled || item.sale_status == 3"
-          @change="handleSelect($event,item)"
-        >
-          <div class="list-item-content">
-            <img
-              :src="item.thumb_image_path"
-              style="width:50px;height:50px"
-              class="list-item-content__img"
-            />
-            <div class="list-item-content-word">
-              <p class="g-ellipsis-2">{{item.item_title}}</p>
-              <p>价格：<span class="__color">{{item.current_price}}</span></p>
-            </div>
-          </div>
-        </el-checkbox>
-      </div>
-    </div>
-    <div
-      v-if="list.length==0"
-      class="full-wapper"
+    <el-table
+      :data="list"
+      v-loading="ajaxing"
+      @selection-change="handleSelectionChange"
+      @select="handleSelect"
+      @select-all="handleSelectAll"
+      ref="table"
+      row-key="item_id"
     >
-      暂无数据
-    </div>
+      <el-table-column
+        type="selection"
+        width="55"
+        reserve-selection
+      >
+      </el-table-column>
+      <el-table-column label="标题">
+        <template slot-scope="scope">
+          <div class="goods-info-box">
+            <img
+              :src="scope.row.thumb_image_path"
+              style="width:50px;height:50px"
+            />
+            <span class="goods-name">{{scope.row.item_title}}
+            </span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="create_time"
+        label="创建时间"
+        v-if="list[0] && list[0].create_time"
+      ></el-table-column>
+    </el-table>
+    <el-pagination
+      style="float: right;"
+      :small="true"
+      class="pull-left"
+      @current-change="changeList"
+      :current-page="page_info.page"
+      :page-size="page_info.page_size"
+      layout="total,  prev, pager, next, jumper"
+      :total="page_info.total"
+    >
+    </el-pagination>
     <div
       slot="footer"
       class="dialog-footer"
     >
-      <el-pagination
-        :small="true"
-        class="pull-left"
-        @current-change="changeList"
-        :current-page="page_info.page"
-        :page-size="page_info.page_size"
-        layout="total,  prev, pager, next, jumper"
-        :total="page_info.total"
-      >
-      </el-pagination>
-      <div>
-        <el-button @click="handleCancel">取 消</el-button>
-        <el-button
-          type="primary"
-          @click="handleConfirm"
-        >确 定</el-button>
-      </div>
+      <el-button @click="handleCancel">取 消</el-button>
+      <el-button
+        type="primary"
+        @click="handleConfirm"
+      >确 定</el-button>
+
     </div>
   </el-dialog>
 </template>
@@ -114,7 +115,7 @@
 
     data() {
       return {
-        title: '选择商品',
+        title: '已上架商品',
         activeName: '',
         visible: false,
         list: [],
@@ -124,9 +125,7 @@
           page: 1,
           page_size: 5
         },
-        form: {
-          item_keywords: '',
-        },
+        item_keywords: '',
         // 要发送给后台的额外数据
         sendOtherData: {
         },
@@ -136,8 +135,6 @@
         chooseList: [],
         // 回显list
         cacheList: [],
-        // 禁选list[id1,id2,id3....]
-        disableList: [],
         // 接口
         api: '/Item/shelfItemList'
       }
@@ -162,27 +159,22 @@
           data: {
             page_size: this.page_info.page_size,
             page: this.page_info.page,
-            item_keywords: this.form.item_keywords,
+            item_keywords: this.item_keywords,
             type: this.activeName,
             ...this.sendOtherData,
           }
         }).then(res => {
           let list = res.data.data
+          this.ajaxing = false;
           this.list = list;
           this.page_info = res.data.page_info;
           this.$nextTick(() => {
             this.list.forEach(row => {
-              this.$set(row, 'checked', false)
-              let finexIndex = this.chooseList.findIndex(item => item.item_id == row.item_id)
+              let finexIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
               if (finexIndex >= 0) {
-                row.checked = true;
-              }
-              let disableIndex = this.disableList.findIndex(item => item == row.item_id)
-              if (disableIndex >= 0) {
-                this.$set(row, 'disabled', true)
+                this.$refs.table.toggleRowSelection(row, true)
               }
             })
-            this.ajaxing = false;
           })
         }).catch(err => {
           this.ajaxing = false;
@@ -192,13 +184,30 @@
         this.page_info.page = page;
         this.getList();
       },
-      handleSelect($event, row) {
-        if ($event) {
-          this.chooseList.push(row)
-        } else {
-          let finexIndex = this.chooseList.findIndex(item => item.item_id == row.item_id)
-          this.chooseList.splice(finexIndex, 1)
+      handleSelect(selection, row) {
+        // 将勾选值去掉的时候 也要去掉cache的勾选值
+        let find = selection.findIndex(item => item.item_id == row.item_id);
+        if (find < 0) {
+          let cacheIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
+          if (cacheIndex >= 0) {
+            this.cacheList.splice(cacheIndex, 1)
+          }
         }
+      },
+      handleSelectAll(selection) {
+        // 将勾选值去掉的时候 也要去掉cache的勾选值
+        let isCurrentPageClear = selection.find(item => this.list.find(listItem => item.item_id == listItem.item_id))
+        if (!isCurrentPageClear) {
+          this.list.forEach(row => {
+            let cacheIndex = this.cacheList.findIndex(item => item.item_id == row.item_id)
+            if (cacheIndex >= 0) {
+              this.cacheList.splice(cacheIndex, 1)
+            }
+          })
+        }
+      },
+      handleSelectionChange(e) {
+        this.chooseList = e;
       },
       handleConfirm() {
         if (this.chooseList.length == 0) {
@@ -210,7 +219,7 @@
           return
         }
         // 去重
-        let endList = this.chooseList;
+        let endList = [...this.chooseList, ...this.cacheList];
         let endIds = endList.map(item => item.item_id);
         let idsList = Array.from(new Set(endIds))
         let lists = idsList.map(id => {
@@ -229,8 +238,7 @@
       }
     },
     mounted() {
-      this.chooseList = JSON.parse(JSON.stringify(this.cacheList));
-      this.getList();
+      this.getList()
     },
   }
   export default goodsOnShelves;
@@ -239,63 +247,19 @@
 </script>
 
 <style scoped lang='scss'>
-  .btns {
-    padding: 0 5px 10px;
-  }
-  .__color {
-    color: #ff5e52;
-  }
-  .dialog-footer {
+  .goods-info-box {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-  }
-  .list-wapper {
-    display: flex;
-    flex-wrap: wrap;
-    .list-item {
-      cursor: pointer;
-      box-sizing: border-box;
-      padding: 20px 10px;
-      margin: 0 5px 10px;
-      width: calc(calc(100% / 3) - 10px);
-      height: 100px;
-      overflow: hidden;
-      border: 1px solid #eee;
-      position: relative;
-      display: flex;
-      align-items: center;
-      &--checked {
-        background-color: rgba(144, 147, 153, 0.1);
-      }
-      &-content {
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        padding-left: 10px;
-        width: 200px;
-        &__img {
-          width: 60px;
-          height: 60px;
-        }
-        &-word {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          padding-left: 10px;
-          width: 140px;
-        }
-      }
+    justify-items: center;
+    img {
+      float: none;
     }
   }
-  .full-wapper {
-    height: 70px;
-    text-align: center;
-    line-height: 70px;
-    border: 1px solid #eee;
-  }
-  /deep/.el-checkbox {
-    display: flex;
-    align-items: center;
+  .goods-name {
+    color: #38f;
+    text-indent: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 </style>

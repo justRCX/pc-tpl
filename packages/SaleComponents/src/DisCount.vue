@@ -174,8 +174,8 @@
           type: this.type,
           saleList: [],
           isShowHeadIco: 1, //是否默认头部ico
-          headIconUrl: 'https://img.qianhuituan.cn/uploads/images/202006/29/FAiaT2Bxw79LRpvkN8N8EpkrCtTDWRckt6EX3D5a.png', //头部图标
-          defIconUrl: "https://img.qianhuituan.cn/uploads/images/202006/29/FAiaT2Bxw79LRpvkN8N8EpkrCtTDWRckt6EX3D5a.png", //默认头部图标
+          headIconUrl: 'http://img.wkdao.com/image/65/2020/12/28/8a00d4b9b086a3c0b73de91fcb593126.png', //头部图标
+          defIconUrl: "http://img.wkdao.com/image/65/2020/12/28/8a00d4b9b086a3c0b73de91fcb593126.png", //默认头部图标
           isDefHeadIco: 1,  //是否默认头部ico
           isShowHeadName: 1, //是否显示头部名称
           headName: '限时抢购', //头部名称
