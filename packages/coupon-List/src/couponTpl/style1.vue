@@ -84,9 +84,6 @@
       }
     },
     props: ['list', 'configs', 'bodyBg'],
-    mounted() {
-      this.$set(this.list, 'type', 1)
-    },
     methods: {}
   }
 </script>
