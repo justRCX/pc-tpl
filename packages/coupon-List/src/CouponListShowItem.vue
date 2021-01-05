@@ -7,7 +7,7 @@
       />
       <div
         class="currency"
-        v-if="singleCoupon.currency.is_show == 1"
+        v-if="singleCoupon.currency.is_show == 1 && list.type != 1"
         :style="currencyStyle1(list.coupon_id)"
       >{{singleCoupon.currency.content}}</div>
       <div
@@ -19,12 +19,13 @@
           v-if=" singleCoupon.price.position==1 &&  singleCoupon.price.content"
           :style="priceCompanyStyle1(list.coupon_id)"
         >{{ singleCoupon.price.content}}</span>
+        <span :style="`font-size: ${ singleCoupon.price.fontSize/375*318}px;`">
+          {{couponStyle !==2 || list.type == 1?parseInt(list.value):list.value}}<span class="count">{{list.type == 1?'折':''}}</span>
+        </span>
         <span
-          :style="`font-size: ${ singleCoupon.price.fontSize/375*318}px;`">{{couponStyle !==2?parseInt(list.value):list.value}}</span>
-        <span
-          v-if="singleCoupon.price.position==2 &&  singleCoupon.price.content"
+          v-if="singleCoupon.price.position==2 &&  singleCoupon.price.content && list.type != 1"
           :style="priceCompanyStyle1(list.coupon_id)"
-        >{{ singleCoupon.price.content}}</span>
+        >{{singleCoupon.price.content}}</span>
       </div>
       <div
         class="title"
@@ -68,19 +69,18 @@
             <span
               v-if=" singleCoupon.price.position==1 &&  singleCoupon.price.content"
               :style="priceCompanyStyle1(list.coupon_id)"
-            >{{ singleCoupon.price.content}}</span>
+            >{{singleCoupon.price.content}}</span>
+            <span :style="`font-size: ${ singleCoupon.price.fontSize/375*318}px;`">{{list.type == 1?parseInt(list.value):list.value}}<span class="count">{{list.type == 1?'折':''}}</span></span>
             <span
-              :style="`font-size: ${ singleCoupon.price.fontSize/375*318}px;`">{{list.value}}</span>
-            <span
-              v-if=" singleCoupon.price.position==2 &&  singleCoupon.price.content"
+              v-if=" singleCoupon.price.position==2 &&  singleCoupon.price.content && list.type != 1"
               :style="priceCompanyStyle1(list.coupon_id)"
-            >{{ singleCoupon.price.content}}</span>
+            >{{singleCoupon.price.content}}</span>
           </div>
           <div
             class="title"
             v-if=" singleCoupon.title.is_show == 1"
             :style="titleStyle1(list.coupon_id)"
-          >{{list.title}}1</div>
+          >{{list.title}}</div>
           <div
             class="condition"
             v-if=" singleCoupon.condition.is_show == 1"
@@ -104,8 +104,11 @@
         :style="getStyle5Color(index)"
       >
         <div class="prices">
-          <div class="dollar">￥</div>
-          <div class="num">10</div>
+          <div
+            class="dollar"
+            v-if="list.type != 1"
+          >￥</div>
+          <div class="num">10<span class="count">{{list.type == 1?'折':''}}</span></div>
         </div>
         <div class="txt">
           <div class="txt1">优惠券</div>
@@ -212,12 +215,10 @@
           top: ${(couponBtn.top / 375) * 318}px;
           width: ${couponBtn.width}%;
           text-align:${couponBtn.align};
-          white-space: ${
-          couponBtn.direction == "vertical" ? "normal" : "inherit"
+          white-space: ${couponBtn.direction == "vertical" ? "normal" : "inherit"
           };
           line-height: ${couponBtn.direction == "vertical" ? "1.2" : "1"};
-          border: ${
-          this.couponStyle == 7 ? "1px solid" + couponBtn.color : "none"
+          border: ${this.couponStyle == 7 ? "1px solid" + couponBtn.color : "none"
           };
         `;
       },
@@ -250,13 +251,21 @@
       .prices {
         width: 70 * 320/750 + px;
         margin-right: 5px;
+        display: flex;
+        align-items: flex-end;
         .num {
-          font-size: 52 * 320/750 + px;
+          font-size: 50 * 320/750 + px;
           font-family: PingFang SC;
           font-weight: bold;
           color: rgba(255, 255, 255, 1);
           display: inline-block;
           margin-left: -12 * 320/750 + px;
+          display: flex;
+          align-items: flex-end;
+          .count {
+            font-size: 9px;
+            line-height: 16px;
+          }
         }
         .dollar {
           display: inline-block;
@@ -264,6 +273,7 @@
           font-family: PingFang SC;
           font-weight: bold;
           color: rgba(255, 255, 255, 1);
+          line-height: 20px;
         }
       }
       .txt {
@@ -357,5 +367,7 @@
     top: 0;
     left: 0;
   }
-  // }
+  .count {
+    font-size: 10px;
+  }
 </style>

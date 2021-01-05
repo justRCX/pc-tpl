@@ -14,7 +14,7 @@
           <el-radio :label="7">样式6</el-radio>
           <el-radio :label="8">样式7</el-radio>
           <el-radio :label="9">样式8</el-radio>
-          <el-radio :label="3">自定义</el-radio>
+          <!-- <el-radio :label="3">自定义</el-radio> -->
         </el-radio-group>
       </el-form-item>
       <div v-if="couponStyle.couponStyle==3">
