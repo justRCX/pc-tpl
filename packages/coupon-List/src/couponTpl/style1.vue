@@ -15,8 +15,15 @@
         }"
       >
         <div class="coupon__wrapper-style-item-price">
-          <span class="__icon">￥</span>
+          <span
+            class="__icon"
+            v-if="list.type != 1"
+          >￥</span>
           <span>10</span>
+          <span
+            v-if="list.type == 1"
+            class="__count"
+          >折</span>
         </div>
         <div class="coupon__wrapper-style-item-up">{{item.remark}}</div>
         <div class="coupon__wrapper-style-item-btn">{{
@@ -77,6 +84,9 @@
       }
     },
     props: ['list', 'configs', 'bodyBg'],
+    mounted() {
+      this.$set(this.list, 'type', 1)
+    },
     methods: {}
   }
 </script>
