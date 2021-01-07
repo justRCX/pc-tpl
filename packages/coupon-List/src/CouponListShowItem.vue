@@ -20,7 +20,7 @@
           :style="priceCompanyStyle1(list.coupon_id)"
         >{{ singleCoupon.price.content}}</span>
         <span :style="`font-size: ${ singleCoupon.price.fontSize/375*318}px;`">
-          {{couponStyle !==2 || list.type == 1?parseInt(list.value):list.value}}<span class="count">{{list.type == 1?'折':''}}</span>
+          {{couponStyle !==2 || list.type == 1?list.value*1:list.value}}<span class="count">{{list.type == 1?'折':''}}</span>
         </span>
         <span
           v-if="singleCoupon.price.position==2 &&  singleCoupon.price.content && list.type != 1"
@@ -70,7 +70,7 @@
               v-if=" singleCoupon.price.position==1 &&  singleCoupon.price.content"
               :style="priceCompanyStyle1(list.coupon_id)"
             >{{singleCoupon.price.content}}</span>
-            <span :style="`font-size: ${ singleCoupon.price.fontSize/375*318}px;`">{{list.type == 1?parseInt(list.value):list.value}}<span class="count">{{list.type == 1?'折':''}}</span></span>
+            <span :style="`font-size: ${ singleCoupon.price.fontSize/375*318}px;`">{{list.type == 1?list.value*1:list.value}}<span class="count">{{list.type == 1?'折':''}}</span></span>
             <span
               v-if=" singleCoupon.price.position==2 &&  singleCoupon.price.content && list.type != 1"
               :style="priceCompanyStyle1(list.coupon_id)"
