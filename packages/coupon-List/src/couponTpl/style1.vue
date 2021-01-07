@@ -17,11 +17,11 @@
         <div class="coupon__wrapper-style-item-price">
           <span
             class="__icon"
-            v-if="list.type != 1"
+            v-if="item.type != 1"
           >￥</span>
           <span>10</span>
           <span
-            v-if="list.type == 1"
+            v-if="item.type == 1"
             class="__count"
           >折</span>
         </div>
