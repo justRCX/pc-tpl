@@ -18,7 +18,7 @@
           <div class="goods_flex">
             <draggable
               class="wrapper"
-              v-model="config.goods"
+              v-model="saleList"
               :options="{draggable:'.item'}"
             >
               <transition-group>
@@ -514,16 +514,6 @@
             },
             n
           );
-          if (this.config.goods && this.config.goods.length > 0) {
-            this.goodsList = this.config.goods.slice();
-          } else {
-            this.goodsList = [];
-          }
-          if (this.config.goodsGroups && this.config.goodsGroups.length > 0) {
-            this.groups = this.config.goodsGroups.slice();
-          } else {
-            this.groups = [];
-          }
         } else {
           this.config = {
             type: this.type,
@@ -544,8 +534,6 @@
             hideEndingGoodsType: 2,
             hideEndingGoods: true,
           };
-          this.goodsList = [];
-          this.groups = [];
         }
       },
     },
@@ -559,6 +547,14 @@
       },
       currentIndex: function (n) {
         if (n === -1) {
+          if (this.config.type != 40) {
+            this.config.saleList = this.saleList.map(item => item.sale_id)
+          } else {
+            this.config.saleList = this.saleList.map(item => {
+              return item.item[0].item_id;
+            })
+          }
+          // console.log(this.saleList, this.config.saleList, '保存')
           this.$emit("update:content", this.config);
         }
       },

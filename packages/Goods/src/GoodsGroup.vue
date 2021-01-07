@@ -10,7 +10,7 @@
     >
       <ul v-if="config.tabStyle == 1 || config.templateId === 2">
         <li
-          :class="groupTabClass(index)"
+          :class="[groupTabClass(index),{'__weight':config.tabStyle == 1 && config.templateId === 1}]"
           v-for="(item,index) in groupList"
           :key="item.group_id"
         >
@@ -792,6 +792,9 @@
       position: relative;
       display: inline-block;
     }
+  }
+  .__weight {
+    font-weight: 700;
   }
 </style>
 <style scoped lang="scss">

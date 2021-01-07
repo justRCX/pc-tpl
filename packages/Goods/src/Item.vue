@@ -273,14 +273,14 @@
     filters: {
       integer: function (value) {
         //包括小数点和小数点之前的整数值
-        if (value.indexOf(".") > -1) {
+        if (value && value.indexOf(".") > -1) {
           return value.slice(0, value.indexOf(".") + 1);
         }
         return value;
       },
       floatNum: function (value) {
         //小数点后面的数值
-        if (value.indexOf(".") > -1) {
+        if (value && value.indexOf(".") > -1) {
           return value.slice(value.indexOf(".") + 1);
         }
         return "";
@@ -838,13 +838,17 @@
     }
     .detail-list {
       // display: flex;
-      background: #fff;
       margin-bottom: 10px;
+      padding: 0;
+      border-radius: 10px;
+      overflow: hidden;
       .goods-item__wrapper {
         width: 100px;
         height: 100px;
         padding: 0px;
         float: left;
+        background: #fff;
+        border-radius: 0;
         .img-square {
           width: 100%;
           height: 100%;
@@ -858,6 +862,8 @@
         height: 100px;
         float: left;
         width: calc(100% - 100px);
+        border-radius: 0;
+        background: #fff;
         .card {
           height: 100%;
           width: 100%;

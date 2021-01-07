@@ -102,14 +102,13 @@
           v-if="!isGroup"
           label="商品来源"
         >
-          <el-radio
+          <el-radio-group
             v-model="config.source"
-            :label="1"
-          >商品</el-radio>
-          <el-radio
-            v-model="config.source"
-            :label="2"
-          >商品分组</el-radio>
+            @change="clearSource"
+          >
+            <el-radio :label="1">商品</el-radio>
+            <el-radio :label="2">商品分组</el-radio>
+          </el-radio-group>
         </el-form-item>
         <div
           class="edit-box"
@@ -236,7 +235,7 @@
           </el-form-item>
           <el-form-item
             label="整体风格"
-            v-if="config.listType == 4"
+            v-if="config.listType == 4 && isGroup"
           >
             <el-radio
               v-for="item in configs.listStyles"
@@ -270,7 +269,10 @@
               show-alpha
             ></el-color-picker>
           </el-form-item>
-          <el-form-item label="图片距离底部距离">
+          <el-form-item
+            label="图片距离底部距离"
+            v-if="config.listType !== 4"
+          >
             <el-slider
               v-model="config.picMb"
               :max="30"
@@ -757,6 +759,11 @@
       draggable: draggable
     },
     methods: {
+      clearSource() {
+        this.config.goods = [];
+        this.config.goodsGroupId = '';
+        this.config.goodsGroupName = '';
+      },
       handleCheckChange(v) {
         if (!v) {
           this.config.viewMoreText = "";
@@ -962,6 +969,7 @@
             },
             n
           );
+
           if (this.config.goods && this.config.goods.length > 0) {
             this.goodsList = this.config.goods.slice();
           } else {
@@ -1019,6 +1027,10 @@
           };
           this.goodsList = originGoodsList.slice();
           this.groups = originGroups.slice();
+        }
+        if (!this.isGroup && this.config.source == 1) {
+          this.config.goodsGroupId = '';
+          this.config.goodsGroupName = '';
         }
       },
       handleImg() {

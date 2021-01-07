@@ -18,18 +18,32 @@
         v-if="api.indexOf('receiveItemListWithSku')<0"
       >刷新</el-button>
       <el-input
+        placeholder="搜索"
         style="float:right;
                 width:200px;"
-        placeholder="搜索"
-        @keyup.enter.native="refresh"
         v-model="item_keywords"
       >
-        <i
-          slot="prefix"
-          class="el-input__icon el-icon-search"
-        ></i>
+        <el-button
+          slot="append"
+          icon="el-icon-search"
+          @click="refresh"
+        ></el-button>
       </el-input>
     </div>
+    <el-tabs
+      v-model="activeName"
+      @tab-click="handleClick"
+      v-if="$pcTpl.from"
+    >
+      <el-tab-pane
+        label="商品"
+        name=""
+      >商品</el-tab-pane>
+      <el-tab-pane
+        label="门店"
+        name="Store"
+      >门店</el-tab-pane>
+    </el-tabs>
     <el-table
       :data="list"
       v-loading="ajaxing"
@@ -98,9 +112,11 @@
     directives: {},
     mixins: [],
     model: [],
+
     data() {
       return {
         title: '已上架商品',
+        activeName: '',
         visible: false,
         list: [],
         ajaxing: false,
@@ -124,6 +140,10 @@
       }
     },
     methods: {
+      handleClick() {
+        this.page_info.page = 1;
+        this.getList();
+      },
       refresh() {
         this.page_info.page = 1;
         this.getList();
@@ -140,6 +160,7 @@
             page_size: this.page_info.page_size,
             page: this.page_info.page,
             item_keywords: this.item_keywords,
+            type: this.activeName,
             ...this.sendOtherData,
           }
         }).then(res => {
