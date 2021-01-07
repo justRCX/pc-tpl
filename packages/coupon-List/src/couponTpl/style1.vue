@@ -19,7 +19,7 @@
             class="__icon"
             v-if="item.type != 1"
           >￥</span>
-          <span>10</span>
+          <span>{{item.value*1|| 10}}</span>
           <span
             v-if="item.type == 1"
             class="__count"
