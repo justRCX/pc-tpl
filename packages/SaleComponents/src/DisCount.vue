@@ -216,7 +216,7 @@
             cacheList: selectList || [],
             isSingle: this.type == 40 ? true : false,
             type: this.type,
-            // defaultNum: 1
+            defaultNum: 1
           })
           .then((goods) => {
             this.handleGoodsAddConfirm(goods, this.type);
