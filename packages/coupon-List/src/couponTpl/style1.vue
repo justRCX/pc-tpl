@@ -15,8 +15,15 @@
         }"
       >
         <div class="coupon__wrapper-style-item-price">
-          <span class="__icon">￥</span>
-          <span>10</span>
+          <span
+            class="__icon"
+            v-if="item.type != 1"
+          >￥</span>
+          <span>{{item.value*1|| 10}}</span>
+          <span
+            v-if="item.type == 1"
+            class="__count"
+          >折</span>
         </div>
         <div class="coupon__wrapper-style-item-up">{{item.remark}}</div>
         <div class="coupon__wrapper-style-item-btn">{{
