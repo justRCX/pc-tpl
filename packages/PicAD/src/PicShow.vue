@@ -1,5 +1,9 @@
 <template>
-  <div v-show="temp9RightImg.length > 0  ||imgList.length > 0 ">
+  <div
+    v-show="temp9RightImg.length > 0  ||imgList.length > 0 "
+    :style="`margin-top: -${320/750*config.TopLine}px`"
+    :class="{'top-index':config.TopLine>0}"
+  >
     <!--<<<<<<< HEAD-->
     <!--      <div v-if="type == 1" :style="{'backgroundColor':backgroundColor}" :class="temp9RightImg.length>0?'arrow-wap right-wrap':'arrow-wap'">-->
     <!--        <div class="arrow" v-if="config.dotSHow == 2" :style="{'color':config.dotColor}">-->
@@ -557,6 +561,10 @@
     &:last-child {
       margin-bottom: 0 !important;
     }
+  }
+  .top-index {
+    position: relative;
+    z-index: 10;
   }
 </style>
 

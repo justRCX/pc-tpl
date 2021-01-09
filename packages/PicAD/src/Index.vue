@@ -209,6 +209,13 @@
               show-input
             ></el-slider>
           </el-form-item>
+          <el-form-item label="上偏移:">
+            <el-slider
+              v-model="config.TopLine"
+              :max="80"
+              show-input
+            ></el-slider>
+          </el-form-item>
           <el-form-item
             label="一行显示:"
             v-show="config.templateId === 1 &&  config.temp9RightImg.length == 0"
@@ -515,6 +522,7 @@
           size: 1,
           dotSHow: 0,
           lrmargin: 0,
+          TopLine: 0,
           backgroundColor: "#fff",
           dotColor: "#fff",
           dotWeight: 400,
@@ -605,6 +613,7 @@
               isTop: 0,
               boxShadow: 0,
               // lrmargin:0,
+              TopLine: 0,
               backgroundColor: "#fff",
               imageWidth: 320,
               dotColor: "#fff",
@@ -632,6 +641,7 @@
             isShowTips: 0,
             dotSHow: 0,
             // lrmargin:0,
+            TopLine: 0,
             backgroundColor: "#fff",
             dotWeight: 400,
             dotSize: 35,
