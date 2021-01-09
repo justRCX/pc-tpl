@@ -29,29 +29,11 @@
             ></el-color-picker>
           </el-form-item>
           <el-form-item label="页面背景图片:">
-            <div
-              class="img-box show"
-              v-if="config.backgroundImg"
-            >
-              <i
-                class="el-icon-close close-btn"
-                @click="handleDeleteImage"
-              ></i>
-              <img
-                :src="config.backgroundImg"
-                alt="图片地址"
-              />
-            </div>
-            <div
-              class="card-add"
-              @click="showGoodsModal"
-              v-else
-            >
-              <i
-                style="color:#409EFF"
-                class="iconfont icon-add1"
-              ></i>
-            </div>
+            <c-img
+              v-model="config.backgroundImg"
+              :number="1"
+              @changeImg="changeImg"
+            ></c-img>
           </el-form-item>
           <el-form-item label="页面装修容器背景颜色:">
             <el-color-picker v-model="config.decsColor"></el-color-picker>
@@ -90,9 +72,12 @@
   </div>
 </template>
 <script>
-
+  import CImg from '../../img-upload/c-img'
   export default {
     name: "commonHeader",
+    components: {
+      CImg
+    },
     data() {
       return {
         config: {
@@ -125,6 +110,9 @@
     components: {},
     props: ["belongIndex", "currentIndex", "content"],
     methods: {
+      changeImg(imgs) {
+        this.$emit("changeBackground", this.config.backgroundImg);
+      },
       changeColor() {
         if (this.config.color == null) {
           this.config.color = "";
@@ -144,7 +132,8 @@
               topBarBgColor: '',
               topBarColor: '#ffffff',
               backgroundImg: "",
-              store_show: 1
+              store_show: 1,
+              backgroundImgs: [],
             },
             n
           );
@@ -156,24 +145,11 @@
             topBarBgColor: '',
             topBarColor: '#ffffff',
             backgroundImg: "",
-            store_show: 1
+            store_show: 1,
+            backgroundImgs: [],
           };
         }
       },
-      showGoodsModal() {
-        this.$pcTpl.imgChoose.popup({
-          picMax: 1
-        }).then((img) => {
-          if (img.length > 0) {
-            this.config.backgroundImg = img[0].image_path;
-            this.$emit("changeBackground", this.config.backgroundImg);
-          }
-        })
-      },
-      handleDeleteImage() {
-        this.config.backgroundImg = null;
-        this.$emit("changeBackground", "");
-      }
     },
     created() {
       this.init(this.content);
