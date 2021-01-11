@@ -14,7 +14,14 @@ import CPager from './pager/index.js'
 import goodsOnShelves from './choose-list/index.js'
 import CPreview from './preview'
 import CScreen from './CScreen/index.js'
-import ECharts from 'vue-echarts/components/ECharts.vue'
+// import ECharts from 'vue-echarts/components/ECharts.vue'
+// import 'echarts/lib/chart/bar'
+// import 'echarts/lib/component/tooltip'
+// import 'echarts/lib/chart/line'
+// import 'echarts/lib/component/legend'
+// import 'echarts/lib/chart/pie'
+// import 'echarts/lib/chart/pictorialBar'
+
 let components = [
 	commonHeader,
 	MZText,
@@ -53,7 +60,7 @@ const install = function(Vue, opts = {}) {
 	components.forEach((component) => {
 		Vue.component(component.name, component)
 	})
-	Vue.component('v-chart', ECharts)
+	// Vue.component('v-chart', ECharts)
 
 	Vue.prototype.$pcTpl = {
 		from: opts.from || '',
