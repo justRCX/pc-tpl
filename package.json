@@ -8,9 +8,10 @@
     "lint": "vue-cli-service lint",
     "lib": "vue-cli-service build --target lib --name pc-tpl --dest lib packages/index.js"
   },
-  "main": "lib/pc-tpl.umd.min.js",
+  "main": "packages/index.js",
   "dependencies": {
     "core-js": "^2.5.7",
+    "vue-echarts": "^3.1.2",
     "vuedraggable": "^2.24.3"
   },
   "peerDependencies": {
@@ -18,13 +19,13 @@
   },
   "keyword": "pc-tpl",
   "devDependencies": {
-    "node-sass": "^4.14.1",
-    "sass-loader": "^9.0.3",
     "@vue/cli-plugin-babel": "^3.0.3",
     "@vue/cli-plugin-eslint": "^3.0.3",
     "@vue/cli-service": "^3.0.3",
     "@vue/eslint-config-standard": "^3.0.3",
     "babel-eslint": "^10.1.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^9.0.3",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [

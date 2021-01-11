@@ -13,6 +13,8 @@ import imgContentPc from './img-upload/img-content-pc.vue'
 import CPager from './pager/index.js'
 import goodsOnShelves from './choose-list/index.js'
 import CPreview from './preview'
+import CScreen from './CScreen/index.js'
+import ECharts from 'vue-echarts/components/ECharts.vue'
 let components = [
 	commonHeader,
 	MZText,
@@ -29,6 +31,7 @@ let components = [
 	goodsOnShelves,
 	CPager,
 	CPreview,
+	CScreen,
 ]
 
 import { getAxiosAgent, getAxiosPc } from './utils/request'
@@ -50,6 +53,8 @@ const install = function(Vue, opts = {}) {
 	components.forEach((component) => {
 		Vue.component(component.name, component)
 	})
+	Vue.component('v-chart', ECharts)
+
 	Vue.prototype.$pcTpl = {
 		from: opts.from || '',
 		api: opts.api,
