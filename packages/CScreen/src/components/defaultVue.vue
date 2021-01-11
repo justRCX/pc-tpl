@@ -2,13 +2,13 @@
   import 'echarts/map/js/china.js';
   import { colorList } from './prinveColor';
   import moment from 'moment';
+  import { config } from './config';
   import * as echarts from 'echarts/lib/echarts'
   const chinaData = echarts.getMap('china').geoJson.features
   export default {
     props: {
       title: {},
       uid: {},
-      config: {}
     },
     name: "lsdDetail",
     data() {
@@ -165,7 +165,7 @@
 
       //socket
       if ("WebSocket" in window) {
-        var ws = new WebSocket(this.config.socketUrl + "?uid=" + this.uid + "&tick=1");
+        var ws = new WebSocket(config.socketUrl + "?uid=" + this.uid + "&tick=1");
 
         ws.open = () => {
         }
