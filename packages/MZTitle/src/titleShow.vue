@@ -124,6 +124,28 @@
           >{{item.name}}</p>
         </div>
       </div>
+      <!-- 滑动标题6 -->
+      <div
+        class="sixContainer"
+        v-if="config.templateId === 6"
+        :style="sixContainerStyle"
+      >
+        <div class="sixContainer_title">
+          <p
+            :style="{ color: config.slide.titleColor}"
+            class="sixContainer_title_word"
+            v-if="config.title"
+          >
+            {{config.title}}</p>
+        </div>
+        <div class="sixContainer_content">
+          <p
+            v-for="(item, index) in config.navList"
+            class="content_item"
+            :style="{'color': config.slide.slideTitleColor}"
+          >{{item.name}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -171,6 +193,12 @@
       fiveContainerStyle() {
         return `
           background-color:${this.config.backgroundColor};
+          margin-left: ${this.config.lrBlank}px;
+          margin-right: ${this.config.lrBlank}px;
+        `;
+      },
+      sixContainerStyle() {
+        return `
           margin-left: ${this.config.lrBlank}px;
           margin-right: ${this.config.lrBlank}px;
         `;
@@ -344,6 +372,44 @@
           height: 100%;
           background: #ff9381;
         }
+      }
+    }
+  }
+  .sixContainer {
+    display: flex;
+    align-items: center;
+    padding: upx(24) 0;
+    padding-bottom: upx(23);
+    overflow: hidden;
+    &_title {
+      flex-shrink: 0;
+      padding: 0 upx(24);
+      &_word {
+        position: relative;
+        font-size: upx(32);
+        font-weight: 500;
+        &::after {
+          content: "";
+          display: inline-block;
+          position: absolute;
+          bottom: upx(-4);
+          left: 50%;
+          transform: translateX(-50%);
+          width: upx(64);
+          height: upx(6);
+          background: #fff;
+          border-radius: upx(3);
+        }
+      }
+    }
+    &_content {
+      width: 100%;
+      white-space: nowrap;
+      .content_item {
+        display: inline-block;
+        padding: 0 upx(25);
+        font-size: upx(32);
+        position: relative;
       }
     }
   }

@@ -199,7 +199,7 @@
             </div>
           </el-form-item>
         </template>
-        <template v-if="config.templateId === 4 || config.templateId === 5">
+        <template v-if="config.templateId === 4 || config.templateId === 5 || config.templateId == 6">
           <div class="line">
             <el-form-item label="背景颜色:">
               <el-color-picker
@@ -315,6 +315,7 @@
           { label: 3, name: "样式3" },
           { label: 4, name: "样式4" },
           { label: 5, name: "样式5" },
+          { label: 6, name: "样式6" },
         ],
         config: {
           templateId: 1,
@@ -426,7 +427,7 @@
       showChangeImgeModal(index) {
         this.$pcTpl.imgChoose.popup().then((img) => {
           if (img.length > 0) {
-            if (this.config.templateId == 4 || this.config.templateId == 5) {
+            if (this.config.templateId == 4 || this.config.templateId == 5 || this.config.templateId == 6) {
               this.config.navList[index] = img[0];
               return;
             }

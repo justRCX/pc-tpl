@@ -84,9 +84,35 @@
             <el-radio :label="2">样式2</el-radio>
             <el-radio :label="3">样式3</el-radio>
             <el-radio :label="4">样式4</el-radio>
+            <el-radio :label="5">样式5</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="颜色：">
+        <el-form-item label="背景颜色: ">
+          <el-color-picker
+            v-model="config.bgColor"
+            show-alpha
+          ></el-color-picker>
+        </el-form-item>
+        <el-form-item
+          label="展示更多"
+          v-show="config.style == 5"
+        >
+          <el-radio-group v-model="config.viewMore">
+            <el-radio :label="0">否</el-radio>
+            <el-radio :label="1">是</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="链接到：">
+          <page-link-select
+            :ref="'pageLinkSelect'"
+            :selectValue="config.showMoreLink"
+            @linkSelected="(e)=>{linkSelected(e)}"
+          ></page-link-select>
+        </el-form-item>
+        <el-form-item
+          label="颜色："
+          v-show="config.style != 5"
+        >
           <el-color-picker v-model="config.menuColor"></el-color-picker>
         </el-form-item>
         <el-form-item
@@ -124,6 +150,8 @@
           ...goodsStyleConfig,
           style: 1,
           templateId: 1,
+          bgColor: '#fff',
+          viewMore: 0,
           menuColor: '',
           fillType: 1,
           // 分组参数
@@ -164,6 +192,9 @@
       this.init(this.content);
     },
     methods: {
+      linkSelected($data) {
+        this.config.showMoreLink = $data
+      },
       init($data) {
         // this.config = __merge(this.config,n, true)
         let goodsGroups = $data.goodsGroups;

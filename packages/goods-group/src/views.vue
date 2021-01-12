@@ -1,13 +1,14 @@
 <template>
   <div
     class="gooods-group-ctn"
+      :style="{background:config.bgColor || '#fff'}"
     :class="{'left-ctn': config.templateId === 2,'column-ctn': config.templateId === 1,'listStyle':config.listStyle==2}"
   >
     <div
       class="u-tabs"
       :class="{'column1':config.templateId === 2}"
     >
-      <ul v-if="config.style != 4  || config.templateId === 2">
+      <ul v-if="(config.style != 4 && config.style != 5)  || config.templateId === 2">
         <li
           :class="groupTabClass(index)"
           v-for="(item,index) in groupList"
@@ -37,6 +38,27 @@
           class="more"
           v-if="config.content.includes(6)"
         >更多 ></div> -->
+      </div>
+      <div
+        v-if="config.style == 5 && config.templateId === 1"
+        class="tabStyle5"
+        :class="{'fill-style':config.fillType==2}"
+      >
+        <div class="goods">
+          <div
+            v-for="(item,index) in groupList.slice(0,3)"
+            :key="item.group_id"
+            :style="{
+              left:index*(170 * 318/750)+'px',
+              zIndex:3-index
+            }"
+            class="item-goods"
+          >{{item.group_title}}</div>
+        </div>
+        <div
+          class="more"
+          v-if="config.viewMore"
+        >更多 ></div>
       </div>
       <div
         v-if="config.tabStyle == 3 && config.templateId === 1"
@@ -370,6 +392,49 @@
       font-size: (22 * 318/750 + px);
       color: #ff4e71;
       padding-right: (20 * 318/750 + px);
+    }
+  }
+  .tabStyle5 {
+    display: flex;
+    // width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #fe8119;
+    .goods {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      height: (70 * 318/750 + px);
+      padding: 20upx 0;
+      .item-goods {
+        position: absolute;
+        left: 0;
+        z-index: 0;
+        width: (184 * 318/750 + px);
+        height: (70 * 318/750 + px);
+        line-height: (70 * 318/750 + px);
+        color: #fff;
+        font-size: (30 * 318/750 + px);
+        text-align: center;
+        background: url("https://img.qianshetuan.cn/image/65/2021/01/11/5dd63449f78ee9ee9b1c755cdb4cca05.png");
+        background-size: cover;
+        &:first-of-type {
+          background: url("https://img.qianshetuan.cn/image/65/2021/01/11/34ea30691bfb628738007f8831cd01f6.png");
+          background-size: cover;
+        }
+      }
+    }
+    .more {
+      height: (47 * 318/750 + px);
+      line-height: (47 * 318/750 + px);
+      background: linear-gradient(90deg, #ff8e00, #fe762f);
+      border-radius: 24px;
+      font-size: (24 * 318/750 + px);
+      color: #fff;
+      padding: 0px (12 * 318/750 + px);
+      text-align: center;
     }
   }
   // 修改页面

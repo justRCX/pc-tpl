@@ -116,6 +116,12 @@
                   <div class="txt-limit-tip">建议最多4个字以内</div>
                 </div>
               </el-form-item>
+              <el-form-item label="背景颜色: ">
+                <el-color-picker
+                  v-model="config.bgColor"
+                  show-alpha
+                ></el-color-picker>
+              </el-form-item>
               <el-form-item label="倒计时模块： ">
                 <el-radio-group v-model="config.isShowCD">
                   <el-radio :label="1">展示</el-radio>
@@ -182,6 +188,7 @@
           isShowCD: 1, //是否显示倒计时
           isShowMore: 1, //是否显示更多
           moreText: '更多', //更多文案
+          bgColor: '#fff',
           moreLink: {
             origin_id: '',
             urlType: "",

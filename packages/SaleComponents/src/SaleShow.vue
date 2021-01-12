@@ -1,5 +1,8 @@
 <template>
-  <div class="limit-discount">
+  <div
+    class="limit-discount"
+    :style="{background:config.bgColor || '#fff'}"
+  >
     <div
       class="header"
       v-if="config.isShowHead"
