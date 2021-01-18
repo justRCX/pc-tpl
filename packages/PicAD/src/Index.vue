@@ -222,7 +222,10 @@
             <span>张图片</span>
           </el-form-item>
           <el-form-item label="背景色:">
-            <el-color-picker v-model="config.backgroundColor"></el-color-picker>
+            <el-color-picker
+              v-model="config.backgroundColor"
+              show-alpha
+            ></el-color-picker>
           </el-form-item>
           <el-form-item label="背景图片:">
             <c-img
