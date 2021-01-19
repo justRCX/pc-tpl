@@ -85,6 +85,7 @@
             <el-radio :label="3">样式3</el-radio>
             <el-radio :label="4">样式4</el-radio>
             <el-radio :label="5">样式5</el-radio>
+            <el-radio :label="6">样式6</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="背景颜色: ">
@@ -123,11 +124,11 @@
             <el-radio :label="1">填充</el-radio>
             <el-radio :label="2">留白</el-radio>
           </el-radio-group>
-          <el-slider
+          <!-- <el-slider
             v-model="config.lrMargin"
             :max="50"
             show-input
-          ></el-slider>
+          ></el-slider> -->
         </el-form-item>
       </edit-panel>
     </el-card>

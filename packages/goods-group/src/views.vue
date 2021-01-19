@@ -1,12 +1,12 @@
 <template>
   <div
     class="gooods-group-ctn"
-      :style="{background:config.bgColor || '#fff'}"
+    :style="{background:config.bgColor || '#fff'}"
     :class="{'left-ctn': config.templateId === 2,'column-ctn': config.templateId === 1,'listStyle':config.listStyle==2}"
   >
     <div
       class="u-tabs"
-      :class="{'column1':config.templateId === 2}"
+      :class="[{'column1':config.templateId === 2,'fill-style':config.fillType==2 && config.templateId === 1},'u-tabs'+config.style,]"
     >
       <ul v-if="(config.style != 4 && config.style != 5)  || config.templateId === 2">
         <li
@@ -24,7 +24,6 @@
       <div
         v-if="config.style == 4 && config.templateId === 1"
         class="tabStyle"
-        :class="{'fill-style':config.fillType==2}"
       >
         <div class="goods">
           <div
@@ -42,7 +41,6 @@
       <div
         v-if="config.style == 5 && config.templateId === 1"
         class="tabStyle5"
-        :class="{'fill-style':config.fillType==2}"
       >
         <div class="goods">
           <div
@@ -165,6 +163,8 @@
           str = "current2";
         } else if (this.config.style === 3) {
           str = "current3";
+        } else if (this.config.style === 6) {
+          str = "current6";
         }
         return str;
       }
@@ -454,5 +454,13 @@
   }
   .fill-style {
     margin: 0 (20 * 318/750 + px);
+  }
+  .u-tabs6 ul li {
+    background-color: #d60a07;
+    color: #fff;
+    opacity: 0.8;
+    &.current6 {
+      opacity: 1;
+    }
   }
 </style>
