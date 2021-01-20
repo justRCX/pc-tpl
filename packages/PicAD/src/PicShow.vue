@@ -554,6 +554,9 @@
   .one-line-item {
     position: relative;
     overflow: hidden;
+    img {
+      display: block;
+    }
     &:last-child {
       margin-bottom: 0 !important;
     }

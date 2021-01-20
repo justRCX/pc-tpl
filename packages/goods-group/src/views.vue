@@ -17,8 +17,12 @@
           <div
             v-if="index == 0"
             :style="config.templateId === 1 ? firstOneStyle :''"
+            class="li_title"
           >{{item.group_title}}</div>
-          <div v-if="index > 0">{{item.group_title}}</div>
+          <div
+            v-if="index > 0"
+            class="li_title"
+          >{{item.group_title}}</div>
         </li>
       </ul>
       <div
@@ -456,11 +460,32 @@
     margin: 0 (20 * 318/750 + px);
   }
   .u-tabs6 ul li {
-    background-color: #d60a07;
-    color: #fff;
-    opacity: 0.8;
+    position: relative;
+    overflow: hidden;
+    border-right: 1px #d60a07 solid;
+    border-bottom: none;
+    .li_title {
+      background-color: #d60a07;
+      color: #fff;
+      opacity: 0.8;
+    }
+
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   top: 0;
+    //   right: 0;
+    //   height: 42px;
+    //   width: 1px;
+    //   background: #d60a07;
+    //   opacity: 1;
+    // }
     &.current6 {
       opacity: 1;
+      overflow: hidden;
+    }
+    &:last-child {
+      border-right: none;
     }
   }
 </style>

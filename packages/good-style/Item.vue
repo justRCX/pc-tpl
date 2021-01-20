@@ -1,10 +1,13 @@
 <template>
-  <goods-component :config="config">
+  <goods-component
+    :config="config"
+    :style="{marginLeft:config.lrmargin/2+'px',marginRight:config.lrmargin/2+'px',}"
+  >
     <component
-        :is="com"
-        :config="config"
-        :list="list"
-        slot="goods-list"
+      :is="com"
+      :config="config"
+      :list="list"
+      slot="goods-list"
     >
     </component>
   </goods-component>
@@ -33,5 +36,4 @@
   .custom-title {
     padding: 10px 0;
   }
-
 </style>

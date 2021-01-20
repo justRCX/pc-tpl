@@ -5,5 +5,6 @@ export default {
 	badge_path: '', //选中的角标路径
 	customBadge: '', //自定义角标
 	isShowCate: 1, //是否展示快捷进入分类
-	isShowBuyHis: 1, //是否显示购买记录
+	isShowBuyHis: 1, //是否显示购买记录,
+	lrmargin: 0, //左右留白
 }

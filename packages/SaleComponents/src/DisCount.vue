@@ -31,7 +31,7 @@
                     ></i>
                     <img
                       style="width:100%;height:100%;"
-                      :src="obj.thumb_image_path"
+                      :src="obj.item && obj.item.length>0 && obj.item[0].thumb_image_path"
                       alt="商品图片"
                     />
                   </div>

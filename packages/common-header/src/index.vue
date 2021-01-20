@@ -53,6 +53,15 @@
               ></i>
             </div>
           </el-form-item>
+          <el-form-item label="背景图片重复">
+            <el-radio
+              v-for="item in booleanOption"
+              :key="item.key"
+              v-model="config.repeat"
+              :label="item.key"
+              @change="changeRepeat(item.key)"
+            >{{item.name}}</el-radio>
+          </el-form-item>
           <el-form-item label="页面装修容器背景颜色:">
             <el-color-picker v-model="config.decsColor"></el-color-picker>
           </el-form-item>
@@ -95,6 +104,13 @@
     name: "commonHeader",
     data() {
       return {
+        booleanOption: [{
+          name: '是',
+          key: 1
+        }, {
+          name: '否',
+          key: 0
+        }],
         config: {
           name: "店铺首页",
           color: "#f7f7f7",
@@ -102,7 +118,8 @@
           decsColor: "",
           topBarBgColor: '',
           topBarColor: '#ffffff',
-          store_show: 1
+          store_show: 1,
+          repeat: 0
         },
         rules: {
           name: [
@@ -134,6 +151,9 @@
       changeStoreShow() {
         this.$emit("changeStoreShow", this.config.store_show);
       },
+      changeRepeat(v) {
+        this.$emit("changeRepeat", v);
+      },
       init(n) {
         if (n) {
           this.config = Object.assign(
@@ -148,6 +168,7 @@
             },
             n
           );
+          this.changeRepeat(this.config.repeat)
         } else {
           this.config = {
             name: "店铺首页",
@@ -156,7 +177,8 @@
             topBarBgColor: '',
             topBarColor: '#ffffff',
             backgroundImg: "",
-            store_show: 1
+            store_show: 1,
+            repeat: 0
           };
         }
       },
