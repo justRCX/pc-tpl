@@ -11,6 +11,7 @@
 	"main": "lib/pc-tpl.umd.min.js",
 	"dependencies": {
 		"core-js": "^2.5.7",
+		"element": "^0.1.4",
 		"element-ui": "^2.14.1",
 		"vuedraggable": "^2.24.3"
 	},
