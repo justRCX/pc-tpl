@@ -10,11 +10,11 @@
 
 <script>
   import LoadEvent from './event.js';
-  import emitter from 'element-ui/src/mixins/emitter';
+  // import emitter from 'element-ui/src/mixins/emitter';
   import Debounce from './debounce.js';
   export default {
     name: 'richText',
-    mixins: [emitter],
+    // mixins: [emitter],
     data() {
       return {
         status: 0,
@@ -349,7 +349,7 @@
       contentChangeHandler() {
         let val = this.editor.getContent();
         this.$emit('input', val);
-        this.dispatch('ElFormItem', 'el.form.change', [val]);
+        // this.dispatch('ElFormItem', 'el.form.change', [val]);
       },
       // 基于 UEditor 的 contentChange 事件
       _normalChangeListener() {
@@ -363,8 +363,7 @@
           }
           let val = this.editor.getContent();
           this.$emit('input', val);
-          this.dispatch('ElFormItem', 'el.form.change', [val]);
-
+          // this.dispatch('ElFormItem', 'el.form.change', [val]);
         };
         // 函数防抖
         this.observer = new MutationObserver(Debounce(changeHandle, this.observerDebounceTime));
