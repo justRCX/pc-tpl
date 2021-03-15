@@ -37,6 +37,7 @@ export default class CNPrint {
 		this.$message = $message
 		this.printSuccessCb = null
 		this.callback = null
+		this.callbackParam = {}
 	}
 
 	scocketIsOpen() {
@@ -50,15 +51,18 @@ export default class CNPrint {
 		let __socket = window.CNPrintSocket
 		__socket.onmessage = (event) => {
 			const data = JSON.parse(event.data)
-			console.log(data, /cb/)
+			console.log(data, /cb/, this.callbackParam)
 			switch (data.cmd) {
 				case 'getPrinters':
 					// '获取打印机列表以及默认打印机'
 					this.callback &&
-						this.callback({
-							list: data.printers,
-							defaultPrinter: data.defaultPrinter,
-						})
+						this.callback(
+							{
+								list: data.printers,
+								defaultPrinter: data.defaultPrinter,
+							},
+							this.callbackParam,
+						)
 					break
 				case 'print':
 					if (data.status === 'success') {
@@ -124,12 +128,13 @@ export default class CNPrint {
 	getUniId() {
 		return Date.now() + Math.floor(Math.random() * 100) + index++
 	}
-	getPrintList(cb) {
+	getPrintList(cb, otherData) {
 		try {
 			let readyState = window.CNPrintSocket
 				? window.CNPrintSocket.readyState
 				: 3
 			this.callback = cb
+			this.callbackParam = otherData
 			var request = {
 				requestID: getUUID(8, 16),
 				version: '1.0',
