@@ -124,7 +124,7 @@
               <transition-group>
                 <div
                   v-for="(obj, index) in config.goods"
-                  :key="index+Math.random()+Math.random()"
+                  :key="obj.item_id"
                   class="flexs item"
                 >
                   <div class="card-img">
