@@ -602,12 +602,12 @@
             <el-form-item label="背景颜色">
               <el-color-picker v-model="config.backgroundColor"></el-color-picker>
             </el-form-item>
-            <el-form-item
+            <!-- <el-form-item
               label="边框颜色"
               v-if="!isGroup"
             >
               <el-color-picker v-model="config.borderColor"></el-color-picker>
-            </el-form-item>
+            </el-form-item> -->
           </div>
 
         </template>
