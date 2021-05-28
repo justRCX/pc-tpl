@@ -249,7 +249,7 @@
     <div
       v-if="type == 8"
       class="carousel-wrapper"
-      :style="{'background':background,backgroundSize:'contain',padding:config.lrmargin/750*320 +'px'}"
+      :style="{'backgroundImage':background,backgroundSize:'100% 100%',padding:config.lrmargin/750*320 +'px',backgroundRepeat:'no-repeat'}"
     >
       <el-carousel
         :interval="4000"
