@@ -72,13 +72,13 @@
                       已抢
                       <span class="already-purchased">xx件</span>
                     </div>
-                    <div
+                    <!-- <div
                       class="buy-num"
                       v-if="config.type==34"
                     >
                       已参团
                       <span class="already-purchased">xxx人</span>
-                    </div>
+                    </div> -->
                   </div>
                   <div
                     class="buy-price"
@@ -250,10 +250,10 @@
                 <h3>{{item.item_title}}</h3>
                 <p class="sub-title">{{item.selling_point}}</p>
                 <div class="slider"></div>
-                <div
+                <!-- <div
                   class="joinNum"
                   v-if="config.type==34"
-                >已参团：xxx 人</div>
+                >已参团：xxx 人</div> -->
                 <div class="buy-price">
                   <span class="Identification">￥</span>
                   <span class="prices">{{item.current_price | integer}}</span>
