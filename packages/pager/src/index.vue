@@ -63,7 +63,7 @@
                 :index="scope.$index"
               ></slot>
             </div>
-            <span v-else>{{ scope.row[item.prop] || '-' }}</span>
+            <span v-else>{{ scope.row[item.prop]  }}</span>
           </template>
         </el-table-column>
       </el-table>
